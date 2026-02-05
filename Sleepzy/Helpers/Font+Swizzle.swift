@@ -85,40 +85,10 @@ extension Font {
         app(size: 10, weight: .bold, relativeTo: .headline)
     }
     
-    // Semibold font
-    static var appSemibold32: Font {
-        app(size: 32, weight: .semibold, relativeTo: .title)
-    }
-
-    static var appSemibold24: Font {
-        app(size: 24, weight: .semibold, relativeTo: .title2)
-    }
-    
-    static var appSemibold20: Font {
-        app(size: 20, weight: .semibold, relativeTo: .title3)
-    }
-    
-    static var appSemibold18: Font {
-        app(size: 18, weight: .semibold, relativeTo: .headline)
-    }
-    
-    static var appSemibold16: Font {
-        app(size: 16, weight: .semibold, relativeTo: .callout)
-    }
-    
-    static var appSemibold14: Font {
-        app(size: 14, weight: .semibold, relativeTo: .subheadline)
-    }
-    
-    static var appSemibold12: Font {
-        app(size: 12, weight: .semibold, relativeTo: .subheadline)
-    }
-    
     // Medium font
     static var appMedium18: Font {
         app(size: 18, weight: .medium, relativeTo: .headline)
     }
-    
 
     static var appMedium16: Font {
         app(size: 16, weight: .medium, relativeTo: .callout)
@@ -159,25 +129,6 @@ extension Font {
         app(size: size, weight: .regular, relativeTo: .footnote)
     }
     
-    // Light font
-    static var appLight16: Font {
-        app(size: 16, weight: .light, relativeTo: .callout)
-    }
-    static var appLight14: Font {
-        app(size: 14, weight: .light, relativeTo: .footnote)
-    }
-    static var appLight12: Font {
-        app(size: 12, weight: .light, relativeTo: .caption)
-    }
-
-    static var appLight10: Font {
-        app(size: 10, weight: .light, relativeTo: .caption2)
-    }
-
-    static func appLight(size: CGFloat) -> Font {
-        app(size: size, weight: .light, relativeTo: .footnote)
-    }
-    
 }
 
 
@@ -186,32 +137,14 @@ extension Font.Weight {
         switch family {
         case .primary:
             switch self {
-            case .ultraLight, .thin, .light:
-                return UIFont.FontWight.light.rawValue
             case .regular:
                 return UIFont.FontWight.regular.rawValue
             case .medium:
                 return UIFont.FontWight.medium.rawValue
-            case .semibold:
-                return UIFont.FontWight.semiBold.rawValue
             case .bold, .heavy, .black:
                 return UIFont.FontWight.bold.rawValue
             default:
                 return UIFont.FontWight.regular.rawValue
-            }
-
-        case .secondary:
-            switch self {
-            case .regular:
-                return "ElMessiri-Regular"
-            case .medium:
-                return "ElMessiri-Medium"
-            case .semibold:
-                return "ElMessiri-SemiBold"
-            case .bold, .heavy, .black:
-                return "ElMessiri-Bold"
-            default:
-                return "SecondFont-Regular"
             }
         }
     }
@@ -219,5 +152,5 @@ extension Font.Weight {
 
 enum AppFontFamily {
     case primary
-    case secondary
+//    case secondary
 }

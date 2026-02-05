@@ -39,9 +39,7 @@ extension String {
     var withPlaceholder: String {
         self.isEmpty ? "-" : self
     }
-    var withNA: String {
-        self.isEmpty ? "N/A".localized : self
-    }
+    
     var trimmed: String {
         trimmingCharacters(in: .whitespacesAndNewlines)
     }
@@ -51,12 +49,11 @@ extension Optional where Wrapped == String {
     var isNilOrEmpty: Bool {
         self?.isEmpty ?? true
     }
+    
     var withPlaceholder: String {
         self.isNilOrEmpty ? "-" : self!
     }
-    var withNA: String {
-        self.isNilOrEmpty ? "N/A".localized : self!
-    }
+    
     var trimmed: String {
         self?.trimmed ?? ""
     }

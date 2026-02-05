@@ -10,21 +10,13 @@ import UIKit
 
 extension UIFont {
     
-    static let mainFontFamily = "Poppins"
+    static let mainFontFamily = "CircularStd"
     
     enum FontWight: String {
-        case light      = "Poppins-Light"
-        case regular    = "Poppins-Regular"
-        case medium     = "Poppins-Medium"
-        case semiBold   = "Poppins-SemiBold"
-        case bold       = "Poppins-Bold"
-        case extraBold  = "Poppins-ExtraBold"
-        
-        // Second font
-        case secondRegular    = "ElMessiri-Regular"
-        case secondMedium     = "ElMessiri-Medium"
-        case secondSemiBold   = "ElMessiri-SemiBold"
-        case secondBold       = "ElMessiri-Bold"
+        case regular    = "CircularStd-Book"
+        case medium     = "CircularStd-Medium"
+        case bold       = "CircularStd-Bold"
+        case extraBold  = "CircularStd-Black"
     }
     
     static func mainFont(ofSize size: CGFloat, wight: UIFont.FontWight) -> UIFont {
@@ -62,13 +54,13 @@ extension UIFont {
         
         switch weight {
         case .light:
-            fontName = .light
+            fontName = .regular
         case .regular:
             fontName = .regular
         case .medium:
             fontName = .medium
         case .semibold:
-            fontName = .semiBold
+            fontName = .medium
         case .bold:
             fontName = .bold
         case .heavy:
@@ -113,17 +105,11 @@ extension UIFont {
         let fontName: FontWight
         
         switch fontAttribute {
-        case "CTFontLightUsage":
-            fontName = .light
-            
         case "CTFontRegularUsage":
             fontName = .regular
             
         case "CTFontMediumUsage":
             fontName = .medium
-            
-        case "CTFontDemiUsage":
-            fontName = .semiBold
             
         case "CTFontEmphasizedUsage", "CTFontBoldUsage":
             fontName = .bold
