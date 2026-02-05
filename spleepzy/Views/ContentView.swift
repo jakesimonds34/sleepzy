@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  spleepzy
+//  Spleepzy
 //
 //  Created by Saadi Dalloul on 05/02/2026.
 //
