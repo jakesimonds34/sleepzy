@@ -18,7 +18,11 @@ struct LoginView: View {
                 .scaledToFill()
             
             content
+                .navigationDestination(isPresented: $viewModel.showSignup) {
+                    SignupView()
+                }
         }
+        .navigationBarHidden(true)
         .ignoresSafeArea()
     }
     
@@ -77,7 +81,7 @@ struct LoginView: View {
                         .font(.appRegular16)
                     
                     Button {
-                        
+                        viewModel.showSignup.toggle()
                     } label: {
                         Text("Signup")
                             .font(.appMedium16)

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SignupView: View {
     // MARK: - Properties
+    @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel = SignupViewModel()
     
     // MARK: - Body
@@ -18,7 +19,11 @@ struct SignupView: View {
                 .scaledToFill()
             
             content
+                .navigationDestination(isPresented: $viewModel.showOnboarding) {
+                    OnboardingView()
+                }
         }
+        .navigationBarHidden(true)
         .ignoresSafeArea()
     }
     
@@ -69,7 +74,7 @@ struct SignupView: View {
             
             VStack(spacing: 22) {
                 Button {
-                    
+                    viewModel.showOnboarding.toggle()
                 } label: {
                     Text("Create an account")
                 }
@@ -80,7 +85,7 @@ struct SignupView: View {
                         .font(.appRegular16)
                     
                     Button {
-                        
+                        dismiss()
                     } label: {
                         Text("Login")
                             .font(.appMedium16)

@@ -14,5 +14,7 @@ class SignupViewModel: ObservableObject {
     @Published var password: String = ""
     @Published var confirmPassword: String = ""
     
+    @Published var showOnboarding: Bool = false
+    
 }
 

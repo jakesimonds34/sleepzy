@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		522628ED2F3639AB00C79B73 /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522628EC2F3639AA00C79B73 /* GoalView.swift */; };
+		522628EF2F363A5100C79B73 /* SleepScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522628EE2F363A5100C79B73 /* SleepScheduleView.swift */; };
+		522628F12F36415100C79B73 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522628F02F36414E00C79B73 /* SplashViewModel.swift */; };
 		528169B92F35B156007AE539 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 528169B82F35B156007AE539 /* SDWebImageSwiftUI */; };
 		528169BB2F35B173007AE539 /* MyImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528169BA2F35B173007AE539 /* MyImage.swift */; };
 		528169BF2F35B519007AE539 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528169BE2F35B519007AE539 /* ButtonStyle.swift */; };
@@ -59,6 +62,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		522628EC2F3639AA00C79B73 /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
+		522628EE2F363A5100C79B73 /* SleepScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepScheduleView.swift; sourceTree = "<group>"; };
+		522628F02F36414E00C79B73 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		528169BA2F35B173007AE539 /* MyImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyImage.swift; sourceTree = "<group>"; };
 		528169BE2F35B519007AE539 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		528169C02F35B544007AE539 /* SwiftUI+Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftUI+Modifiers.swift"; sourceTree = "<group>"; };
@@ -200,7 +206,6 @@
 				528169BC2F35B17A007AE539 /* General */,
 				52C6C1842F35372E0070850E /* Splash */,
 				52EB50792F3621410031FE9D /* Auth */,
-				52C6C1872F3537850070850E /* Onboarding */,
 				52C6C18C2F3537ED0070850E /* Main */,
 			);
 			path = Views;
@@ -271,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				52C6C1852F35375A0070850E /* SplashView.swift */,
+				522628F02F36414E00C79B73 /* SplashViewModel.swift */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -279,6 +285,8 @@
 			isa = PBXGroup;
 			children = (
 				529618A92F35F28C001E7C7C /* OnboardingView.swift */,
+				522628EC2F3639AA00C79B73 /* GoalView.swift */,
+				522628EE2F363A5100C79B73 /* SleepScheduleView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -299,6 +307,7 @@
 				52EB507A2F3621620031FE9D /* ForgotPassword */,
 				52EB507D2F36222E0031FE9D /* EnterCode */,
 				52EB50842F3623080031FE9D /* NewPassword */,
+				52C6C1872F3537850070850E /* Onboarding */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -491,6 +500,7 @@
 				529618B22F3604FE001E7C7C /* TextFieldFormView.swift in Sources */,
 				52EB50882F3623270031FE9D /* NewPasswordViewModel.swift in Sources */,
 				52C6C1862F35375A0070850E /* SplashView.swift in Sources */,
+				522628ED2F3639AB00C79B73 /* GoalView.swift in Sources */,
 				52EB50812F36227A0031FE9D /* ForgotPasswordViewModel.swift in Sources */,
 				529E03FF2F35318B0000CFEA /* UIFont+Swizzel.swift in Sources */,
 				52EB50862F36231C0031FE9D /* NewPasswordView.swift in Sources */,
@@ -502,6 +512,7 @@
 				529E04032F35318B0000CFEA /* SwiftMessages+Extensions.swift in Sources */,
 				529E04042F35318B0000CFEA /* ContentView.swift in Sources */,
 				528169C12F35B544007AE539 /* SwiftUI+Modifiers.swift in Sources */,
+				522628EF2F363A5100C79B73 /* SleepScheduleView.swift in Sources */,
 				529618B62F360A5F001E7C7C /* LoginViewModel.swift in Sources */,
 				52C6C18E2F35380B0070850E /* MainTabView.swift in Sources */,
 				529E04052F35318B0000CFEA /* CornerRadius.swift in Sources */,
@@ -512,6 +523,7 @@
 				52EB509C2F3625BC0031FE9D /* AEOTPTextFieldImplementation.swift in Sources */,
 				52EB509D2F3625BC0031FE9D /* View+Helpers.swift in Sources */,
 				52EB509E2F3625BC0031FE9D /* AEOTPTextFieldSwiftUI.swift in Sources */,
+				522628F12F36415100C79B73 /* SplashViewModel.swift in Sources */,
 				52EB509F2F3625BC0031FE9D /* AEOTPView.swift in Sources */,
 				52EB50A02F3625BC0031FE9D /* AEOTPTextField.swift in Sources */,
 				52EB50A12F3625BC0031FE9D /* AEOTPTextFieldImplementationProtocol.swift in Sources */,

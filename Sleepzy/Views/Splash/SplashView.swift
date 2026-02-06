@@ -9,11 +9,21 @@ import SwiftUI
 
 struct SplashView: View {
     // MARK: - Properties
+    @StateObject var viewModel = SplashViewModel()
     
     // MARK: - Body
     var body: some View {
-        content
-            .ignoresSafeArea()
+        NavigationStack {
+            content
+                .navigationDestination(isPresented: $viewModel.showOnboarding) {
+                    OnboardingView()
+                }
+                .navigationDestination(isPresented: $viewModel.showLogin) {
+                    LoginView()
+                }
+                .ignoresSafeArea()
+                .navigationBarHidden(true)
+        }
     }
     
     // MARK: - View Components
@@ -51,7 +61,7 @@ struct SplashView: View {
                 // Buttons
                 VStack(spacing: 22) {
                     Button {
-                        
+                        viewModel.showOnboarding.toggle()
                     } label: {
                         Text("Get started")
                     }
@@ -62,7 +72,7 @@ struct SplashView: View {
                             .font(.appRegular16)
                         
                         Button {
-                            
+                            viewModel.showLogin.toggle()
                         } label: {
                             Text("Login")
                                 .font(.appMedium16)
