@@ -6,7 +6,8 @@
 //
 
 import UIKit
-//import IQKeyboardManagerSwift
+import IQKeyboardManagerSwift
+import IQKeyboardToolbarManager
 import SwiftUI
 
 private typealias Attributes = [NSAttributedString.Key: Any]
@@ -21,6 +22,7 @@ class Appearance {
     static func configure() {
         UIFont.overrideInitialize()
 //        IQKeyboardManager.shared.isEnabled = true
+        IQKeyboardToolbarManager.shared.isEnabled = true
         
         // color scheme
         AppEnvironment.shared.colorScheme = .dark

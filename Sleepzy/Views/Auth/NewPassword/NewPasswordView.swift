@@ -13,13 +13,16 @@ struct NewPasswordView: View {
     
     // MARK: - Body
     var body: some View {
-        ZStack {
-            MyImage(source: .asset(.bg))
-                .scaledToFill()
-            
-            content
-        }
-        .ignoresSafeArea()
+        content
+            .background(
+                MyImage(source: .asset(.bg))
+                    .scaledToFill()
+            )
+            .ignoresSafeArea()
+            .navigationBarHidden(true)
+//            .navigationDestination(isPresented: $viewModel.showNewPassword) {
+//                NewPasswordView()
+//            }
     }
     
     // MARK: - View Components

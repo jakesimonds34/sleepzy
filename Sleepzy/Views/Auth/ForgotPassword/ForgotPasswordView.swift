@@ -13,13 +13,16 @@ struct ForgotPasswordView: View {
     
     // MARK: - Body
     var body: some View {
-        ZStack {
-            MyImage(source: .asset(.bg))
-                .scaledToFill()
-            
-            content
-        }
-        .ignoresSafeArea()
+        content
+            .background(
+                MyImage(source: .asset(.bg))
+                    .scaledToFill()
+            )
+            .ignoresSafeArea()
+            .navigationBarHidden(true)
+            .navigationDestination(isPresented: $viewModel.showEnterCode) {
+                EnterCodeView()
+            }
     }
     
     // MARK: - View Components
@@ -37,13 +40,13 @@ struct ForgotPasswordView: View {
                 trailingImage: .envelope,
                 value: $viewModel.email,
                 isMandatory: true,
-                type: .text
+                type: .email
             )
             
             Spacer()
             
             Button {
-                
+                viewModel.showEnterCode.toggle()
             } label: {
                 Text("Send Code")
             }

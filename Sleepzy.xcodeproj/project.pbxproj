@@ -10,6 +10,8 @@
 		522628ED2F3639AB00C79B73 /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522628EC2F3639AA00C79B73 /* GoalView.swift */; };
 		522628EF2F363A5100C79B73 /* SleepScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522628EE2F363A5100C79B73 /* SleepScheduleView.swift */; };
 		522628F12F36415100C79B73 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522628F02F36414E00C79B73 /* SplashViewModel.swift */; };
+		522628F42F3645B200C79B73 /* IQKeyboardToolbarManager in Frameworks */ = {isa = PBXBuildFile; productRef = 522628F32F3645B200C79B73 /* IQKeyboardToolbarManager */; };
+		522628F72F36465800C79B73 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 522628F62F36465800C79B73 /* IQKeyboardManagerSwift */; };
 		528169B92F35B156007AE539 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 528169B82F35B156007AE539 /* SDWebImageSwiftUI */; };
 		528169BB2F35B173007AE539 /* MyImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528169BA2F35B173007AE539 /* MyImage.swift */; };
 		528169BF2F35B519007AE539 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528169BE2F35B519007AE539 /* ButtonStyle.swift */; };
@@ -121,6 +123,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				522628F42F3645B200C79B73 /* IQKeyboardToolbarManager in Frameworks */,
+				522628F72F36465800C79B73 /* IQKeyboardManagerSwift in Frameworks */,
 				528169B92F35B156007AE539 /* SDWebImageSwiftUI in Frameworks */,
 				52C6C1822F3534420070850E /* SwiftMessages in Frameworks */,
 			);
@@ -430,6 +434,8 @@
 			packageProductDependencies = (
 				52C6C1812F3534420070850E /* SwiftMessages */,
 				528169B82F35B156007AE539 /* SDWebImageSwiftUI */,
+				522628F32F3645B200C79B73 /* IQKeyboardToolbarManager */,
+				522628F62F36465800C79B73 /* IQKeyboardManagerSwift */,
 			);
 			productName = Sleepzy;
 			productReference = 529E03CD2F35312D0000CFEA /* Sleepzy.app */;
@@ -462,6 +468,8 @@
 			packageReferences = (
 				52C6C1802F3534420070850E /* XCRemoteSwiftPackageReference "SwiftMessages" */,
 				528169B72F35B156007AE539 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				522628F22F3645B200C79B73 /* XCRemoteSwiftPackageReference "IQKeyboardToolbarManager" */,
+				522628F52F36465800C79B73 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 529E03CE2F35312D0000CFEA /* Products */;
@@ -759,6 +767,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		522628F22F3645B200C79B73 /* XCRemoteSwiftPackageReference "IQKeyboardToolbarManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardToolbarManager";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.4;
+			};
+		};
+		522628F52F36465800C79B73 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.2;
+			};
+		};
 		528169B72F35B156007AE539 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
@@ -778,6 +802,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		522628F32F3645B200C79B73 /* IQKeyboardToolbarManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 522628F22F3645B200C79B73 /* XCRemoteSwiftPackageReference "IQKeyboardToolbarManager" */;
+			productName = IQKeyboardToolbarManager;
+		};
+		522628F62F36465800C79B73 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 522628F52F36465800C79B73 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
 		528169B82F35B156007AE539 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 528169B72F35B156007AE539 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;

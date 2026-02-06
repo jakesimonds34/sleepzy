@@ -13,17 +13,19 @@ struct LoginView: View {
     
     // MARK: - Body
     var body: some View {
-        ZStack {
-            MyImage(source: .asset(.bg))
-                .scaledToFill()
-            
-            content
-                .navigationDestination(isPresented: $viewModel.showSignup) {
-                    SignupView()
-                }
-        }
-        .navigationBarHidden(true)
-        .ignoresSafeArea()
+        content
+            .background(
+                MyImage(source: .asset(.bg))
+                    .scaledToFill()
+            )
+            .ignoresSafeArea()
+            .navigationBarHidden(true)
+            .navigationDestination(isPresented: $viewModel.showSignup) {
+                SignupView()
+            }
+            .navigationDestination(isPresented: $viewModel.showForgotPassword) {
+                ForgotPasswordView()
+            }
     }
     
     // MARK: - View Components
@@ -41,7 +43,7 @@ struct LoginView: View {
                 trailingImage: .envelope,
                 value: $viewModel.email,
                 isMandatory: true,
-                type: .text
+                type: .email
             )
             
             VStack(spacing: 16) {
@@ -55,7 +57,7 @@ struct LoginView: View {
                 
                 HStack {
                     Button {
-                        
+                        viewModel.showForgotPassword.toggle()
                     } label: {
                         Text("Forget Password")
                             .underline()

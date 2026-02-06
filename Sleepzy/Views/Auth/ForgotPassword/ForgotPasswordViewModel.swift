@@ -11,4 +11,6 @@ class ForgotPasswordViewModel: ObservableObject {
     
     @Published var email: String = ""
     
+    @Published var showEnterCode: Bool = false
+    
 }

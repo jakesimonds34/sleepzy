@@ -14,4 +14,6 @@ class EnterCodeViewModel: ObservableObject {
     @Published var verificationCode = ""
     @Published var otpLength = 6
     
+    @Published var showNewPassword: Bool = false
+    
 }

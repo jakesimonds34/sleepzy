@@ -14,17 +14,16 @@ struct SignupView: View {
     
     // MARK: - Body
     var body: some View {
-        ZStack {
-            MyImage(source: .asset(.bg))
-                .scaledToFill()
-            
-            content
-                .navigationDestination(isPresented: $viewModel.showOnboarding) {
-                    OnboardingView()
-                }
-        }
-        .navigationBarHidden(true)
-        .ignoresSafeArea()
+        content
+            .background(
+                MyImage(source: .asset(.bg))
+                    .scaledToFill()
+            )
+            .navigationBarHidden(true)
+            .ignoresSafeArea()
+            .navigationDestination(isPresented: $viewModel.showOnboarding) {
+                OnboardingView()
+            }
     }
     
     // MARK: - View Components
@@ -51,7 +50,7 @@ struct SignupView: View {
                 trailingImage: .envelope,
                 value: $viewModel.email,
                 isMandatory: true,
-                type: .text
+                type: .email
             )
             
             TextFieldFormView(

@@ -13,13 +13,16 @@ struct EnterCodeView: View {
     
     // MARK: - Body
     var body: some View {
-        ZStack {
-            MyImage(source: .asset(.bg))
-                .scaledToFill()
-            
-            content
-        }
-        .ignoresSafeArea()
+        content
+            .background(
+                MyImage(source: .asset(.bg))
+                    .scaledToFill()
+            )
+            .ignoresSafeArea()
+            .navigationBarHidden(true)
+            .navigationDestination(isPresented: $viewModel.showNewPassword) {
+                NewPasswordView()
+            }
     }
     
     // MARK: - View Components
@@ -51,8 +54,8 @@ struct EnterCodeView: View {
                         otpDefaultBorderWidth: 1,
                         otpFilledBorderWidth: 1,
                         otpTextColor: .white,
-                        otpFontSize: 14,
-                        otpFont: .systemFont(ofSize: 14, weight: .medium),
+                        otpFontSize: 22,
+                        otpFont: .systemFont(ofSize: 22, weight: .bold),
                         isSecureTextEntry: false,
                         enableClearOTP: true) {
                             // On Commit
@@ -65,7 +68,7 @@ struct EnterCodeView: View {
                 Spacer()
                 
                 Button {
-                    
+                    viewModel.showNewPassword.toggle()
                 } label: {
                     Text("Proceed")
                 }
