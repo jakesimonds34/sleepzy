@@ -47,6 +47,15 @@
 		52EB50832F3622A60031FE9D /* EnterCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50822F3622A30031FE9D /* EnterCodeViewModel.swift */; };
 		52EB50862F36231C0031FE9D /* NewPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50852F36231C0031FE9D /* NewPasswordView.swift */; };
 		52EB50882F3623270031FE9D /* NewPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50872F3623230031FE9D /* NewPasswordViewModel.swift */; };
+		52EB509A2F3625BC0031FE9D /* ChangeObserverModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB508D2F3625BC0031FE9D /* ChangeObserverModifier.swift */; };
+		52EB509B2F3625BC0031FE9D /* AEOTPTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50932F3625BC0031FE9D /* AEOTPTextFieldDelegate.swift */; };
+		52EB509C2F3625BC0031FE9D /* AEOTPTextFieldImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50942F3625BC0031FE9D /* AEOTPTextFieldImplementation.swift */; };
+		52EB509D2F3625BC0031FE9D /* View+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB508E2F3625BC0031FE9D /* View+Helpers.swift */; };
+		52EB509E2F3625BC0031FE9D /* AEOTPTextFieldSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB508C2F3625BC0031FE9D /* AEOTPTextFieldSwiftUI.swift */; };
+		52EB509F2F3625BC0031FE9D /* AEOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50892F3625BC0031FE9D /* AEOTPView.swift */; };
+		52EB50A02F3625BC0031FE9D /* AEOTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50912F3625BC0031FE9D /* AEOTPTextField.swift */; };
+		52EB50A12F3625BC0031FE9D /* AEOTPTextFieldImplementationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50952F3625BC0031FE9D /* AEOTPTextFieldImplementationProtocol.swift */; };
+		52EB50A22F3625BC0031FE9D /* AEOTPViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB508A2F3625BC0031FE9D /* AEOTPViewRepresentable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +99,15 @@
 		52EB50822F3622A30031FE9D /* EnterCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeViewModel.swift; sourceTree = "<group>"; };
 		52EB50852F36231C0031FE9D /* NewPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPasswordView.swift; sourceTree = "<group>"; };
 		52EB50872F3623230031FE9D /* NewPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPasswordViewModel.swift; sourceTree = "<group>"; };
+		52EB50892F3625BC0031FE9D /* AEOTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AEOTPView.swift; sourceTree = "<group>"; };
+		52EB508A2F3625BC0031FE9D /* AEOTPViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AEOTPViewRepresentable.swift; sourceTree = "<group>"; };
+		52EB508C2F3625BC0031FE9D /* AEOTPTextFieldSwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AEOTPTextFieldSwiftUI.swift; sourceTree = "<group>"; };
+		52EB508D2F3625BC0031FE9D /* ChangeObserverModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeObserverModifier.swift; sourceTree = "<group>"; };
+		52EB508E2F3625BC0031FE9D /* View+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Helpers.swift"; sourceTree = "<group>"; };
+		52EB50912F3625BC0031FE9D /* AEOTPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AEOTPTextField.swift; sourceTree = "<group>"; };
+		52EB50932F3625BC0031FE9D /* AEOTPTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AEOTPTextFieldDelegate.swift; sourceTree = "<group>"; };
+		52EB50942F3625BC0031FE9D /* AEOTPTextFieldImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AEOTPTextFieldImplementation.swift; sourceTree = "<group>"; };
+		52EB50952F3625BC0031FE9D /* AEOTPTextFieldImplementationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AEOTPTextFieldImplementationProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +130,7 @@
 				529618B12F3604FE001E7C7C /* TextFieldFormView.swift */,
 				529618B32F360536001E7C7C /* ErrorField.swift */,
 				529618B72F361752001E7C7C /* appHeaderView.swift */,
+				52EB50992F3625BC0031FE9D /* AEOTPTextField */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -311,6 +330,78 @@
 			path = NewPassword;
 			sourceTree = "<group>";
 		};
+		52EB508B2F3625BC0031FE9D /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				52EB50892F3625BC0031FE9D /* AEOTPView.swift */,
+				52EB508A2F3625BC0031FE9D /* AEOTPViewRepresentable.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		52EB508F2F3625BC0031FE9D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				52EB508C2F3625BC0031FE9D /* AEOTPTextFieldSwiftUI.swift */,
+				52EB508D2F3625BC0031FE9D /* ChangeObserverModifier.swift */,
+				52EB508E2F3625BC0031FE9D /* View+Helpers.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		52EB50902F3625BC0031FE9D /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				52EB508B2F3625BC0031FE9D /* Core */,
+				52EB508F2F3625BC0031FE9D /* Utilities */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
+		52EB50922F3625BC0031FE9D /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				52EB50912F3625BC0031FE9D /* AEOTPTextField.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		52EB50962F3625BC0031FE9D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				52EB50932F3625BC0031FE9D /* AEOTPTextFieldDelegate.swift */,
+				52EB50942F3625BC0031FE9D /* AEOTPTextFieldImplementation.swift */,
+				52EB50952F3625BC0031FE9D /* AEOTPTextFieldImplementationProtocol.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		52EB50972F3625BC0031FE9D /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				52EB50922F3625BC0031FE9D /* Core */,
+				52EB50962F3625BC0031FE9D /* Utilities */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		52EB50982F3625BC0031FE9D /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				52EB50902F3625BC0031FE9D /* SwiftUI */,
+				52EB50972F3625BC0031FE9D /* UIKit */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		52EB50992F3625BC0031FE9D /* AEOTPTextField */ = {
+			isa = PBXGroup;
+			children = (
+				52EB50982F3625BC0031FE9D /* Source */,
+			);
+			path = AEOTPTextField;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -416,6 +507,15 @@
 				529E04052F35318B0000CFEA /* CornerRadius.swift in Sources */,
 				529618AA2F35F28C001E7C7C /* OnboardingView.swift in Sources */,
 				52EB50832F3622A60031FE9D /* EnterCodeViewModel.swift in Sources */,
+				52EB509A2F3625BC0031FE9D /* ChangeObserverModifier.swift in Sources */,
+				52EB509B2F3625BC0031FE9D /* AEOTPTextFieldDelegate.swift in Sources */,
+				52EB509C2F3625BC0031FE9D /* AEOTPTextFieldImplementation.swift in Sources */,
+				52EB509D2F3625BC0031FE9D /* View+Helpers.swift in Sources */,
+				52EB509E2F3625BC0031FE9D /* AEOTPTextFieldSwiftUI.swift in Sources */,
+				52EB509F2F3625BC0031FE9D /* AEOTPView.swift in Sources */,
+				52EB50A02F3625BC0031FE9D /* AEOTPTextField.swift in Sources */,
+				52EB50A12F3625BC0031FE9D /* AEOTPTextFieldImplementationProtocol.swift in Sources */,
+				52EB50A22F3625BC0031FE9D /* AEOTPViewRepresentable.swift in Sources */,
 				529E04062F35318B0000CFEA /* Appearance.swift in Sources */,
 				529618AD2F35F2C2001E7C7C /* LoginView.swift in Sources */,
 				529618B82F361752001E7C7C /* appHeaderView.swift in Sources */,

@@ -11,4 +11,7 @@ class EnterCodeViewModel: ObservableObject {
     
     @Published var email: String = ""
     
+    @Published var verificationCode = ""
+    @Published var otpLength = 6
+    
 }
