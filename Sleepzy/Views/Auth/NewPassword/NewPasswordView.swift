@@ -1,5 +1,5 @@
 //
-//  ForgotPasswordView.swift
+//  NewPasswordView.swift
 //  Sleepzy
 //
 //  Created by Saadi Dalloul on 06/02/2026.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct ForgotPasswordView: View {
+struct NewPasswordView: View {
     // MARK: - Properties
-    @StateObject var viewModel = ForgotPasswordViewModel()
+    @StateObject var viewModel = NewPasswordViewModel()
     
     // MARK: - Body
     var body: some View {
@@ -26,18 +26,25 @@ struct ForgotPasswordView: View {
     @ViewBuilder
     private var content: some View {
         VStack(spacing: 44) {
-            AppHeaderView(title: "Forgot Password",
-                          subTitle: "Enter your email to receive a reset code.",
+            AppHeaderView(title: "New Password",
+                          subTitle: "Set a new password for Sleepzy.",
                           isBack: true)
             .padding(.bottom, 14)
             
             TextFieldFormView(
-                title: "EMAIL ADDRESS",
-                placeholder: "Your email address",
-                trailingImage: .envelope,
-                value: $viewModel.email,
+                title: "PASSWORD",
+                placeholder: "*******",
+                value: $viewModel.password,
                 isMandatory: true,
-                type: .text
+                type: .password
+            )
+            
+            TextFieldFormView(
+                title: "CONFIRM PASSWORD",
+                placeholder: "*******",
+                value: $viewModel.confirmPassword,
+                isMandatory: true,
+                type: .password
             )
             
             Spacer()
@@ -45,7 +52,7 @@ struct ForgotPasswordView: View {
             Button {
                 
             } label: {
-                Text("Send Code")
+                Text("Proceed")
             }
             .style(.primary)
             .padding(.bottom, 92)
@@ -55,5 +62,5 @@ struct ForgotPasswordView: View {
 }
 
 #Preview {
-    ForgotPasswordView()
+    NewPasswordView()
 }

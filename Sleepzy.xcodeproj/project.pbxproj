@@ -42,6 +42,11 @@
 		52C6C1862F35375A0070850E /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6C1852F35375A0070850E /* SplashView.swift */; };
 		52C6C18E2F35380B0070850E /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6C18D2F35380A0070850E /* MainTabView.swift */; };
 		52EB507C2F3621760031FE9D /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB507B2F3621760031FE9D /* ForgotPasswordView.swift */; };
+		52EB507F2F3622420031FE9D /* EnterCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB507E2F3622420031FE9D /* EnterCodeView.swift */; };
+		52EB50812F36227A0031FE9D /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50802F3622730031FE9D /* ForgotPasswordViewModel.swift */; };
+		52EB50832F3622A60031FE9D /* EnterCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50822F3622A30031FE9D /* EnterCodeViewModel.swift */; };
+		52EB50862F36231C0031FE9D /* NewPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50852F36231C0031FE9D /* NewPasswordView.swift */; };
+		52EB50882F3623270031FE9D /* NewPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50872F3623230031FE9D /* NewPasswordViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +85,11 @@
 		52C6C1852F35375A0070850E /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		52C6C18D2F35380A0070850E /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		52EB507B2F3621760031FE9D /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		52EB507E2F3622420031FE9D /* EnterCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeView.swift; sourceTree = "<group>"; };
+		52EB50802F3622730031FE9D /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
+		52EB50822F3622A30031FE9D /* EnterCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeViewModel.swift; sourceTree = "<group>"; };
+		52EB50852F36231C0031FE9D /* NewPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPasswordView.swift; sourceTree = "<group>"; };
+		52EB50872F3623230031FE9D /* NewPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPasswordViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,6 +278,8 @@
 				529618AB2F35F2AF001E7C7C /* Login */,
 				529618AE2F35F2D7001E7C7C /* Signup */,
 				52EB507A2F3621620031FE9D /* ForgotPassword */,
+				52EB507D2F36222E0031FE9D /* EnterCode */,
+				52EB50842F3623080031FE9D /* NewPassword */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -276,8 +288,27 @@
 			isa = PBXGroup;
 			children = (
 				52EB507B2F3621760031FE9D /* ForgotPasswordView.swift */,
+				52EB50802F3622730031FE9D /* ForgotPasswordViewModel.swift */,
 			);
 			path = ForgotPassword;
+			sourceTree = "<group>";
+		};
+		52EB507D2F36222E0031FE9D /* EnterCode */ = {
+			isa = PBXGroup;
+			children = (
+				52EB507E2F3622420031FE9D /* EnterCodeView.swift */,
+				52EB50822F3622A30031FE9D /* EnterCodeViewModel.swift */,
+			);
+			path = EnterCode;
+			sourceTree = "<group>";
+		};
+		52EB50842F3623080031FE9D /* NewPassword */ = {
+			isa = PBXGroup;
+			children = (
+				52EB50852F36231C0031FE9D /* NewPasswordView.swift */,
+				52EB50872F3623230031FE9D /* NewPasswordViewModel.swift */,
+			);
+			path = NewPassword;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -367,12 +398,16 @@
 				529618B42F360536001E7C7C /* ErrorField.swift in Sources */,
 				529E03FE2F35318B0000CFEA /* LocalizedExtensions.swift in Sources */,
 				529618B22F3604FE001E7C7C /* TextFieldFormView.swift in Sources */,
+				52EB50882F3623270031FE9D /* NewPasswordViewModel.swift in Sources */,
 				52C6C1862F35375A0070850E /* SplashView.swift in Sources */,
+				52EB50812F36227A0031FE9D /* ForgotPasswordViewModel.swift in Sources */,
 				529E03FF2F35318B0000CFEA /* UIFont+Swizzel.swift in Sources */,
+				52EB50862F36231C0031FE9D /* NewPasswordView.swift in Sources */,
 				529E04002F35318B0000CFEA /* Extensions.swift in Sources */,
 				529E04012F35318B0000CFEA /* AppEnvironment.swift in Sources */,
 				528169BF2F35B519007AE539 /* ButtonStyle.swift in Sources */,
 				529E04022F35318B0000CFEA /* Localizer.swift in Sources */,
+				52EB507F2F3622420031FE9D /* EnterCodeView.swift in Sources */,
 				529E04032F35318B0000CFEA /* SwiftMessages+Extensions.swift in Sources */,
 				529E04042F35318B0000CFEA /* ContentView.swift in Sources */,
 				528169C12F35B544007AE539 /* SwiftUI+Modifiers.swift in Sources */,
@@ -380,6 +415,7 @@
 				52C6C18E2F35380B0070850E /* MainTabView.swift in Sources */,
 				529E04052F35318B0000CFEA /* CornerRadius.swift in Sources */,
 				529618AA2F35F28C001E7C7C /* OnboardingView.swift in Sources */,
+				52EB50832F3622A60031FE9D /* EnterCodeViewModel.swift in Sources */,
 				529E04062F35318B0000CFEA /* Appearance.swift in Sources */,
 				529618AD2F35F2C2001E7C7C /* LoginView.swift in Sources */,
 				529618B82F361752001E7C7C /* appHeaderView.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  ForgotPasswordView.swift
+//  EnterCodeView.swift
 //  Sleepzy
 //
 //  Created by Saadi Dalloul on 06/02/2026.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct ForgotPasswordView: View {
+struct EnterCodeView: View {
     // MARK: - Properties
-    @StateObject var viewModel = ForgotPasswordViewModel()
+    @StateObject var viewModel = EnterCodeViewModel()
     
     // MARK: - Body
     var body: some View {
@@ -26,26 +26,17 @@ struct ForgotPasswordView: View {
     @ViewBuilder
     private var content: some View {
         VStack(spacing: 44) {
-            AppHeaderView(title: "Forgot Password",
-                          subTitle: "Enter your email to receive a reset code.",
+            AppHeaderView(title: "Enter Code",
+                          subTitle: "Enter the code we sent to your email",
                           isBack: true)
             .padding(.bottom, 14)
-            
-            TextFieldFormView(
-                title: "EMAIL ADDRESS",
-                placeholder: "Your email address",
-                trailingImage: .envelope,
-                value: $viewModel.email,
-                isMandatory: true,
-                type: .text
-            )
             
             Spacer()
             
             Button {
                 
             } label: {
-                Text("Send Code")
+                Text("Proceed")
             }
             .style(.primary)
             .padding(.bottom, 92)
@@ -55,5 +46,5 @@ struct ForgotPasswordView: View {
 }
 
 #Preview {
-    ForgotPasswordView()
+    EnterCodeView()
 }
