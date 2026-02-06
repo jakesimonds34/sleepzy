@@ -11,6 +11,14 @@
 		528169BB2F35B173007AE539 /* MyImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528169BA2F35B173007AE539 /* MyImage.swift */; };
 		528169BF2F35B519007AE539 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528169BE2F35B519007AE539 /* ButtonStyle.swift */; };
 		528169C12F35B544007AE539 /* SwiftUI+Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528169C02F35B544007AE539 /* SwiftUI+Modifiers.swift */; };
+		529618AA2F35F28C001E7C7C /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529618A92F35F28C001E7C7C /* OnboardingView.swift */; };
+		529618AD2F35F2C2001E7C7C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529618AC2F35F2C2001E7C7C /* LoginView.swift */; };
+		529618B02F35F2F0001E7C7C /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529618AF2F35F2F0001E7C7C /* SignupView.swift */; };
+		529618B22F3604FE001E7C7C /* TextFieldFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529618B12F3604FE001E7C7C /* TextFieldFormView.swift */; };
+		529618B42F360536001E7C7C /* ErrorField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529618B32F360536001E7C7C /* ErrorField.swift */; };
+		529618B62F360A5F001E7C7C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529618B52F360A57001E7C7C /* LoginViewModel.swift */; };
+		529618B82F361752001E7C7C /* appHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529618B72F361752001E7C7C /* appHeaderView.swift */; };
+		529618BA2F361CB6001E7C7C /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529618B92F361CAD001E7C7C /* SignupViewModel.swift */; };
 		529E03E22F3531530000CFEA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529E03DD2F3531530000CFEA /* AppDelegate.swift */; };
 		529E03E42F3531530000CFEA /* SleepzyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529E03E02F3531530000CFEA /* SleepzyApp.swift */; };
 		529E03FE2F35318B0000CFEA /* LocalizedExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529E03EC2F35318B0000CFEA /* LocalizedExtensions.swift */; };
@@ -32,7 +40,6 @@
 		529E040E2F35318B0000CFEA /* CircularStd-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 529E03F82F35318B0000CFEA /* CircularStd-Black.ttf */; };
 		52C6C1822F3534420070850E /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = 52C6C1812F3534420070850E /* SwiftMessages */; };
 		52C6C1862F35375A0070850E /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6C1852F35375A0070850E /* SplashView.swift */; };
-		52C6C18B2F3537B10070850E /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6C18A2F3537B10070850E /* OnboardingView.swift */; };
 		52C6C18E2F35380B0070850E /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6C18D2F35380A0070850E /* MainTabView.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +47,14 @@
 		528169BA2F35B173007AE539 /* MyImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyImage.swift; sourceTree = "<group>"; };
 		528169BE2F35B519007AE539 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		528169C02F35B544007AE539 /* SwiftUI+Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftUI+Modifiers.swift"; sourceTree = "<group>"; };
+		529618A92F35F28C001E7C7C /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		529618AC2F35F2C2001E7C7C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		529618AF2F35F2F0001E7C7C /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		529618B12F3604FE001E7C7C /* TextFieldFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldFormView.swift; sourceTree = "<group>"; };
+		529618B32F360536001E7C7C /* ErrorField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorField.swift; sourceTree = "<group>"; };
+		529618B52F360A57001E7C7C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		529618B72F361752001E7C7C /* appHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appHeaderView.swift; sourceTree = "<group>"; };
+		529618B92F361CAD001E7C7C /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
 		529E03CD2F35312D0000CFEA /* Sleepzy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sleepzy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		529E03DD2F3531530000CFEA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		529E03E02F3531530000CFEA /* SleepzyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepzyApp.swift; sourceTree = "<group>"; };
@@ -62,7 +77,6 @@
 		529E03FB2F35318B0000CFEA /* CircularStd-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Medium.ttf"; sourceTree = "<group>"; };
 		52C6C1832F3534520070850E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		52C6C1852F35375A0070850E /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
-		52C6C18A2F3537B10070850E /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OnboardingView.swift; path = Sleepzy/Views/Splash/OnboardingView.swift; sourceTree = SOURCE_ROOT; };
 		52C6C18D2F35380A0070850E /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,6 +97,9 @@
 			isa = PBXGroup;
 			children = (
 				528169BA2F35B173007AE539 /* MyImage.swift */,
+				529618B12F3604FE001E7C7C /* TextFieldFormView.swift */,
+				529618B32F360536001E7C7C /* ErrorField.swift */,
+				529618B72F361752001E7C7C /* appHeaderView.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -94,6 +111,24 @@
 				528169C02F35B544007AE539 /* SwiftUI+Modifiers.swift */,
 			);
 			path = Modifiers;
+			sourceTree = "<group>";
+		};
+		529618AB2F35F2AF001E7C7C /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				529618AC2F35F2C2001E7C7C /* LoginView.swift */,
+				529618B52F360A57001E7C7C /* LoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		529618AE2F35F2D7001E7C7C /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				529618AF2F35F2F0001E7C7C /* SignupView.swift */,
+				529618B92F361CAD001E7C7C /* SignupViewModel.swift */,
+			);
+			path = Signup;
 			sourceTree = "<group>";
 		};
 		529E03C42F35312C0000CFEA = {
@@ -133,6 +168,8 @@
 				529E03E62F35318B0000CFEA /* ContentView.swift */,
 				528169BC2F35B17A007AE539 /* General */,
 				52C6C1842F35372E0070850E /* Splash */,
+				529618AB2F35F2AF001E7C7C /* Login */,
+				529618AE2F35F2D7001E7C7C /* Signup */,
 				52C6C1872F3537850070850E /* Onboarding */,
 				52C6C18C2F3537ED0070850E /* Main */,
 			);
@@ -211,7 +248,7 @@
 		52C6C1872F3537850070850E /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				52C6C18A2F3537B10070850E /* OnboardingView.swift */,
+				529618A92F35F28C001E7C7C /* OnboardingView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -306,8 +343,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				529618BA2F361CB6001E7C7C /* SignupViewModel.swift in Sources */,
 				529E03E22F3531530000CFEA /* AppDelegate.swift in Sources */,
+				529618B42F360536001E7C7C /* ErrorField.swift in Sources */,
 				529E03FE2F35318B0000CFEA /* LocalizedExtensions.swift in Sources */,
+				529618B22F3604FE001E7C7C /* TextFieldFormView.swift in Sources */,
 				52C6C1862F35375A0070850E /* SplashView.swift in Sources */,
 				529E03FF2F35318B0000CFEA /* UIFont+Swizzel.swift in Sources */,
 				529E04002F35318B0000CFEA /* Extensions.swift in Sources */,
@@ -317,14 +357,18 @@
 				529E04032F35318B0000CFEA /* SwiftMessages+Extensions.swift in Sources */,
 				529E04042F35318B0000CFEA /* ContentView.swift in Sources */,
 				528169C12F35B544007AE539 /* SwiftUI+Modifiers.swift in Sources */,
+				529618B62F360A5F001E7C7C /* LoginViewModel.swift in Sources */,
 				52C6C18E2F35380B0070850E /* MainTabView.swift in Sources */,
 				529E04052F35318B0000CFEA /* CornerRadius.swift in Sources */,
+				529618AA2F35F28C001E7C7C /* OnboardingView.swift in Sources */,
 				529E04062F35318B0000CFEA /* Appearance.swift in Sources */,
+				529618AD2F35F2C2001E7C7C /* LoginView.swift in Sources */,
+				529618B82F361752001E7C7C /* appHeaderView.swift in Sources */,
 				529E04072F35318B0000CFEA /* Language.swift in Sources */,
 				528169BB2F35B173007AE539 /* MyImage.swift in Sources */,
 				529E04082F35318B0000CFEA /* SwiftUI+Extensions.swift in Sources */,
-				52C6C18B2F3537B10070850E /* OnboardingView.swift in Sources */,
 				529E04092F35318B0000CFEA /* Font+Swizzle.swift in Sources */,
+				529618B02F35F2F0001E7C7C /* SignupView.swift in Sources */,
 				529E03E42F3531530000CFEA /* SleepzyApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

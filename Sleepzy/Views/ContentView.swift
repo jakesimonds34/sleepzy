@@ -26,7 +26,7 @@ struct ContentView: View {
     @ViewBuilder
     private var content: some View {
         if appEnv.appStatus == .loading {
-            SplashView()
+            LoginView()
             
         } else if appEnv.appStatus == .onboarding {
             

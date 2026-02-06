@@ -25,10 +25,12 @@ struct SplashView: View {
             
             VStack(spacing: 50) {
                 VStack(spacing: 10) {
+                    // Logo
                     MyImage(source: .asset(.logoSplash))
                         .scaledToFit()
                         .frame(width: 277)
                     
+                    // Title
                     Text("Better Sleep Wakeup Happier")
                         .font(.appRegular(size: 34))
                         .multilineTextAlignment(.center)
@@ -43,8 +45,10 @@ struct SplashView: View {
                     Text("Master your sleep schedule.")
                         .font(.appRegular(size: 17))
                         .opacity(0.75)
+                        .foregroundStyle(.white)
                 }
                 
+                // Buttons
                 VStack(spacing: 22) {
                     Button {
                         
@@ -67,6 +71,7 @@ struct SplashView: View {
                         
                     }
                 }
+                .foregroundStyle(.white)
             }
             .frame(maxHeight: .infinity, alignment: .bottom)
             .padding(.vertical, 50)
