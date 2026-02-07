@@ -78,8 +78,33 @@ class Appearance {
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
         
+        updateTabBarItemAppearance(appearance: appearance.compactInlineLayoutAppearance)
+        updateTabBarItemAppearance(appearance: appearance.inlineLayoutAppearance)
+        updateTabBarItemAppearance(appearance: appearance.stackedLayoutAppearance)
+        
         UITabBar.appearance().standardAppearance = appearance
         UITabBar.appearance().scrollEdgeAppearance = appearance
+    }
+    
+    private static func updateTabBarItemAppearance(appearance: UITabBarItemAppearance) {
+        let tintColor: UIColor = .white
+        let unselectedItemTintColor: UIColor = .white.withAlphaComponent(0.5)
+        
+        appearance.selected.iconColor = tintColor
+        appearance.normal.iconColor = unselectedItemTintColor
+        // appearance.normal.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 2)
+        
+        let selectedAttributes: Attributes = [
+            .font: UIFont(name: UIFont.FontWight.regular.rawValue, size: 12)!,
+            .foregroundColor: tintColor
+        ]
+        let attributes: Attributes = [
+            .font: UIFont(name: UIFont.FontWight.regular.rawValue, size: 12)!,
+            .foregroundColor: unselectedItemTintColor
+        ]
+
+        appearance.selected.titleTextAttributes = selectedAttributes
+        appearance.normal.titleTextAttributes = attributes
     }
 }
 

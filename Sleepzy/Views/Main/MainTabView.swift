@@ -16,23 +16,9 @@ struct MainTabView: View {
     @State private var selection: Taps = .home
     
     init() {
-        let appearance = UITabBarAppearance()
-        appearance.configureWithOpaqueBackground()
-
-        appearance.stackedLayoutAppearance.normal.iconColor = .green
-        appearance.stackedLayoutAppearance.normal.titleTextAttributes = [
-            .foregroundColor: UIColor.green
-        ]
-
-        appearance.stackedLayoutAppearance.selected.iconColor = .red
-        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [
-            .foregroundColor: UIColor.red
-        ]
-
-        UITabBar.appearance().standardAppearance = appearance
-        UITabBar.appearance().scrollEdgeAppearance = appearance
+        self.selection = Taps.home
     }
-
+    
     // MARK: - Body
     var body: some View {
         TabView(selection: $selection) {
@@ -77,6 +63,7 @@ struct MainTabView: View {
             }
             .tag(Taps.settings)
         }
+        .accentColor(.white)
         .id(appEnv.rootViewId)
         .background(Color.white.ignoresSafeArea())
         .safeTabBarMinimize()
@@ -111,16 +98,15 @@ extension MainTabView {
             MyImage(source: .asset(image, renderingMode: .template))
             Text(title)
         }
-        .foregroundStyle(selection == tab ? Color.red : Color.green)
     }
 
     private func image(for tab: Taps) -> ImageResource {
         switch tab {
-        case .home: return .tabHome
-        case .sounds: return .tabSounds
-        case .sleepLog: return .tabSleepLog
-        case .alarm: return .tabAlarms
-        case .settings: return .tabSettings
+        case .home: return selection == tab ? .tabHomeSelected : .tabHome
+        case .sounds: return selection == tab ? .tabSoundsSelected : .tabSounds
+        case .sleepLog: return selection == tab ? .tabSleepLogSelected : .tabSleepLog
+        case .alarm: return selection == tab ? .tabAlarmsSelected : .tabAlarms
+        case .settings: return selection == tab ? .tabSettingsSelected : .tabSettings
         }
     }
 
