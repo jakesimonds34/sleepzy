@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct GoalItem {
-    var icon: ImageResource
+struct RowItem {
+    var icon: ImageResource?
     var title: String
 }
 
@@ -17,11 +17,11 @@ struct GoalView: View {
     @Binding var currentStep: Double
     @State private var selectedGoal: String? = nil
     
-    let goals: [GoalItem] = [
-        GoalItem(icon: .sleepIcon, title: "Fall asleep faster"),
-        GoalItem(icon: .pillowIcon, title: "Stay asleep longer"),
-        GoalItem(icon: .wakeUpIcon, title: "Wake up refreshed"),
-        GoalItem(icon: .timeIcon, title: "Reduce screen time")
+    let goals: [RowItem] = [
+        RowItem(icon: .sleepIcon, title: "Fall asleep faster"),
+        RowItem(icon: .pillowIcon, title: "Stay asleep longer"),
+        RowItem(icon: .wakeUpIcon, title: "Wake up refreshed"),
+        RowItem(icon: .timeIcon, title: "Reduce screen time")
     ]
     
     // MARK: - Body
@@ -40,19 +40,28 @@ struct GoalView: View {
             
             VStack(spacing: 16) {
                 ForEach(goals, id: \.title) { item in
-                    goalRow(item: item, isSelected: selectedGoal == item.title) .onTapGesture { selectedGoal = item.title }
+                    RowItemView(item: item, isSelected: selectedGoal == item.title)
+                        .onTapGesture {
+                            selectedGoal = item.title
+                        }
                 }
             }
             .padding(.horizontal)
         }
     }
+}
+
+struct RowItemView: View {
+    var item: RowItem
+    var isSelected: Bool
     
-    @ViewBuilder
-    private func goalRow(item: GoalItem, isSelected: Bool) -> some View {
+    var body: some View {
         HStack {
-            MyImage(source: .asset(item.icon))
-                .scaledToFit()
-                .frame(width: 20)
+            if let icon = item.icon {
+                MyImage(source: .asset(icon))
+                    .scaledToFit()
+                    .frame(width: 20)
+            }
             
             Text(item.title)
                 .foregroundColor(.white)

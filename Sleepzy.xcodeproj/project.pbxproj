@@ -43,9 +43,12 @@
 		529E040C2F35318B0000CFEA /* CircularStd-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 529E03FB2F35318B0000CFEA /* CircularStd-Medium.ttf */; };
 		529E040D2F35318B0000CFEA /* CircularStd-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 529E03FA2F35318B0000CFEA /* CircularStd-Book.ttf */; };
 		529E040E2F35318B0000CFEA /* CircularStd-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 529E03F82F35318B0000CFEA /* CircularStd-Black.ttf */; };
+		52C1CD8D2F37591500BEED1E /* BiggestDistractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C1CD8C2F37591500BEED1E /* BiggestDistractionView.swift */; };
 		52C6C1822F3534420070850E /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = 52C6C1812F3534420070850E /* SwiftMessages */; };
 		52C6C1862F35375A0070850E /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6C1852F35375A0070850E /* SplashView.swift */; };
 		52C6C18E2F35380B0070850E /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6C18D2F35380A0070850E /* MainTabView.swift */; };
+		52E272642F375DA500D9B65C /* AgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E272632F375DA500D9B65C /* AgeView.swift */; };
+		52E272662F375E4C00D9B65C /* GenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E272652F375E4C00D9B65C /* GenderView.swift */; };
 		52EB507C2F3621760031FE9D /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB507B2F3621760031FE9D /* ForgotPasswordView.swift */; };
 		52EB507F2F3622420031FE9D /* EnterCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB507E2F3622420031FE9D /* EnterCodeView.swift */; };
 		52EB50812F36227A0031FE9D /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50802F3622730031FE9D /* ForgotPasswordViewModel.swift */; };
@@ -98,9 +101,12 @@
 		529E03F92F35318B0000CFEA /* CircularStd-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Bold.ttf"; sourceTree = "<group>"; };
 		529E03FA2F35318B0000CFEA /* CircularStd-Book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Book.ttf"; sourceTree = "<group>"; };
 		529E03FB2F35318B0000CFEA /* CircularStd-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Medium.ttf"; sourceTree = "<group>"; };
+		52C1CD8C2F37591500BEED1E /* BiggestDistractionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiggestDistractionView.swift; sourceTree = "<group>"; };
 		52C6C1832F3534520070850E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		52C6C1852F35375A0070850E /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		52C6C18D2F35380A0070850E /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		52E272632F375DA500D9B65C /* AgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeView.swift; sourceTree = "<group>"; };
+		52E272652F375E4C00D9B65C /* GenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderView.swift; sourceTree = "<group>"; };
 		52EB507B2F3621760031FE9D /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		52EB507E2F3622420031FE9D /* EnterCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeView.swift; sourceTree = "<group>"; };
 		52EB50802F3622730031FE9D /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
@@ -291,6 +297,9 @@
 				529618A92F35F28C001E7C7C /* OnboardingView.swift */,
 				522628EC2F3639AA00C79B73 /* GoalView.swift */,
 				522628EE2F363A5100C79B73 /* SleepScheduleView.swift */,
+				52C1CD8C2F37591500BEED1E /* BiggestDistractionView.swift */,
+				52E272632F375DA500D9B65C /* AgeView.swift */,
+				52E272652F375E4C00D9B65C /* GenderView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -524,9 +533,11 @@
 				529618B62F360A5F001E7C7C /* LoginViewModel.swift in Sources */,
 				52C6C18E2F35380B0070850E /* MainTabView.swift in Sources */,
 				529E04052F35318B0000CFEA /* CornerRadius.swift in Sources */,
+				52C1CD8D2F37591500BEED1E /* BiggestDistractionView.swift in Sources */,
 				529618AA2F35F28C001E7C7C /* OnboardingView.swift in Sources */,
 				52EB50832F3622A60031FE9D /* EnterCodeViewModel.swift in Sources */,
 				52EB509A2F3625BC0031FE9D /* ChangeObserverModifier.swift in Sources */,
+				52E272662F375E4C00D9B65C /* GenderView.swift in Sources */,
 				52EB509B2F3625BC0031FE9D /* AEOTPTextFieldDelegate.swift in Sources */,
 				52EB509C2F3625BC0031FE9D /* AEOTPTextFieldImplementation.swift in Sources */,
 				52EB509D2F3625BC0031FE9D /* View+Helpers.swift in Sources */,
@@ -543,6 +554,7 @@
 				52EB507C2F3621760031FE9D /* ForgotPasswordView.swift in Sources */,
 				528169BB2F35B173007AE539 /* MyImage.swift in Sources */,
 				529E04082F35318B0000CFEA /* SwiftUI+Extensions.swift in Sources */,
+				52E272642F375DA500D9B65C /* AgeView.swift in Sources */,
 				529E04092F35318B0000CFEA /* Font+Swizzle.swift in Sources */,
 				529618B02F35F2F0001E7C7C /* SignupView.swift in Sources */,
 				529E03E42F3531530000CFEA /* SleepzyApp.swift in Sources */,

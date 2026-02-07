@@ -9,7 +9,7 @@ import SwiftUI
 
 struct OnboardingView: View {
     // MARK: - Properties
-    @State private var currentStep: Double = 2
+    @State private var currentStep: Double = 1
     
     // MARK: - Body
     var body: some View {
@@ -35,6 +35,12 @@ struct OnboardingView: View {
                     GoalView(currentStep: $currentStep)
                 case 2:
                     SleepScheduleView(currentStep: $currentStep)
+                case 3:
+                    BiggestDistractionView(currentStep: $currentStep)
+                case 4:
+                    AgeView(currentStep: $currentStep)
+                case 5:
+                    GenderView(currentStep: $currentStep)
                 default:
                     Text("")
                 }
