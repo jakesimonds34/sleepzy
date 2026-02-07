@@ -35,7 +35,8 @@ struct GoalView: View {
         VStack {
             AppHeaderView(title: "What’s your goal?",
                           subTitle: "We'll tailor the experience to your needs.",
-                          isBack: false)
+                          isBack: false,
+                          paddingTop: 16)
             .padding(.horizontal)
             
             VStack(spacing: 16) {

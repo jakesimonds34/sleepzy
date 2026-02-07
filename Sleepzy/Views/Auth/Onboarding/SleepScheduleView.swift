@@ -22,7 +22,8 @@ struct SleepScheduleView: View {
         VStack(spacing: 0) {
             AppHeaderView(title: "Select your sleep schedule",
                           subTitle: "Consistency matters. Your body loves predictability when it comes to sleep.",
-                          isBack: false)
+                          isBack: false,
+                          paddingTop: 16)
             .padding(.horizontal)
             
             SleepEditorView()

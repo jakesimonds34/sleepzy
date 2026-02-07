@@ -41,7 +41,6 @@ struct OnboardingView: View {
     @ViewBuilder
     private var content: some View {
         VStack {
-            
             progressBarView()
             
             ScrollView {
@@ -62,7 +61,11 @@ struct OnboardingView: View {
             }
             
             Button {
-                if currentStep < 5 { currentStep += 1 }
+                if currentStep < 5 {
+                    currentStep += 1
+                } else {
+                    AppEnvironment.shared.appStatus = .home
+                }
             } label: {
                 Text("Next")
             }

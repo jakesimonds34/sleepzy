@@ -30,7 +30,8 @@ struct GenderView: View {
         VStack {
             AppHeaderView(title: "What’s your gender?",
                           subTitle: "",
-                          isBack: false)
+                          isBack: false,
+                          paddingTop: 16)
             .padding(.horizontal)
             
             VStack(spacing: 16) {

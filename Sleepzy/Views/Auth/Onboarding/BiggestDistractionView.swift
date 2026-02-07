@@ -30,7 +30,8 @@ struct BiggestDistractionView: View {
         VStack {
             AppHeaderView(title: "What is your biggest distraction?",
                           subTitle: "",
-                          isBack: false)
+                          isBack: false,
+                          paddingTop: 16)
             .padding(.horizontal)
             
             VStack(spacing: 16) {

@@ -31,7 +31,8 @@ struct AgeView: View {
         VStack {
             AppHeaderView(title: "How old are you?",
                           subTitle: "",
-                          isBack: false)
+                          isBack: false,
+                          paddingTop: 16)
             .padding(.horizontal)
             
             VStack(spacing: 16) {

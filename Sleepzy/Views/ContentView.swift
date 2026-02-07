@@ -28,9 +28,6 @@ struct ContentView: View {
         if appEnv.appStatus == .loading {
             SplashView()
             
-        } else if appEnv.appStatus == .onboarding {
-            
-            
         } else {
             MainTabView()
         }
