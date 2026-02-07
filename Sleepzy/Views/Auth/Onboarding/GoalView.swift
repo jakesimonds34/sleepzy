@@ -15,7 +15,7 @@ struct RowItem {
 struct GoalView: View {
     // MARK: - Properties
     @Binding var currentStep: Double
-    @State private var selectedGoal: String? = nil
+    @Binding var selectedGoal: String?
     
     let goals: [RowItem] = [
         RowItem(icon: .sleepIcon, title: "Fall asleep faster"),
@@ -98,5 +98,6 @@ struct RowItemView: View {
 
 #Preview {
     @Previewable @State var currentStep: Double = 0.1
-    GoalView(currentStep: $currentStep)
+    @Previewable @State var selectedGoal: String? = ""
+    GoalView(currentStep: $currentStep, selectedGoal: $selectedGoal)
 }

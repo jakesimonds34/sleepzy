@@ -10,7 +10,7 @@ import SwiftUI
 struct AgeView: View {
     // MARK: - Properties
     @Binding var currentStep: Double
-    @State private var selectedGoal: String? = nil
+    @Binding var selectedAge: String?
     
     let items: [RowItem] = [
         RowItem(title: "10-17"),
@@ -36,9 +36,9 @@ struct AgeView: View {
             
             VStack(spacing: 16) {
                 ForEach(items, id: \.title) { item in
-                    RowItemView(item: item, isSelected: selectedGoal == item.title)
+                    RowItemView(item: item, isSelected: selectedAge == item.title)
                         .onTapGesture {
-                            selectedGoal = item.title
+                            selectedAge = item.title
                         }
                 }
             }
@@ -49,5 +49,6 @@ struct AgeView: View {
 
 #Preview {
     @Previewable @State var currentStep: Double = 0.1
-    AgeView(currentStep: $currentStep)
+    @Previewable @State var selectedAge: String? = ""
+    AgeView(currentStep: $currentStep, selectedAge: $selectedAge)
 }

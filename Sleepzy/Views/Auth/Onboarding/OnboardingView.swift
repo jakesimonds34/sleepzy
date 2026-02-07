@@ -11,6 +11,21 @@ struct OnboardingView: View {
     // MARK: - Properties
     @State private var currentStep: Double = 1
     
+    @State private var selectedGoal: String? = nil
+    @State private var selectedDistraction: String? = nil
+    @State private var selectedAge: String? = nil
+    @State private var selectedGender: String? = nil
+    
+    private var isStepValid: Bool {
+        switch currentStep {
+        case 1: return selectedGoal != nil
+        case 3: return selectedDistraction != nil
+        case 4: return selectedAge != nil
+        case 5: return selectedGender != nil
+        default: return true
+        }
+    }
+    
     // MARK: - Body
     var body: some View {
         content
@@ -32,15 +47,15 @@ struct OnboardingView: View {
             ScrollView {
                 switch currentStep {
                 case 1:
-                    GoalView(currentStep: $currentStep)
+                    GoalView(currentStep: $currentStep, selectedGoal: $selectedGoal)
                 case 2:
                     SleepScheduleView(currentStep: $currentStep)
                 case 3:
-                    BiggestDistractionView(currentStep: $currentStep)
+                    BiggestDistractionView(currentStep: $currentStep, selectedDistraction: $selectedDistraction)
                 case 4:
-                    AgeView(currentStep: $currentStep)
+                    AgeView(currentStep: $currentStep, selectedAge: $selectedAge)
                 case 5:
-                    GenderView(currentStep: $currentStep)
+                    GenderView(currentStep: $currentStep, selectedGender: $selectedGender)
                 default:
                     Text("")
                 }
@@ -53,6 +68,8 @@ struct OnboardingView: View {
             }
             .style(.primary)
             .padding(.horizontal, 52)
+            .disabled(!isStepValid)
+            .opacity(isStepValid ? 1 : 0.5)
 
         }
         .padding(.vertical, 90)

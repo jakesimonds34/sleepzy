@@ -10,7 +10,7 @@ import SwiftUI
 struct BiggestDistractionView: View {
     // MARK: - Properties
     @Binding var currentStep: Double
-    @State private var selectedGoal: String? = nil
+    @Binding var selectedDistraction: String?
     
     let items: [RowItem] = [
         RowItem(icon: .socialMediaIcon, title: "Social media scrolling"),
@@ -35,9 +35,9 @@ struct BiggestDistractionView: View {
             
             VStack(spacing: 16) {
                 ForEach(items, id: \.title) { item in
-                    RowItemView(item: item, isSelected: selectedGoal == item.title)
+                    RowItemView(item: item, isSelected: selectedDistraction == item.title)
                         .onTapGesture {
-                            selectedGoal = item.title
+                            selectedDistraction = item.title
                         }
                 }
             }
@@ -48,5 +48,6 @@ struct BiggestDistractionView: View {
 
 #Preview {
     @Previewable @State var currentStep: Double = 0.1
-    BiggestDistractionView(currentStep: $currentStep)
+    @Previewable @State var selectedDistraction: String? = ""
+    BiggestDistractionView(currentStep: $currentStep, selectedDistraction: $selectedDistraction)
 }

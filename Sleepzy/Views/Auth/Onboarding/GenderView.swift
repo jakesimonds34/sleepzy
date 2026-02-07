@@ -10,7 +10,7 @@ import SwiftUI
 struct GenderView: View {
     // MARK: - Properties
     @Binding var currentStep: Double
-    @State private var selectedGoal: String? = nil
+    @Binding var selectedGender: String?
     
     let items: [RowItem] = [
         RowItem(title: "Female"),
@@ -35,9 +35,9 @@ struct GenderView: View {
             
             VStack(spacing: 16) {
                 ForEach(items, id: \.title) { item in
-                    RowItemView(item: item, isSelected: selectedGoal == item.title)
+                    RowItemView(item: item, isSelected: selectedGender == item.title)
                         .onTapGesture {
-                            selectedGoal = item.title
+                            selectedGender = item.title
                         }
                 }
             }
@@ -48,5 +48,6 @@ struct GenderView: View {
 
 #Preview {
     @Previewable @State var currentStep: Double = 0.1
-    GenderView(currentStep: $currentStep)
+    @Previewable @State var selectedGender: String? = ""
+    GenderView(currentStep: $currentStep, selectedGender: $selectedGender)
 }
