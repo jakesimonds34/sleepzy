@@ -7,9 +7,22 @@
 
 import SwiftUI
 
+struct GoalItem {
+    var icon: ImageResource
+    var title: String
+}
+
 struct GoalView: View {
     // MARK: - Properties
     @Binding var currentStep: Double
+    @State private var selectedGoal: String? = nil
+    
+    let goals: [GoalItem] = [
+        GoalItem(icon: .sleepIcon, title: "Fall asleep faster"),
+        GoalItem(icon: .pillowIcon, title: "Stay asleep longer"),
+        GoalItem(icon: .wakeUpIcon, title: "Wake up refreshed"),
+        GoalItem(icon: .timeIcon, title: "Reduce screen time")
+    ]
     
     // MARK: - Body
     var body: some View {
@@ -19,8 +32,58 @@ struct GoalView: View {
     // MARK: - View Components
     @ViewBuilder
     private var content: some View {
-        Text("Goals")
-            .foregroundStyle(.white)
+        VStack {
+            AppHeaderView(title: "What’s your goal?",
+                          subTitle: "We'll tailor the experience to your needs.",
+                          isBack: false)
+            .padding(.horizontal)
+            
+            VStack(spacing: 16) {
+                ForEach(goals, id: \.title) { item in
+                    goalRow(item: item, isSelected: selectedGoal == item.title) .onTapGesture { selectedGoal = item.title }
+                }
+            }
+            .padding(.horizontal)
+        }
+    }
+    
+    @ViewBuilder
+    private func goalRow(item: GoalItem, isSelected: Bool) -> some View {
+        HStack {
+            MyImage(source: .asset(item.icon))
+                .scaledToFit()
+                .frame(width: 20)
+            
+            Text(item.title)
+                .foregroundColor(.white)
+                .font(.appRegular16)
+            
+            Spacer()
+            
+            if isSelected {
+                MyImage(source: .asset(.checkIcon))
+                    .frame(width: 12, height: 12)
+                    .font(.appBold20)
+                    .foregroundStyle(.white)
+                    .frame(width: 16, height: 16)
+                    .background(Color(hex: "5939A8"))
+                    .cornerRadius(8)
+            } else {
+                Circle()
+                    .frame(width: 16, height: 16)
+                    .foregroundStyle(Color.white.opacity(0.2))
+            }
+        }
+        .padding()
+        .contentShape(Rectangle())
+        .background(
+            RoundedRectangle(cornerRadius: 40)
+                .fill(isSelected ? Color(hex: "5939A8").opacity(0.1) : Color.clear)
+                .stroke(
+                    isSelected ? Color(hex: "988AE1").opacity(0.8) : Color.white.opacity(0.08),
+                    lineWidth: 1
+                )
+        )
     }
 }
 

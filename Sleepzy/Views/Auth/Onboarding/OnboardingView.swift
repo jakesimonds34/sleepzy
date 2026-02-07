@@ -9,40 +9,73 @@ import SwiftUI
 
 struct OnboardingView: View {
     // MARK: - Properties
-    @State private var currentStep = 0.1
+    @State private var currentStep: Double = 2
     
     // MARK: - Body
     var body: some View {
-        ZStack {
-            MyImage(source: .asset(.bg))
-                .scaledToFill()
-                .ignoresSafeArea()
-            
-            content
-        }
+        content
+            .background(
+                MyImage(source: .asset(.bg))
+                    .scaledToFill()
+            )
+            .ignoresSafeArea()
+            .navigationBarHidden(true)
     }
     
     // MARK: - View Components
     @ViewBuilder
     private var content: some View {
         VStack {
-            ProgressView(value: currentStep, total: 0.5)
-                .progressViewStyle(LinearProgressViewStyle(tint: Color(hex: "#5939A8")))
-                .frame(height: 6)
-                .padding(.horizontal)
+            
+            progressBarView()
             
             ScrollView {
                 switch currentStep {
-                case 0.1:
+                case 1:
                     GoalView(currentStep: $currentStep)
-                case 0.2:
+                case 2:
                     SleepScheduleView(currentStep: $currentStep)
                 default:
                     Text("")
                 }
             }
+            
+            Button {
+                if currentStep < 5 { currentStep += 1 }
+            } label: {
+                Text("Next")
+            }
+            .style(.primary)
+            .padding(.horizontal, 52)
+
         }
-        .padding(.top, 85)
+        .padding(.vertical, 90)
+    }
+    
+    @ViewBuilder
+    private func progressBarView() -> some View {
+        HStack {
+            if currentStep > 1 {
+                Button {
+                    currentStep -= 1
+                } label: {
+                    MyImage(source: .system("arrow.backward"))
+                        .scaledToFit()
+                        .frame(width: 18)
+                        .foregroundStyle(.white)
+                }
+
+            }
+            
+            ProgressView(value: Double(currentStep/10), total: 0.5)
+                .progressViewStyle(LinearProgressViewStyle(tint: Color(hex: "#5939A8")))
+                .frame(height: 6)
+            
+            Text("\(Int(currentStep))/5")
+                .foregroundStyle(.white.opacity(0.75))
+                .font(.appRegular(size: 17))
+        }
+        .padding(.horizontal)
     }
 }
 
