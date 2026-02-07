@@ -26,8 +26,8 @@ struct ContentView: View {
     @ViewBuilder
     private var content: some View {
         if appEnv.appStatus == .loading {
-            SplashView()
-            
+//            SplashView()
+            MainTabView()
         } else {
             MainTabView()
         }
