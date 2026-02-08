@@ -15,7 +15,7 @@ struct AlarmsView: View {
     @State var showNewAlarm: Bool = false
     @State private var isOn: Bool = true
     
-    let isEmpty: Bool = false
+    let isEmpty: Bool = true
     
     // MARK: - Body
     var body: some View {
