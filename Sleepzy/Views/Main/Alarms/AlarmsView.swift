@@ -13,6 +13,9 @@ struct AlarmsView: View {
     @Binding var selection: Taps
     
     @State var showNewAlarm: Bool = false
+    @State private var isOn: Bool = true
+    
+    let isEmpty: Bool = false
     
     // MARK: - Body
     var body: some View {
@@ -30,15 +33,22 @@ struct AlarmsView: View {
     // MARK: - View Components
     @ViewBuilder
     private var content: some View {
-        emptyData()
+        VStack {
+            AppHeaderView(title: "Alarm", subTitle: "", paddingTop: 0)
+                .padding(.horizontal)
+            
+            if isEmpty {
+                emptyData()
+            } else {
+                alarmsView()
+                    .padding(.top, 30)
+            }
+        }
     }
     
     //MARK: Empty data
     private func emptyData() -> some View {
         VStack(spacing: 0) {
-            AppHeaderView(title: "Alarm", subTitle: "", paddingTop: 0)
-                .padding(.horizontal)
-            
             Spacer()
             VStack(spacing: 20) {
                 MyImage(source: .asset(.alarmEmpty))
@@ -83,6 +93,41 @@ struct AlarmsView: View {
             }
             Spacer()
         }
+    }
+    
+    @ViewBuilder
+    private func alarmsView() -> some View {
+        VStack(alignment: .leading, spacing: 30) {
+            // MARK: - Alarm Remaining Time
+            Text("Alarm in 10 hours and 30 minutes")
+                .font(.appRegular(size: 24))
+                .foregroundColor(.white.opacity(0.8))
+            
+            ScrollView {
+                HStack {
+                    VStack(alignment: .leading, spacing: 4) {
+                        // MARK: - Time
+                        Text("10:30")
+                            .font(.system(size: 48, weight: .bold))
+                            .foregroundColor(.white)
+                        
+                        // MARK: - Days
+                        Text("Monday to Friday")
+                            .font(.subheadline)
+                            .foregroundColor(.white.opacity(0.8))
+                    }
+                    Spacer()
+                    // MARK: - Toggle
+                    Toggle("", isOn: $isOn)
+                        .labelsHidden()
+                        .tint(Color(hex: "5939A8"))
+                }
+                .padding()
+                .background(.white.opacity(0.05))
+                .cornerRadius(8)
+            }
+        }
+        .padding(.horizontal)
     }
 }
 
