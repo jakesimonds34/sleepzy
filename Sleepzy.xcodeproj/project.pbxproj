@@ -57,6 +57,7 @@
 		529E040D2F35318B0000CFEA /* CircularStd-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 529E03FA2F35318B0000CFEA /* CircularStd-Book.ttf */; };
 		529E040E2F35318B0000CFEA /* CircularStd-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 529E03F82F35318B0000CFEA /* CircularStd-Black.ttf */; };
 		52C1CD8D2F37591500BEED1E /* BiggestDistractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C1CD8C2F37591500BEED1E /* BiggestDistractionView.swift */; };
+		52C609642F392C59002E41D1 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C609632F392C57002E41D1 /* RoundedView.swift */; };
 		52C6C1822F3534420070850E /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = 52C6C1812F3534420070850E /* SwiftMessages */; };
 		52C6C1862F35375A0070850E /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6C1852F35375A0070850E /* SplashView.swift */; };
 		52C6C18E2F35380B0070850E /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6C18D2F35380A0070850E /* MainTabView.swift */; };
@@ -128,6 +129,7 @@
 		529E03FA2F35318B0000CFEA /* CircularStd-Book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Book.ttf"; sourceTree = "<group>"; };
 		529E03FB2F35318B0000CFEA /* CircularStd-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Medium.ttf"; sourceTree = "<group>"; };
 		52C1CD8C2F37591500BEED1E /* BiggestDistractionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiggestDistractionView.swift; sourceTree = "<group>"; };
+		52C609632F392C57002E41D1 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		52C6C1832F3534520070850E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		52C6C1852F35375A0070850E /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		52C6C18D2F35380A0070850E /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				528169BE2F35B519007AE539 /* ButtonStyle.swift */,
 				528169C02F35B544007AE539 /* SwiftUI+Modifiers.swift */,
 				524961E42F37C5EA00D057F0 /* IfAvailableiOS26.swift */,
+				52C609632F392C57002E41D1 /* RoundedView.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -611,6 +614,7 @@
 				528169BF2F35B519007AE539 /* ButtonStyle.swift in Sources */,
 				524961E12F37BDE300D057F0 /* SettingsView.swift in Sources */,
 				529E04022F35318B0000CFEA /* Localizer.swift in Sources */,
+				52C609642F392C59002E41D1 /* RoundedView.swift in Sources */,
 				52EB507F2F3622420031FE9D /* EnterCodeView.swift in Sources */,
 				529E04032F35318B0000CFEA /* SwiftMessages+Extensions.swift in Sources */,
 				529E04042F35318B0000CFEA /* ContentView.swift in Sources */,

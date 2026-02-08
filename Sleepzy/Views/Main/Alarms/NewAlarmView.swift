@@ -132,11 +132,7 @@ struct NewAlarmView: View {
                                     .frame(width: 6)
                                     .foregroundStyle(.white)
                             }
-                            .padding(.horizontal)
-                            .frame(height: 54)
-                            .background(.white.opacity(0.05))
-                            .cornerRadius(8)
-                            .padding(.vertical, 8)
+                            .roundedView()
                         }
                     }
                     .padding(.top, 20)
@@ -148,13 +144,7 @@ struct NewAlarmView: View {
                             .foregroundColor(.white)
                         
                         Toggle("Snooze", isOn: $snoozeEnabled)
-                            .padding(.horizontal)
-                            .frame(height: 54)
-                            .background(.white.opacity(0.05))
-                            .cornerRadius(8)
-                            .padding(.vertical, 8)
-                            .font(.appMedium18)
-                            .tint(Color(hex: "5939A8"))
+                            .roundedView()
                         
                         if snoozeEnabled {
                             Text("SNOOZE DURATION")
@@ -164,12 +154,7 @@ struct NewAlarmView: View {
                             Stepper(value: $snoozeDuration, in: 1...15) {
                                 Text("Snooze Duration: \(snoozeDuration) min")
                             }
-                            .padding(.horizontal)
-                            .frame(height: 54)
-                            .background(.white.opacity(0.05))
-                            .cornerRadius(8)
-                            .padding(.vertical, 8)
-                            .font(.appMedium18)
+                            .roundedView()
                         }
                     }
                     
