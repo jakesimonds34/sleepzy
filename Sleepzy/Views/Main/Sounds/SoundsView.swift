@@ -80,6 +80,7 @@ struct SoundsView: View {
                         soundRow(sound)
                     }
                 }
+                .padding(.bottom)
             }
         }
     }

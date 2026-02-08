@@ -86,6 +86,10 @@ extension Font {
     }
     
     // Medium font
+    static var appMedium24: Font {
+        app(size: 24, weight: .medium, relativeTo: .headline)
+    }
+    
     static var appMedium20: Font {
         app(size: 20, weight: .medium, relativeTo: .headline)
     }
