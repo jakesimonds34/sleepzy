@@ -24,14 +24,12 @@ struct SleepLogView: View {
     
     // MARK: - Body
     var body: some View {
-        NavigationStack {
-            content
-                .background(
-                    MyImage(source: .asset(.bgSounds))
-                        .scaledToFill()
-                        .ignoresSafeArea()
-                )
-        }
+        content
+            .background(
+                MyImage(source: .asset(.bgSounds))
+                    .scaledToFill()
+                    .ignoresSafeArea()
+            )
     }
     
     // MARK: - View Components

@@ -12,6 +12,7 @@
 		522628F12F36415100C79B73 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522628F02F36414E00C79B73 /* SplashViewModel.swift */; };
 		522628F42F3645B200C79B73 /* IQKeyboardToolbarManager in Frameworks */ = {isa = PBXBuildFile; productRef = 522628F32F3645B200C79B73 /* IQKeyboardToolbarManager */; };
 		522628F72F36465800C79B73 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 522628F62F36465800C79B73 /* IQKeyboardManagerSwift */; };
+		52263DC32F38E38E003AE6D4 /* SleepLogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52263DC22F38E38E003AE6D4 /* SleepLogDetailView.swift */; };
 		524961CD2F37BBF200D057F0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961CC2F37BBF200D057F0 /* HomeView.swift */; };
 		524961CF2F37BC0800D057F0 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961CE2F37BC0700D057F0 /* HomeViewModel.swift */; };
 		524961D22F37BCA900D057F0 /* SoundsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961D12F37BCA900D057F0 /* SoundsView.swift */; };
@@ -23,6 +24,7 @@
 		524961E12F37BDE300D057F0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961E02F37BDE300D057F0 /* SettingsView.swift */; };
 		524961E32F37BDED00D057F0 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961E22F37BDE900D057F0 /* SettingsViewModel.swift */; };
 		524961E52F37C5EA00D057F0 /* IfAvailableiOS26.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961E42F37C5EA00D057F0 /* IfAvailableiOS26.swift */; };
+		524AA2F12F38F90E00F97B25 /* NewAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524AA2F02F38F90E00F97B25 /* NewAlarmView.swift */; };
 		528169B92F35B156007AE539 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 528169B82F35B156007AE539 /* SDWebImageSwiftUI */; };
 		528169BB2F35B173007AE539 /* MyImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528169BA2F35B173007AE539 /* MyImage.swift */; };
 		528169BF2F35B519007AE539 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528169BE2F35B519007AE539 /* ButtonStyle.swift */; };
@@ -81,6 +83,7 @@
 		522628EC2F3639AA00C79B73 /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
 		522628EE2F363A5100C79B73 /* SleepScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepScheduleView.swift; sourceTree = "<group>"; };
 		522628F02F36414E00C79B73 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
+		52263DC22F38E38E003AE6D4 /* SleepLogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepLogDetailView.swift; sourceTree = "<group>"; };
 		524961CC2F37BBF200D057F0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		524961CE2F37BC0700D057F0 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		524961D12F37BCA900D057F0 /* SoundsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsView.swift; sourceTree = "<group>"; };
@@ -92,6 +95,7 @@
 		524961E02F37BDE300D057F0 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		524961E22F37BDE900D057F0 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		524961E42F37C5EA00D057F0 /* IfAvailableiOS26.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfAvailableiOS26.swift; sourceTree = "<group>"; };
+		524AA2F02F38F90E00F97B25 /* NewAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlarmView.swift; sourceTree = "<group>"; };
 		528169BA2F35B173007AE539 /* MyImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyImage.swift; sourceTree = "<group>"; };
 		528169BE2F35B519007AE539 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		528169C02F35B544007AE539 /* SwiftUI+Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftUI+Modifiers.swift"; sourceTree = "<group>"; };
@@ -183,6 +187,7 @@
 			isa = PBXGroup;
 			children = (
 				524961D62F37BD2200D057F0 /* SleepLogView.swift */,
+				52263DC22F38E38E003AE6D4 /* SleepLogDetailView.swift */,
 				524961D82F37BD4100D057F0 /* SleepLogViewModel.swift */,
 			);
 			path = SleepLog;
@@ -192,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				524961DB2F37BD8B00D057F0 /* AlarmsView.swift */,
+				524AA2F02F38F90E00F97B25 /* NewAlarmView.swift */,
 				524961DD2F37BD9600D057F0 /* AlarmsViewModel.swift */,
 			);
 			path = Alarms;
@@ -595,6 +601,8 @@
 				52C6C1862F35375A0070850E /* SplashView.swift in Sources */,
 				522628ED2F3639AB00C79B73 /* GoalView.swift in Sources */,
 				52EB50812F36227A0031FE9D /* ForgotPasswordViewModel.swift in Sources */,
+				524AA2F12F38F90E00F97B25 /* NewAlarmView.swift in Sources */,
+				52263DC32F38E38E003AE6D4 /* SleepLogDetailView.swift in Sources */,
 				524961DE2F37BD9A00D057F0 /* AlarmsViewModel.swift in Sources */,
 				529E03FF2F35318B0000CFEA /* UIFont+Swizzel.swift in Sources */,
 				52EB50862F36231C0031FE9D /* NewPasswordView.swift in Sources */,
