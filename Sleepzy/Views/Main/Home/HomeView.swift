@@ -19,6 +19,14 @@ struct HomeView: View {
         GridItem(.flexible(), spacing: 16)
     ]
     
+    @State private var currentlyPlaying: String? = "Ocean waves"
+    private let sounds: [(name: String, category: String, image: String)] = [
+        ("Ocean waves", "Nature", "wave.3.forward"),
+        ("Ocean Drift", "Nature", "water.waves"),
+        ("Brown Calm", "White Noise", "wind"),
+        ("Pink Hush", "White Noise", "fanblades")
+    ]
+    
     // MARK: - Body
     var body: some View {
         ScrollView {
@@ -27,8 +35,8 @@ struct HomeView: View {
         .background(
             MyImage(source: .asset(.bgHome))
                 .scaledToFill()
+                .ignoresSafeArea()
         )
-        .ignoresSafeArea()
         .navigationBarHidden(true)
     }
     
@@ -39,12 +47,10 @@ struct HomeView: View {
             
             headerView()
             sleepLastView()
-            
             seeAllView()
-            
             digitalShildView()
         }
-        .padding(.vertical, 77)
+        .padding(.bottom, 77)
         .padding(.horizontal, 16)
     }
     
@@ -102,6 +108,7 @@ struct HomeView: View {
                 .cornerRadius(9)
             }
             .padding(.top, 20)
+            .foregroundStyle(.white)
 
         }
     }
@@ -156,18 +163,18 @@ struct HomeView: View {
                 Text("View All")
                     .underline()
                     .font(.appRegular(size: 13))
+                    .foregroundStyle(.white)
             }
-
         }
         
         LazyVGrid(columns: columns, spacing: 16) {
-            ForEach(0..<4) { _ in
-                sleepSoundCardView()
+            ForEach(sounds, id: \.name) { sound in
+                soundRow(sound)
             }
         }
     }
     
-    private func sleepSoundCardView() -> some View {
+    private func soundRow(_ sound: (name: String, category: String, image: String)) -> some View {
         ZStack {
             Rectangle()
                 .fill(.gray)
@@ -178,18 +185,27 @@ struct HomeView: View {
             
             VStack {
                 Button {
-                    
+                    togglePlay(sound.name)
                 } label: {
-                    MyImage(source: .asset(isPlaying ? .pauseIcon : .playIcon))
+                    MyImage(source: .asset(currentlyPlaying == sound.name ? .pauseIcon : .playIcon))
                         .scaledToFit()
                         .frame(width: 50)
                 }
                 
-                Text("Soft Rain")
+                Text(sound.name)
             }
         }
         .frame(height: 110)
         .clipShape(RoundedRectangle(cornerRadius: 20))
+    }
+    
+    // MARK: - Play Logic
+    private func togglePlay(_ name: String) {
+        if currentlyPlaying == name {
+            currentlyPlaying = nil
+        } else {
+            currentlyPlaying = name
+        }
     }
     
     private func digitalShildView() -> some View {
