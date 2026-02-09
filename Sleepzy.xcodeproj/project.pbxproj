@@ -26,6 +26,11 @@
 		524961E32F37BDED00D057F0 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961E22F37BDE900D057F0 /* SettingsViewModel.swift */; };
 		524961E52F37C5EA00D057F0 /* IfAvailableiOS26.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961E42F37C5EA00D057F0 /* IfAvailableiOS26.swift */; };
 		524AA2F12F38F90E00F97B25 /* NewAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524AA2F02F38F90E00F97B25 /* NewAlarmView.swift */; };
+		527BC1A22F3A413900287638 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527BC1A12F3A413700287638 /* Profile.swift */; };
+		527BC1A52F3A423500287638 /* SupabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527BC1A42F3A423400287638 /* SupabaseService.swift */; };
+		527BC1A82F3A42B100287638 /* ProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527BC1A72F3A42B000287638 /* ProfileRepository.swift */; };
+		527BC1AA2F3A42BD00287638 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527BC1A92F3A42BC00287638 /* AuthRepository.swift */; };
+		527BC1AC2F3A573A00287638 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527BC1AB2F3A572F00287638 /* AuthViewModel.swift */; };
 		528169B92F35B156007AE539 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 528169B82F35B156007AE539 /* SDWebImageSwiftUI */; };
 		528169BB2F35B173007AE539 /* MyImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528169BA2F35B173007AE539 /* MyImage.swift */; };
 		528169BF2F35B519007AE539 /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528169BE2F35B519007AE539 /* ButtonStyle.swift */; };
@@ -35,9 +40,7 @@
 		529618B02F35F2F0001E7C7C /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529618AF2F35F2F0001E7C7C /* SignupView.swift */; };
 		529618B22F3604FE001E7C7C /* TextFieldFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529618B12F3604FE001E7C7C /* TextFieldFormView.swift */; };
 		529618B42F360536001E7C7C /* ErrorField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529618B32F360536001E7C7C /* ErrorField.swift */; };
-		529618B62F360A5F001E7C7C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529618B52F360A57001E7C7C /* LoginViewModel.swift */; };
 		529618B82F361752001E7C7C /* appHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529618B72F361752001E7C7C /* appHeaderView.swift */; };
-		529618BA2F361CB6001E7C7C /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529618B92F361CAD001E7C7C /* SignupViewModel.swift */; };
 		529E03E22F3531530000CFEA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529E03DD2F3531530000CFEA /* AppDelegate.swift */; };
 		529E03E42F3531530000CFEA /* SleepzyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529E03E02F3531530000CFEA /* SleepzyApp.swift */; };
 		529E03FE2F35318B0000CFEA /* LocalizedExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529E03EC2F35318B0000CFEA /* LocalizedExtensions.swift */; };
@@ -66,10 +69,7 @@
 		52E272662F375E4C00D9B65C /* GenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E272652F375E4C00D9B65C /* GenderView.swift */; };
 		52EB507C2F3621760031FE9D /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB507B2F3621760031FE9D /* ForgotPasswordView.swift */; };
 		52EB507F2F3622420031FE9D /* EnterCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB507E2F3622420031FE9D /* EnterCodeView.swift */; };
-		52EB50812F36227A0031FE9D /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50802F3622730031FE9D /* ForgotPasswordViewModel.swift */; };
-		52EB50832F3622A60031FE9D /* EnterCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50822F3622A30031FE9D /* EnterCodeViewModel.swift */; };
 		52EB50862F36231C0031FE9D /* NewPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50852F36231C0031FE9D /* NewPasswordView.swift */; };
-		52EB50882F3623270031FE9D /* NewPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50872F3623230031FE9D /* NewPasswordViewModel.swift */; };
 		52EB509A2F3625BC0031FE9D /* ChangeObserverModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB508D2F3625BC0031FE9D /* ChangeObserverModifier.swift */; };
 		52EB509B2F3625BC0031FE9D /* AEOTPTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50932F3625BC0031FE9D /* AEOTPTextFieldDelegate.swift */; };
 		52EB509C2F3625BC0031FE9D /* AEOTPTextFieldImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50942F3625BC0031FE9D /* AEOTPTextFieldImplementation.swift */; };
@@ -98,6 +98,11 @@
 		524961E22F37BDE900D057F0 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		524961E42F37C5EA00D057F0 /* IfAvailableiOS26.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfAvailableiOS26.swift; sourceTree = "<group>"; };
 		524AA2F02F38F90E00F97B25 /* NewAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlarmView.swift; sourceTree = "<group>"; };
+		527BC1A12F3A413700287638 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		527BC1A42F3A423400287638 /* SupabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseService.swift; sourceTree = "<group>"; };
+		527BC1A72F3A42B000287638 /* ProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepository.swift; sourceTree = "<group>"; };
+		527BC1A92F3A42BC00287638 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
+		527BC1AB2F3A572F00287638 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		528169BA2F35B173007AE539 /* MyImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyImage.swift; sourceTree = "<group>"; };
 		528169BE2F35B519007AE539 /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		528169C02F35B544007AE539 /* SwiftUI+Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftUI+Modifiers.swift"; sourceTree = "<group>"; };
@@ -106,9 +111,7 @@
 		529618AF2F35F2F0001E7C7C /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		529618B12F3604FE001E7C7C /* TextFieldFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldFormView.swift; sourceTree = "<group>"; };
 		529618B32F360536001E7C7C /* ErrorField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorField.swift; sourceTree = "<group>"; };
-		529618B52F360A57001E7C7C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		529618B72F361752001E7C7C /* appHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appHeaderView.swift; sourceTree = "<group>"; };
-		529618B92F361CAD001E7C7C /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
 		529E03CD2F35312D0000CFEA /* Sleepzy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sleepzy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		529E03DD2F3531530000CFEA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		529E03E02F3531530000CFEA /* SleepzyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepzyApp.swift; sourceTree = "<group>"; };
@@ -138,10 +141,7 @@
 		52E272652F375E4C00D9B65C /* GenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderView.swift; sourceTree = "<group>"; };
 		52EB507B2F3621760031FE9D /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		52EB507E2F3622420031FE9D /* EnterCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeView.swift; sourceTree = "<group>"; };
-		52EB50802F3622730031FE9D /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
-		52EB50822F3622A30031FE9D /* EnterCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeViewModel.swift; sourceTree = "<group>"; };
 		52EB50852F36231C0031FE9D /* NewPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPasswordView.swift; sourceTree = "<group>"; };
-		52EB50872F3623230031FE9D /* NewPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPasswordViewModel.swift; sourceTree = "<group>"; };
 		52EB50892F3625BC0031FE9D /* AEOTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AEOTPView.swift; sourceTree = "<group>"; };
 		52EB508A2F3625BC0031FE9D /* AEOTPViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AEOTPViewRepresentable.swift; sourceTree = "<group>"; };
 		52EB508C2F3625BC0031FE9D /* AEOTPTextFieldSwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AEOTPTextFieldSwiftUI.swift; sourceTree = "<group>"; };
@@ -216,6 +216,31 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		527BC1A02F3A410E00287638 /* ObjectModels */ = {
+			isa = PBXGroup;
+			children = (
+				527BC1A12F3A413700287638 /* Profile.swift */,
+			);
+			path = ObjectModels;
+			sourceTree = "<group>";
+		};
+		527BC1A32F3A421800287638 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				527BC1A42F3A423400287638 /* SupabaseService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		527BC1A62F3A429D00287638 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				527BC1A72F3A42B000287638 /* ProfileRepository.swift */,
+				527BC1A92F3A42BC00287638 /* AuthRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
 		528169BC2F35B17A007AE539 /* General */ = {
 			isa = PBXGroup;
 			children = (
@@ -243,7 +268,6 @@
 			isa = PBXGroup;
 			children = (
 				529618AC2F35F2C2001E7C7C /* LoginView.swift */,
-				529618B52F360A57001E7C7C /* LoginViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -252,7 +276,6 @@
 			isa = PBXGroup;
 			children = (
 				529618AF2F35F2F0001E7C7C /* SignupView.swift */,
-				529618B92F361CAD001E7C7C /* SignupViewModel.swift */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
@@ -323,6 +346,9 @@
 			children = (
 				529E03E92F35318B0000CFEA /* Core */,
 				529E03ED2F35318B0000CFEA /* Localizer */,
+				527BC1A02F3A410E00287638 /* ObjectModels */,
+				527BC1A32F3A421800287638 /* Services */,
+				527BC1A62F3A429D00287638 /* Repositories */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -399,6 +425,7 @@
 		52EB50792F3621410031FE9D /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				527BC1AB2F3A572F00287638 /* AuthViewModel.swift */,
 				529618AB2F35F2AF001E7C7C /* Login */,
 				529618AE2F35F2D7001E7C7C /* Signup */,
 				52EB507A2F3621620031FE9D /* ForgotPassword */,
@@ -413,7 +440,6 @@
 			isa = PBXGroup;
 			children = (
 				52EB507B2F3621760031FE9D /* ForgotPasswordView.swift */,
-				52EB50802F3622730031FE9D /* ForgotPasswordViewModel.swift */,
 			);
 			path = ForgotPassword;
 			sourceTree = "<group>";
@@ -422,7 +448,6 @@
 			isa = PBXGroup;
 			children = (
 				52EB507E2F3622420031FE9D /* EnterCodeView.swift */,
-				52EB50822F3622A30031FE9D /* EnterCodeViewModel.swift */,
 			);
 			path = EnterCode;
 			sourceTree = "<group>";
@@ -431,7 +456,6 @@
 			isa = PBXGroup;
 			children = (
 				52EB50852F36231C0031FE9D /* NewPasswordView.swift */,
-				52EB50872F3623230031FE9D /* NewPasswordViewModel.swift */,
 			);
 			path = NewPassword;
 			sourceTree = "<group>";
@@ -596,23 +620,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				524961D72F37BD2200D057F0 /* SleepLogView.swift in Sources */,
-				529618BA2F361CB6001E7C7C /* SignupViewModel.swift in Sources */,
 				529E03E22F3531530000CFEA /* AppDelegate.swift in Sources */,
 				529618B42F360536001E7C7C /* ErrorField.swift in Sources */,
 				524961CF2F37BC0800D057F0 /* HomeViewModel.swift in Sources */,
 				529E03FE2F35318B0000CFEA /* LocalizedExtensions.swift in Sources */,
 				529618B22F3604FE001E7C7C /* TextFieldFormView.swift in Sources */,
-				52EB50882F3623270031FE9D /* NewPasswordViewModel.swift in Sources */,
 				524961D22F37BCA900D057F0 /* SoundsView.swift in Sources */,
 				52C6C1862F35375A0070850E /* SplashView.swift in Sources */,
 				522628ED2F3639AB00C79B73 /* GoalView.swift in Sources */,
-				52EB50812F36227A0031FE9D /* ForgotPasswordViewModel.swift in Sources */,
 				524AA2F12F38F90E00F97B25 /* NewAlarmView.swift in Sources */,
 				52263DC32F38E38E003AE6D4 /* SleepLogDetailView.swift in Sources */,
 				524961DE2F37BD9A00D057F0 /* AlarmsViewModel.swift in Sources */,
 				529E03FF2F35318B0000CFEA /* UIFont+Swizzel.swift in Sources */,
 				52EB50862F36231C0031FE9D /* NewPasswordView.swift in Sources */,
 				529E04002F35318B0000CFEA /* Extensions.swift in Sources */,
+				527BC1AC2F3A573A00287638 /* AuthViewModel.swift in Sources */,
 				529E04012F35318B0000CFEA /* AppEnvironment.swift in Sources */,
 				528169BF2F35B519007AE539 /* ButtonStyle.swift in Sources */,
 				524961E12F37BDE300D057F0 /* SettingsView.swift in Sources */,
@@ -626,19 +648,19 @@
 				524961DC2F37BD8B00D057F0 /* AlarmsView.swift in Sources */,
 				524961D92F37BD4400D057F0 /* SleepLogViewModel.swift in Sources */,
 				522628EF2F363A5100C79B73 /* SleepScheduleView.swift in Sources */,
-				529618B62F360A5F001E7C7C /* LoginViewModel.swift in Sources */,
 				52C6C18E2F35380B0070850E /* MainTabView.swift in Sources */,
 				529E04052F35318B0000CFEA /* CornerRadius.swift in Sources */,
 				52C1CD8D2F37591500BEED1E /* BiggestDistractionView.swift in Sources */,
 				529618AA2F35F28C001E7C7C /* OnboardingView.swift in Sources */,
-				52EB50832F3622A60031FE9D /* EnterCodeViewModel.swift in Sources */,
 				524961E52F37C5EA00D057F0 /* IfAvailableiOS26.swift in Sources */,
+				527BC1A82F3A42B100287638 /* ProfileRepository.swift in Sources */,
 				52EB509A2F3625BC0031FE9D /* ChangeObserverModifier.swift in Sources */,
 				52E272662F375E4C00D9B65C /* GenderView.swift in Sources */,
 				52EB509B2F3625BC0031FE9D /* AEOTPTextFieldDelegate.swift in Sources */,
 				524961CD2F37BBF200D057F0 /* HomeView.swift in Sources */,
 				52EB509C2F3625BC0031FE9D /* AEOTPTextFieldImplementation.swift in Sources */,
 				52EB509D2F3625BC0031FE9D /* View+Helpers.swift in Sources */,
+				527BC1AA2F3A42BD00287638 /* AuthRepository.swift in Sources */,
 				52EB509E2F3625BC0031FE9D /* AEOTPTextFieldSwiftUI.swift in Sources */,
 				522628F12F36415100C79B73 /* SplashViewModel.swift in Sources */,
 				52EB509F2F3625BC0031FE9D /* AEOTPView.swift in Sources */,
@@ -647,6 +669,8 @@
 				524961E32F37BDED00D057F0 /* SettingsViewModel.swift in Sources */,
 				52EB50A22F3625BC0031FE9D /* AEOTPViewRepresentable.swift in Sources */,
 				529E04062F35318B0000CFEA /* Appearance.swift in Sources */,
+				527BC1A22F3A413900287638 /* Profile.swift in Sources */,
+				527BC1A52F3A423500287638 /* SupabaseService.swift in Sources */,
 				529618AD2F35F2C2001E7C7C /* LoginView.swift in Sources */,
 				529618B82F361752001E7C7C /* appHeaderView.swift in Sources */,
 				529E04072F35318B0000CFEA /* Language.swift in Sources */,

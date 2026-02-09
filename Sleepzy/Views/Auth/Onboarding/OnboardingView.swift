@@ -9,6 +9,8 @@ import SwiftUI
 
 struct OnboardingView: View {
     // MARK: - Properties
+    @StateObject var viewModel = AuthViewModel()
+    
     @State private var currentStep: Double = 1
     
     @State private var selectedGoal: String? = nil

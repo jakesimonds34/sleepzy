@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EnterCodeView: View {
     // MARK: - Properties
-    @StateObject var viewModel = EnterCodeViewModel()
+    @StateObject var viewModel = AuthViewModel()
     
     // MARK: - Body
     var body: some View {

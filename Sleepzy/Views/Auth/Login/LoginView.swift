@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     // MARK: - Properties
-    @StateObject var viewModel = LoginViewModel()
+    @StateObject var viewModel = AuthViewModel()
     
     // MARK: - Body
     var body: some View {
@@ -72,9 +72,20 @@ struct LoginView: View {
             
             VStack(spacing: 22) {
                 Button {
-                    
+                    guard !viewModel.isLoading else { return }
+                    Task {
+                        await viewModel.signIn(
+                            email: viewModel.email.trimmingCharacters(in: .whitespacesAndNewlines),
+                            password: viewModel.password
+                        )
+                    }
                 } label: {
-                    Text("Login")
+                    if viewModel.isLoading {
+                        ProgressView()
+                            .tint(.black)
+                    } else {
+                        Text("Login")
+                    }
                 }
                 .style(.primary)
                 

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NewPasswordView: View {
     // MARK: - Properties
-    @StateObject var viewModel = NewPasswordViewModel()
+    @StateObject var viewModel = AuthViewModel()
     
     // MARK: - Body
     var body: some View {

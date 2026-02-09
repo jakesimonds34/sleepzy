@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ForgotPasswordView: View {
     // MARK: - Properties
-    @StateObject var viewModel = ForgotPasswordViewModel()
+    @StateObject var viewModel = AuthViewModel()
     
     // MARK: - Body
     var body: some View {

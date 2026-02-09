@@ -10,7 +10,7 @@ import SwiftUI
 struct SignupView: View {
     // MARK: - Properties
     @Environment(\.dismiss) private var dismiss
-    @StateObject var viewModel = SignupViewModel()
+    @StateObject var viewModel = AuthViewModel()
     
     // MARK: - Body
     var body: some View {
@@ -73,9 +73,21 @@ struct SignupView: View {
             
             VStack(spacing: 22) {
                 Button {
-                    viewModel.showOnboarding.toggle()
+                    guard !viewModel.isLoading else { return }
+                    Task {
+                        await viewModel.signUp(
+                            fullName: viewModel.fullName,
+                            email: viewModel.email,
+                            password: viewModel.password
+                        )
+                    }
                 } label: {
-                    Text("Create an account")
+                    if viewModel.isLoading {
+                        ProgressView()
+                            .tint(.black)
+                    } else {
+                        Text("Create an account")
+                    }
                 }
                 .style(.primary)
                 
