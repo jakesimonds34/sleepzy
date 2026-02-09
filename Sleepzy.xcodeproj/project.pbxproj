@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		520B7B472F3A122300F04F56 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 520B7B462F3A122300F04F56 /* Auth */; };
+		520B7B492F3A122300F04F56 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 520B7B482F3A122300F04F56 /* Supabase */; };
 		522628ED2F3639AB00C79B73 /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522628EC2F3639AA00C79B73 /* GoalView.swift */; };
 		522628EF2F363A5100C79B73 /* SleepScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522628EE2F363A5100C79B73 /* SleepScheduleView.swift */; };
 		522628F12F36415100C79B73 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522628F02F36414E00C79B73 /* SplashViewModel.swift */; };
 		522628F42F3645B200C79B73 /* IQKeyboardToolbarManager in Frameworks */ = {isa = PBXBuildFile; productRef = 522628F32F3645B200C79B73 /* IQKeyboardToolbarManager */; };
-		522628F72F36465800C79B73 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 522628F62F36465800C79B73 /* IQKeyboardManagerSwift */; };
 		52263DC32F38E38E003AE6D4 /* SleepLogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52263DC22F38E38E003AE6D4 /* SleepLogDetailView.swift */; };
 		524961CD2F37BBF200D057F0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961CC2F37BBF200D057F0 /* HomeView.swift */; };
 		524961CF2F37BC0800D057F0 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961CE2F37BC0700D057F0 /* HomeViewModel.swift */; };
@@ -158,8 +159,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				522628F42F3645B200C79B73 /* IQKeyboardToolbarManager in Frameworks */,
-				522628F72F36465800C79B73 /* IQKeyboardManagerSwift in Frameworks */,
+				520B7B492F3A122300F04F56 /* Supabase in Frameworks */,
 				528169B92F35B156007AE539 /* SDWebImageSwiftUI in Frameworks */,
+				520B7B472F3A122300F04F56 /* Auth in Frameworks */,
 				52C6C1822F3534420070850E /* SwiftMessages in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -526,7 +528,8 @@
 				52C6C1812F3534420070850E /* SwiftMessages */,
 				528169B82F35B156007AE539 /* SDWebImageSwiftUI */,
 				522628F32F3645B200C79B73 /* IQKeyboardToolbarManager */,
-				522628F62F36465800C79B73 /* IQKeyboardManagerSwift */,
+				520B7B462F3A122300F04F56 /* Auth */,
+				520B7B482F3A122300F04F56 /* Supabase */,
 			);
 			productName = Sleepzy;
 			productReference = 529E03CD2F35312D0000CFEA /* Sleepzy.app */;
@@ -560,7 +563,7 @@
 				52C6C1802F3534420070850E /* XCRemoteSwiftPackageReference "SwiftMessages" */,
 				528169B72F35B156007AE539 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				522628F22F3645B200C79B73 /* XCRemoteSwiftPackageReference "IQKeyboardToolbarManager" */,
-				522628F52F36465800C79B73 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				520B7B452F3A122300F04F56 /* XCRemoteSwiftPackageReference "supabase-swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 529E03CE2F35312D0000CFEA /* Products */;
@@ -877,20 +880,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		520B7B452F3A122300F04F56 /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase-community/supabase-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
 		522628F22F3645B200C79B73 /* XCRemoteSwiftPackageReference "IQKeyboardToolbarManager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardToolbarManager";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.1.4;
-			};
-		};
-		522628F52F36465800C79B73 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 8.0.2;
 			};
 		};
 		528169B72F35B156007AE539 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
@@ -912,15 +915,20 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		520B7B462F3A122300F04F56 /* Auth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 520B7B452F3A122300F04F56 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Auth;
+		};
+		520B7B482F3A122300F04F56 /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 520B7B452F3A122300F04F56 /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
 		522628F32F3645B200C79B73 /* IQKeyboardToolbarManager */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 522628F22F3645B200C79B73 /* XCRemoteSwiftPackageReference "IQKeyboardToolbarManager" */;
 			productName = IQKeyboardToolbarManager;
-		};
-		522628F62F36465800C79B73 /* IQKeyboardManagerSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 522628F52F36465800C79B73 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
-			productName = IQKeyboardManagerSwift;
 		};
 		528169B82F35B156007AE539 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -134,7 +134,7 @@ struct SettingsView: View {
                     
                     //MARK: Log Out
                     Button {
-                        
+                        AppEnvironment.shared.appStatus = .loading
                     } label: {
                         HStack {
                             MyImage(source: .asset(.logOutIcon))
