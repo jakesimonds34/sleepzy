@@ -1,0 +1,55 @@
+//
+//  DailyFunctionView.swift
+//  Sleepzy
+//
+//  Created by Saadi Dalloul on 10/02/2026.
+//
+
+import SwiftUI
+
+struct DailyFunctionView: View {
+    // MARK: - Properties
+    @Binding var currentStep: Double
+    @Binding var selectedDailyFunction: String?
+    
+    let items: [RowItem] = [
+        RowItem(title: "Not at all"),
+        RowItem(title: "Barely"),
+        RowItem(title: "Somewhat"),
+        RowItem(title: "Much"),
+        RowItem(title: "Very much interfering")
+    ]
+    
+    // MARK: - Body
+    var body: some View {
+        content
+    }
+    
+    // MARK: - View Components
+    @ViewBuilder
+    private var content: some View {
+        VStack {
+            AppHeaderView(title: "Rate your problem with waking up too early?",
+                          subTitle: "",
+                          isBack: false,
+                          paddingTop: 16)
+            .padding(.horizontal)
+            
+            VStack(spacing: 16) {
+                ForEach(items, id: \.title) { item in
+                    RowItemView(item: item, isSelected: selectedDailyFunction == item.title)
+                        .onTapGesture {
+                            selectedDailyFunction = item.title
+                        }
+                }
+            }
+            .padding(.horizontal)
+        }
+    }
+}
+
+#Preview {
+    @Previewable @State var currentStep: Double = 0.1
+    @Previewable @State var selectedDailyFunction: String? = ""
+    DailyFunctionView(currentStep: $currentStep, selectedDailyFunction: $selectedDailyFunction)
+}

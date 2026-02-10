@@ -26,6 +26,13 @@
 		524961E32F37BDED00D057F0 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961E22F37BDE900D057F0 /* SettingsViewModel.swift */; };
 		524961E52F37C5EA00D057F0 /* IfAvailableiOS26.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961E42F37C5EA00D057F0 /* IfAvailableiOS26.swift */; };
 		524AA2F12F38F90E00F97B25 /* NewAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524AA2F02F38F90E00F97B25 /* NewAlarmView.swift */; };
+		526C3C3B2F3BAF5B004F1768 /* StayAsleepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C3A2F3BAF5B004F1768 /* StayAsleepView.swift */; };
+		526C3C3D2F3BB0AE004F1768 /* EarlyWakeupRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C3C2F3BB0AE004F1768 /* EarlyWakeupRatingView.swift */; };
+		526C3C3F2F3BB155004F1768 /* DailyFunctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C3E2F3BB155004F1768 /* DailyFunctionView.swift */; };
+		526C3C412F3BB2E2004F1768 /* DistractingAppsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C402F3BB2E2004F1768 /* DistractingAppsView.swift */; };
+		526C3C432F3BC043004F1768 /* FocusProtectionScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C422F3BC043004F1768 /* FocusProtectionScheduleView.swift */; };
+		526C3C452F3BC36D004F1768 /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C442F3BC36D004F1768 /* TimePickerView.swift */; };
+		526C3C472F3BC492004F1768 /* RepeatDaysPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C462F3BC492004F1768 /* RepeatDaysPicker.swift */; };
 		527BC1A22F3A413900287638 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527BC1A12F3A413700287638 /* Profile.swift */; };
 		527BC1A52F3A423500287638 /* SupabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527BC1A42F3A423400287638 /* SupabaseService.swift */; };
 		527BC1A82F3A42B100287638 /* ProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527BC1A72F3A42B000287638 /* ProfileRepository.swift */; };
@@ -98,6 +105,13 @@
 		524961E22F37BDE900D057F0 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		524961E42F37C5EA00D057F0 /* IfAvailableiOS26.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfAvailableiOS26.swift; sourceTree = "<group>"; };
 		524AA2F02F38F90E00F97B25 /* NewAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlarmView.swift; sourceTree = "<group>"; };
+		526C3C3A2F3BAF5B004F1768 /* StayAsleepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StayAsleepView.swift; sourceTree = "<group>"; };
+		526C3C3C2F3BB0AE004F1768 /* EarlyWakeupRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarlyWakeupRatingView.swift; sourceTree = "<group>"; };
+		526C3C3E2F3BB155004F1768 /* DailyFunctionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyFunctionView.swift; sourceTree = "<group>"; };
+		526C3C402F3BB2E2004F1768 /* DistractingAppsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistractingAppsView.swift; sourceTree = "<group>"; };
+		526C3C422F3BC043004F1768 /* FocusProtectionScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusProtectionScheduleView.swift; sourceTree = "<group>"; };
+		526C3C442F3BC36D004F1768 /* TimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
+		526C3C462F3BC492004F1768 /* RepeatDaysPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatDaysPicker.swift; sourceTree = "<group>"; };
 		527BC1A12F3A413700287638 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		527BC1A42F3A423400287638 /* SupabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseService.swift; sourceTree = "<group>"; };
 		527BC1A72F3A42B000287638 /* ProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepository.swift; sourceTree = "<group>"; };
@@ -248,6 +262,8 @@
 				529618B12F3604FE001E7C7C /* TextFieldFormView.swift */,
 				529618B32F360536001E7C7C /* ErrorField.swift */,
 				529618B72F361752001E7C7C /* appHeaderView.swift */,
+				526C3C442F3BC36D004F1768 /* TimePickerView.swift */,
+				526C3C462F3BC492004F1768 /* RepeatDaysPicker.swift */,
 				52EB50992F3625BC0031FE9D /* AEOTPTextField */,
 			);
 			path = General;
@@ -405,6 +421,11 @@
 				52C1CD8C2F37591500BEED1E /* BiggestDistractionView.swift */,
 				52E272632F375DA500D9B65C /* AgeView.swift */,
 				52E272652F375E4C00D9B65C /* GenderView.swift */,
+				526C3C3A2F3BAF5B004F1768 /* StayAsleepView.swift */,
+				526C3C3C2F3BB0AE004F1768 /* EarlyWakeupRatingView.swift */,
+				526C3C3E2F3BB155004F1768 /* DailyFunctionView.swift */,
+				526C3C402F3BB2E2004F1768 /* DistractingAppsView.swift */,
+				526C3C422F3BC043004F1768 /* FocusProtectionScheduleView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -623,6 +644,7 @@
 				529E03E22F3531530000CFEA /* AppDelegate.swift in Sources */,
 				529618B42F360536001E7C7C /* ErrorField.swift in Sources */,
 				524961CF2F37BC0800D057F0 /* HomeViewModel.swift in Sources */,
+				526C3C3F2F3BB155004F1768 /* DailyFunctionView.swift in Sources */,
 				529E03FE2F35318B0000CFEA /* LocalizedExtensions.swift in Sources */,
 				529618B22F3604FE001E7C7C /* TextFieldFormView.swift in Sources */,
 				524961D22F37BCA900D057F0 /* SoundsView.swift in Sources */,
@@ -637,6 +659,7 @@
 				527BC1AC2F3A573A00287638 /* AuthViewModel.swift in Sources */,
 				529E04012F35318B0000CFEA /* AppEnvironment.swift in Sources */,
 				528169BF2F35B519007AE539 /* ButtonStyle.swift in Sources */,
+				526C3C3B2F3BAF5B004F1768 /* StayAsleepView.swift in Sources */,
 				524961E12F37BDE300D057F0 /* SettingsView.swift in Sources */,
 				529E04022F35318B0000CFEA /* Localizer.swift in Sources */,
 				52C609642F392C59002E41D1 /* RoundedView.swift in Sources */,
@@ -650,9 +673,12 @@
 				522628EF2F363A5100C79B73 /* SleepScheduleView.swift in Sources */,
 				52C6C18E2F35380B0070850E /* MainTabView.swift in Sources */,
 				529E04052F35318B0000CFEA /* CornerRadius.swift in Sources */,
+				526C3C3D2F3BB0AE004F1768 /* EarlyWakeupRatingView.swift in Sources */,
 				52C1CD8D2F37591500BEED1E /* BiggestDistractionView.swift in Sources */,
+				526C3C452F3BC36D004F1768 /* TimePickerView.swift in Sources */,
 				529618AA2F35F28C001E7C7C /* OnboardingView.swift in Sources */,
 				524961E52F37C5EA00D057F0 /* IfAvailableiOS26.swift in Sources */,
+				526C3C472F3BC492004F1768 /* RepeatDaysPicker.swift in Sources */,
 				527BC1A82F3A42B100287638 /* ProfileRepository.swift in Sources */,
 				52EB509A2F3625BC0031FE9D /* ChangeObserverModifier.swift in Sources */,
 				52E272662F375E4C00D9B65C /* GenderView.swift in Sources */,
@@ -665,6 +691,7 @@
 				522628F12F36415100C79B73 /* SplashViewModel.swift in Sources */,
 				52EB509F2F3625BC0031FE9D /* AEOTPView.swift in Sources */,
 				52EB50A02F3625BC0031FE9D /* AEOTPTextField.swift in Sources */,
+				526C3C412F3BB2E2004F1768 /* DistractingAppsView.swift in Sources */,
 				52EB50A12F3625BC0031FE9D /* AEOTPTextFieldImplementationProtocol.swift in Sources */,
 				524961E32F37BDED00D057F0 /* SettingsViewModel.swift in Sources */,
 				52EB50A22F3625BC0031FE9D /* AEOTPViewRepresentable.swift in Sources */,
@@ -677,6 +704,7 @@
 				52EB507C2F3621760031FE9D /* ForgotPasswordView.swift in Sources */,
 				528169BB2F35B173007AE539 /* MyImage.swift in Sources */,
 				529E04082F35318B0000CFEA /* SwiftUI+Extensions.swift in Sources */,
+				526C3C432F3BC043004F1768 /* FocusProtectionScheduleView.swift in Sources */,
 				52E272642F375DA500D9B65C /* AgeView.swift in Sources */,
 				529E04092F35318B0000CFEA /* Font+Swizzle.swift in Sources */,
 				529618B02F35F2F0001E7C7C /* SignupView.swift in Sources */,

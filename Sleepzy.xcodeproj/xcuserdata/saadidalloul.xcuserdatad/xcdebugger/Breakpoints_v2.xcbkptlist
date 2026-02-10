@@ -34,6 +34,50 @@
             endingLineNumber = "92"
             landmarkName = "signIn(email:password:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5B0E1471-9680-4AD4-89E9-A4F23500EAF6 - 663ae47859cb40df"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for Sleepzy.AuthViewModel.signIn(email: Swift.String, password: Swift.String) async -&gt; ()"
+                  moduleName = "Sleepzy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92">
+               </Location>
+               <Location
+                  uuid = "5B0E1471-9680-4AD4-89E9-A4F23500EAF6 - b0641860396a3ff4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for Sleepzy.AuthViewModel.signIn(email: Swift.String, password: Swift.String) async -&gt; ()"
+                  moduleName = "Sleepzy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92">
+               </Location>
+               <Location
+                  uuid = "5B0E1471-9680-4AD4-89E9-A4F23500EAF6 - 971f8b615a6a6ec2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) suspend resume partial function for Sleepzy.AuthViewModel.signIn(email: Swift.String, password: Swift.String) async -&gt; ()"
+                  moduleName = "Sleepzy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -66,6 +110,64 @@
             endingLineNumber = "94"
             landmarkName = "signIn(email:password:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "7A1ACD3C-F716-4FB1-B6B3-06077CA2B1FB - f5a4c9dc3321871f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for Sleepzy.AuthViewModel.signIn(email: Swift.String, password: Swift.String) async -&gt; ()"
+                  moduleName = "Sleepzy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94">
+               </Location>
+               <Location
+                  uuid = "7A1ACD3C-F716-4FB1-B6B3-06077CA2B1FB - cf824e6743436038"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) await resume partial function for Sleepzy.AuthViewModel.signIn(email: Swift.String, password: Swift.String) async -&gt; ()"
+                  moduleName = "Sleepzy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94">
+               </Location>
+               <Location
+                  uuid = "7A1ACD3C-F716-4FB1-B6B3-06077CA2B1FB - 41569db0ad06cb01"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for Sleepzy.AuthViewModel.signIn(email: Swift.String, password: Swift.String) async -&gt; ()"
+                  moduleName = "Sleepzy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94">
+               </Location>
+               <Location
+                  uuid = "7A1ACD3C-F716-4FB1-B6B3-06077CA2B1FB - 2cc16117075f0f03"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for Sleepzy.AuthViewModel.signIn(email: Swift.String, password: Swift.String) async -&gt; ()"
+                  moduleName = "Sleepzy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -82,6 +184,36 @@
             endingLineNumber = "99"
             landmarkName = "signIn(email:password:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5D8BD431-CD3D-4575-8D5A-53B7EAA43FC3 - 971f8b615a6a6dab"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) suspend resume partial function for Sleepzy.AuthViewModel.signIn(email: Swift.String, password: Swift.String) async -&gt; ()"
+                  moduleName = "Sleepzy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99">
+               </Location>
+               <Location
+                  uuid = "5D8BD431-CD3D-4575-8D5A-53B7EAA43FC3 - 2cc16117075f0fa8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for Sleepzy.AuthViewModel.signIn(email: Swift.String, password: Swift.String) async -&gt; ()"
+                  moduleName = "Sleepzy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -130,6 +262,36 @@
             endingLineNumber = "52"
             landmarkName = "content"
             landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "6DA82329-609C-4FFC-A510-44324A9F80C1 - 471d5c7debee92ef"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 () async -&gt; () in closure #1 @Swift.MainActor () -&gt; () in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, Sleepzy.TextFieldFormView, SwiftUI.Spacer, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt; in Sleepzy.ForgotPasswordView.content.getter : some"
+                  moduleName = "Sleepzy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/ForgotPassword/ForgotPasswordView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52">
+               </Location>
+               <Location
+                  uuid = "6DA82329-609C-4FFC-A510-44324A9F80C1 - a756af90b742ff8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for closure #1 () async -&gt; () in closure #1 @Swift.MainActor () -&gt; () in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, Sleepzy.TextFieldFormView, SwiftUI.Spacer, &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0)&gt; in Sleepzy.ForgotPasswordView.content.getter : some"
+                  moduleName = "Sleepzy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/ForgotPassword/ForgotPasswordView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -146,6 +308,68 @@
             endingLineNumber = "122"
             landmarkName = "forgotPassword(email:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "717B1182-EE1C-45A3-BD03-B4959495B736 - a434958b9d2c6d15"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for Sleepzy.AuthViewModel.forgotPassword(email: Swift.String) async -&gt; ()"
+                  moduleName = "Sleepzy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "122"
+                  endingLineNumber = "122">
+               </Location>
+               <Location
+                  uuid = "717B1182-EE1C-45A3-BD03-B4959495B736 - c35044584c817f79"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for Sleepzy.AuthViewModel.forgotPassword(email: Swift.String) async -&gt; ()"
+                  moduleName = "Sleepzy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "122"
+                  endingLineNumber = "122">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A115C06C-8A94-4410-B4B9-2CCD47021696"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sleepzy/Views/Auth/Onboarding/OnboardingView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3CC74F1A-C8E0-4566-980D-08DE88609F8C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sleepzy/Views/Auth/Onboarding/OnboardingView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "body"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

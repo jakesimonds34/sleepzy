@@ -69,21 +69,7 @@ struct NewAlarmView: View {
                 
                 ScrollView {
                     // MARK: - Time Picker
-                    VStack(alignment: .center, spacing: 8) {
-                        HStack {
-                            Text("TIME")
-                                .font(.appRegular14)
-                                .foregroundColor(.white)
-                            
-                            Spacer()
-                        }
-                        
-                        DatePicker("",
-                                   selection: $alarmTime,
-                                   displayedComponents: .hourAndMinute)
-                            .datePickerStyle(.wheel)
-                            .labelsHidden()
-                    }
+                    TimePickerView(time: $alarmTime, title: "TIME")
                     
                     // MARK: - Repeat Days
                     VStack(alignment: .leading, spacing: 8) {

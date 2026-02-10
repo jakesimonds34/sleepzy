@@ -10,10 +10,18 @@ import SwiftUI
 struct SleepScheduleView: View {
     // MARK: - Properties
     @Binding var currentStep: Double
+    @Binding var bedHour: Double
+    @Binding var wakeHour: Double
     
     // MARK: - Body
     var body: some View {
         content
+            .onChange(of: bedHour) { (_, newValue) in
+                print(newValue)
+            }
+            .onChange(of: wakeHour) { (_, newValue) in
+                print(newValue)
+            }
     }
     
     // MARK: - View Components
@@ -26,21 +34,23 @@ struct SleepScheduleView: View {
                           paddingTop: 16)
             .padding(.horizontal)
             
-            SleepEditorView()
+            SleepEditorView(bedHour: $bedHour, wakeHour: $wakeHour)
         }
     }
 }
 
 #Preview {
     @Previewable @State var currentStep: Double = 0.2
-    SleepScheduleView(currentStep: $currentStep)
+    @Previewable @State var bedHour: Double = 22
+    @Previewable @State var wakeHour: Double = 8
+    SleepScheduleView(currentStep: $currentStep, bedHour: $bedHour, wakeHour: $wakeHour)
 }
 
 
 struct SleepEditorView: View {
     
-    @State private var bedHour: Double = 22     // 10 PM
-    @State private var wakeHour: Double = 8     // 8 AM
+    @Binding var bedHour: Double     // 10 PM
+    @Binding var wakeHour: Double     // 8 AM
     
     var sleepDuration: Double {
         let diff = wakeHour - bedHour
