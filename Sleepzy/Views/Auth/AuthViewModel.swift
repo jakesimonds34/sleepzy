@@ -48,6 +48,7 @@ class AuthViewModel: ObservableObject {
         self.profileRepo = profileRepo
     }
     
+    //MARK: Load session
     func loadSession() async {
         user = await authRepo.getCurrentUser()
         
@@ -60,6 +61,7 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    //MARK: Signup
     func signUp(fullName: String, email: String, password: String) async {
         isLoading = true
         errorMessage = nil
@@ -81,6 +83,7 @@ class AuthViewModel: ObservableObject {
         isLoading = false
     }
     
+    //MARK: Sign in
     func signIn(email: String, password: String) async {
         isLoading = true
         errorMessage = nil
@@ -99,6 +102,7 @@ class AuthViewModel: ObservableObject {
         isLoading = false
     }
     
+    //MARK: Sign out
     func signOut() async {
         do {
             try await authRepo.signOut()
@@ -110,6 +114,7 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    //MARK: Forgot password
     func forgotPassword(email: String) async {
         isLoading = true
         
@@ -123,6 +128,7 @@ class AuthViewModel: ObservableObject {
         }
     }
     
+    //MARK: Update password
     func updatePassword(newPassword: String) async {
         isLoading = true
         
@@ -135,5 +141,20 @@ class AuthViewModel: ObservableObject {
             errorMessage = error.localizedDescription
             Alerts.show(title: nil, body: error.localizedDescription, theme: .error)
         }
+    }
+    
+    //MARK: Login validations
+    var isSignInValidated: Bool {
+        if email.isEmpty || !email.isValidEmail() {
+            Alerts.show(title: nil, body: "Invalid email address", theme: .warning)
+            return false
+        }
+        
+        if password.count < 6 {
+            Alerts.show(title: nil, body: "Password must be at least 6 characters long.", theme: .warning)
+            return false
+        }
+        
+        return true
     }
 }

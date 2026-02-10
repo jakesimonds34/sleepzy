@@ -51,7 +51,12 @@ struct ForgotPasswordView: View {
                     await viewModel.forgotPassword(email: viewModel.email)
                 }
             } label: {
-                Text("Send Code")
+                if viewModel.isLoading {
+                    ProgressView()
+                        .tint(.black)
+                } else {
+                    Text("Send Code")
+                }
             }
             .style(.primary)
             .padding(.bottom, 92)

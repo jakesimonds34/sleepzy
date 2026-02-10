@@ -72,7 +72,7 @@ struct LoginView: View {
             
             VStack(spacing: 22) {
                 Button {
-                    guard !viewModel.isLoading else { return }
+                    guard !viewModel.isLoading, viewModel.isSignInValidated else { return }
                     Task {
                         await viewModel.signIn(
                             email: viewModel.email.trimmingCharacters(in: .whitespacesAndNewlines),
