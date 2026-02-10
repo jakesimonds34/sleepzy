@@ -20,6 +20,16 @@ struct ContentView: View {
             .environmentObject(appEnv)
             .environment(\.locale, appEnv.locale)
             .environment(\.layoutDirection, appEnv.layoutDirection)
+            .onOpenURL { url in
+                handleDeepLink(url: url)
+            }
+    }
+    
+    private func handleDeepLink(url: URL) {
+        let urlString = url.absoluteString
+        if urlString.contains("type=recovery") {
+            appEnv.appStatus = .resetPassword
+        }
     }
     
     // MARK: - View Components
@@ -27,7 +37,8 @@ struct ContentView: View {
     private var content: some View {
         if appEnv.appStatus == .loading {
             SplashView()
-//            MainTabView()
+        } else if appEnv.appStatus == .resetPassword {
+            NewPasswordView()
         } else {
             MainTabView()
         }

@@ -11,6 +11,7 @@ import Foundation
 import SwiftMessages
 
 class AuthViewModel: ObservableObject {
+    //MARK: Auth parameters
     @Published var fullName: String = ""
     @Published var email: String = ""
     @Published var password: String = ""
@@ -19,19 +20,23 @@ class AuthViewModel: ObservableObject {
     @Published var verificationCode = ""
     @Published var otpLength = 6
     
+    //MARK: Services parameters
     @Published var isLoading = false
     @Published var errorMessage: String?
+    @Published var successMessage: String?
     
-    // Destination views
+    //MARK: Destination views
     @Published var showOnboarding: Bool = false
     @Published var showSignup: Bool = false
     @Published var showForgotPassword: Bool = false
     @Published var showEnterCode: Bool = false
     @Published var showNewPassword: Bool = false
     
+    //MARK: Objects
     @Published var user: User?
     @Published var profile: Profile?
     
+    //MARK: Protocols
     private let authRepo: AuthRepositoryProtocol
     private let profileRepo: ProfileRepositoryProtocol
     
@@ -99,6 +104,33 @@ class AuthViewModel: ObservableObject {
             try await authRepo.signOut()
             user = nil
             profile = nil
+        } catch {
+            errorMessage = error.localizedDescription
+            Alerts.show(title: nil, body: error.localizedDescription, theme: .error)
+        }
+    }
+    
+    func forgotPassword(email: String) async {
+        isLoading = true
+        
+        do {
+            try await authRepo.forgotPassword(email: email)
+            successMessage = "Password reset link has been sent to your email."
+            Alerts.show(title: nil, body: successMessage ?? "Success", theme: .success)
+        } catch {
+            errorMessage = error.localizedDescription
+            Alerts.show(title: nil, body: error.localizedDescription, theme: .error)
+        }
+    }
+    
+    func updatePassword(newPassword: String) async {
+        isLoading = true
+        
+        do {
+            try await authRepo.updatePassword(newPassword: newPassword)
+            successMessage = "Password has been successfully updated."
+            Alerts.show(title: nil, body: successMessage ?? "", theme: .success)
+            
         } catch {
             errorMessage = error.localizedDescription
             Alerts.show(title: nil, body: error.localizedDescription, theme: .error)

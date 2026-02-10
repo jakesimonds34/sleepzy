@@ -46,7 +46,10 @@ struct ForgotPasswordView: View {
             Spacer()
             
             Button {
-                viewModel.showEnterCode.toggle()
+//                viewModel.showEnterCode.toggle()
+                Task {
+                    await viewModel.forgotPassword(email: viewModel.email)
+                }
             } label: {
                 Text("Send Code")
             }

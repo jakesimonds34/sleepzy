@@ -13,6 +13,8 @@ protocol AuthRepositoryProtocol {
     func signIn(email: String, password: String) async throws -> User
     func signOut() async throws
     func getCurrentUser() async -> User?
+    func forgotPassword(email: String) async throws
+    func updatePassword(newPassword: String) async throws
 }
 
 final class AuthRepository: AuthRepositoryProtocol {
@@ -41,5 +43,13 @@ final class AuthRepository: AuthRepositoryProtocol {
         } catch {
             return nil
         }
+    }
+    
+    func forgotPassword(email: String) async throws {
+        try await client.auth.resetPasswordForEmail(email)
+    }
+    
+    func updatePassword(newPassword: String) async throws {
+        try await client.auth.update(user: UserAttributes(password: newPassword))
     }
 }
