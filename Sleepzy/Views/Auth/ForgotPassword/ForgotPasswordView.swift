@@ -47,6 +47,7 @@ struct ForgotPasswordView: View {
             
             Button {
 //                viewModel.showEnterCode.toggle()
+                guard !viewModel.isLoading, viewModel.validateEmail() else { return }
                 Task {
                     await viewModel.forgotPassword(email: viewModel.email)
                 }

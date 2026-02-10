@@ -73,7 +73,7 @@ struct SignupView: View {
             
             VStack(spacing: 22) {
                 Button {
-                    guard !viewModel.isLoading else { return }
+                    guard !viewModel.isLoading, viewModel.isSignUpValidated else { return }
                     Task {
                         await viewModel.signUp(
                             fullName: viewModel.fullName,

@@ -126,6 +126,8 @@ class AuthViewModel: ObservableObject {
             errorMessage = error.localizedDescription
             Alerts.show(title: nil, body: error.localizedDescription, theme: .error)
         }
+        
+        isLoading = false
     }
     
     //MARK: Update password
@@ -141,20 +143,59 @@ class AuthViewModel: ObservableObject {
             errorMessage = error.localizedDescription
             Alerts.show(title: nil, body: error.localizedDescription, theme: .error)
         }
+        
+        isLoading = false
     }
     
-    //MARK: Login validations
+    ///__________________________________________________________________________________
+    ///__________________________________________________________________________________
+    ///__________________________________________________________________________________
+    
+    // MARK: - Signup Validation
+    var isSignUpValidated: Bool {
+        validateFullName() &&
+        validateEmail() &&
+        validatePassword() &&
+        validatePasswordMatch()
+    }
+    
+    // MARK: - Login Validation
     var isSignInValidated: Bool {
-        if email.isEmpty || !email.isValidEmail() {
+        validateEmail() &&
+        validatePassword()
+    }
+    
+    // MARK: - Single Field Validations
+    func validateFullName() -> Bool {
+        guard !fullName.isEmpty else {
+            Alerts.show(title: nil, body: "Full name is required", theme: .warning)
+            return false
+        }
+        return true
+    }
+
+    func validateEmail() -> Bool {
+        guard !email.isEmpty, email.isValidEmail() else {
             Alerts.show(title: nil, body: "Invalid email address", theme: .warning)
             return false
         }
-        
-        if password.count < 6 {
+        return true
+    }
+
+    func validatePassword() -> Bool {
+        guard password.count >= 6 else {
             Alerts.show(title: nil, body: "Password must be at least 6 characters long.", theme: .warning)
             return false
         }
-        
         return true
     }
+
+    func validatePasswordMatch() -> Bool {
+        guard password == confirmPassword else {
+            Alerts.show(title: nil, body: "Password and confirmation do not match.", theme: .warning)
+            return false
+        }
+        return true
+    }
+
 }
