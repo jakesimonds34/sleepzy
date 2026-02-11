@@ -6,9 +6,13 @@
 //
 
 import SwiftUI
+import FamilyControls
 
 struct DistractingAppsView: View {
     // MARK: - Properties
+    @EnvironmentObject var authManager: ScreenTimeAuthorizationManager
+    @EnvironmentObject var appSelection: AppSelectionManager
+    
     @Binding var currentStep: Double
     @Binding var selectedDistractingApps: String?
     
@@ -17,6 +21,9 @@ struct DistractingAppsView: View {
     // MARK: - Body
     var body: some View {
         content
+            .task {
+                await authManager.requestAuthorization()
+            }
     }
     
     // MARK: - View Components
@@ -30,11 +37,14 @@ struct DistractingAppsView: View {
             .padding(.horizontal)
             
             VStack(spacing: 16) {
-                ForEach(items, id: \.title) { item in
-                    RowItemView(item: item, isSelected: selectedDistractingApps == item.title)
-                        .onTapGesture {
-                            selectedDistractingApps = item.title
-                        }
+                
+                ForEach(Array(appSelection.selection.applicationTokens), id: \.self) { token in
+                    RowItemView(item: RowItem(title: token.), isSelected: <#T##Bool#>)
+//                    let item = RowItem(title: token.localizedDisplayName)
+//                    RowItemView(item: item, isSelected: selectedDistractingApps == item.title)
+//                        .onTapGesture {
+//                            selectedDistractingApps = item.title
+//                        }
                 }
             }
             .padding(.horizontal)

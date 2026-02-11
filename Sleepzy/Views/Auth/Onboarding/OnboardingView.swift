@@ -6,9 +6,14 @@
 //
 
 import SwiftUI
+import FamilyControls
 
 struct OnboardingView: View {
     // MARK: - Properties
+    @EnvironmentObject var authManager: ScreenTimeAuthorizationManager
+    @EnvironmentObject var appSelection: AppSelectionManager
+    @Environment(\.dismiss) var dismiss
+    
     @StateObject var viewModel = AuthViewModel()
     
     @State private var currentStep: Double = 1
@@ -26,6 +31,8 @@ struct OnboardingView: View {
     @State private var selectedFromTime: Date = Date()
     @State private var selectedToTime: Date = Date()
     @State private var repeatModel: RepeatDaysModel = RepeatDaysModel()
+    
+    @State private var showPicker: Bool = false
     
     var sleepTime: Double {
         let diff = wakeHour - bedHour
@@ -58,6 +65,20 @@ struct OnboardingView: View {
             .navigationBarHidden(true)
             .navigationDestination(isPresented: $viewModel.showSignup) {
                 SignupView(profile: viewModel.profile ?? Profile(id: UUID(), fullName: ""))
+            }
+            .sheet(isPresented: $showPicker) {
+                if authManager.isAuthorized {
+                    FamilyActivityPicker(selection: $appSelection.selection)
+                } else {
+                    Text("يجب منح صلاحية Screen Time أولًا")
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("تم") {
+                        dismiss()
+                    }
+                }
             }
     }
     
@@ -97,6 +118,16 @@ struct OnboardingView: View {
                 default:
                     Text("")
                 }
+            }
+            
+            if currentStep == 9 && authManager.isAuthorized {
+                Button {
+                    showPicker.toggle()
+                } label: {
+                    Text("Select apps")
+                }
+                .style(.primary)
+                .padding(.horizontal, 52)
             }
             
             Button {
