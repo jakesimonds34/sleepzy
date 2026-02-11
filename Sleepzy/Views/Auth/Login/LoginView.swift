@@ -21,7 +21,7 @@ struct LoginView: View {
             .ignoresSafeArea()
             .navigationBarHidden(true)
             .navigationDestination(isPresented: $viewModel.showSignup) {
-                SignupView()
+                SignupView(profile: Profile(id: UUID(), fullName: ""))
             }
             .navigationDestination(isPresented: $viewModel.showForgotPassword) {
                 ForgotPasswordView()

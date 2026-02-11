@@ -14,10 +14,10 @@ struct OnboardingView: View {
     @State private var currentStep: Double = 1
     
     @State private var selectedGoal: String? = nil
-    @State private var selectedDistraction: String? = nil
-    @State private var selectedAge: String? = nil
     @State private var bedHour: Double = 22     // 10 PM
     @State private var wakeHour: Double = 8     // 8 AM
+    @State private var selectedBiggestDistraction: String? = nil
+    @State private var selectedAge: String? = nil
     @State private var selectedGender: String? = nil
     @State private var selectedStayAsleep: String? = nil
     @State private var selectedEarlyWakeupRating: String? = nil
@@ -27,10 +27,15 @@ struct OnboardingView: View {
     @State private var selectedToTime: Date = Date()
     @State private var repeatModel: RepeatDaysModel = RepeatDaysModel()
     
+    var sleepTime: Double {
+        let diff = wakeHour - bedHour
+        return diff >= 0 ? diff : (24 + diff)
+    }
+    
     private var isStepValid: Bool {
         switch currentStep {
         case 1: return selectedGoal != nil
-        case 3: return selectedDistraction != nil
+        case 3: return selectedBiggestDistraction != nil
         case 4: return selectedAge != nil
         case 5: return selectedGender != nil
         case 6: return selectedStayAsleep != nil
@@ -51,45 +56,9 @@ struct OnboardingView: View {
             )
             .ignoresSafeArea()
             .navigationBarHidden(true)
-//            .onChange(of: selectedGoal) { (_, goal) in
-//                print(goal ?? "")
-//            }
-            .onChange(of: bedHour) { (_, newValue) in
-                print(newValue)
+            .navigationDestination(isPresented: $viewModel.showSignup) {
+                SignupView(profile: viewModel.profile ?? Profile(id: UUID(), fullName: ""))
             }
-            .onChange(of: wakeHour) { (_, newValue) in
-                print(newValue)
-            }
-//            .onChange(of: selectedDistraction) { (_, newValue) in
-//                print(newValue ?? "")
-//            }
-//            .onChange(of: selectedAge) { (_, newValue) in
-//                print(newValue ?? "")
-//            }
-//            .onChange(of: selectedGender) { (_, newValue) in
-//                print(newValue ?? "")
-//            }
-//            .onChange(of: selectedStayAsleep) { (_, newValue) in
-//                print(newValue ?? "")
-//            }
-//            .onChange(of: selectedEarlyWakeupRating) { (_, newValue) in
-//                print(newValue ?? "")
-//            }
-//            .onChange(of: selectedDailyFunction) { (_, newValue) in
-//                print(newValue ?? "")
-//            }
-//            .onChange(of: selectedDistractingApps) { (_, newValue) in
-//                print(newValue ?? "")
-//            }
-//            .onChange(of: selectedFromTime) { (_, fromTime) in
-//                print(fromTime)
-//            }
-//            .onChange(of: selectedToTime) { (_, toTime) in
-//                print(toTime)
-//            }
-//            .onChange(of: repeatModel) { (_, repeatModel) in
-//                print(repeatModel)
-//            }
     }
     
     // MARK: - View Components
@@ -105,7 +74,7 @@ struct OnboardingView: View {
                 case 2:
                     SleepScheduleView(currentStep: $currentStep, bedHour: $bedHour, wakeHour: $wakeHour)
                 case 3:
-                    BiggestDistractionView(currentStep: $currentStep, selectedDistraction: $selectedDistraction)
+                    BiggestDistractionView(currentStep: $currentStep, selectedDistraction: $selectedBiggestDistraction)
                 case 4:
                     AgeView(currentStep: $currentStep, selectedAge: $selectedAge)
                 case 5:
@@ -134,8 +103,44 @@ struct OnboardingView: View {
                 if currentStep < 10 {
                     currentStep += 1
                 } else {
-                    AppEnvironment.shared.appStatus = .home
+                    // AppEnvironment.shared.appStatus = .home
+                    let profile = Profile(
+                        id: UUID(),
+                        fullName: "",
+                        createdAt: Date(),
+                        ageRange: selectedAge,
+                        gender: selectedGender,
+                        email: "",
+                        goal: selectedGoal,
+                        bedTime: bedHour,
+                        sleepTime: sleepTime,
+                        wakeUp: wakeHour,
+                        biggestDistraction: selectedBiggestDistraction,
+                        stayAsleep: selectedStayAsleep,
+                        earlyWakeupRating: selectedEarlyWakeupRating,
+                        dailyFunctionInterference: selectedDailyFunction,
+                        distractingApps: selectedDistractingApps,
+                        focusProtectionFrom: selectedFromTime,
+                        focusProtectionTo: selectedToTime)
+                    
+                    viewModel.profile = profile
+                    viewModel.showSignup.toggle()
                 }
+                
+                print(selectedGoal ?? "")
+                print(bedHour)
+                print(wakeHour)
+                print(sleepTime)
+                print(selectedBiggestDistraction ?? "")
+                print(selectedAge ?? "")
+                print(selectedGender ?? "")
+                print(selectedStayAsleep ?? "")
+                print(selectedEarlyWakeupRating ?? "")
+                print(selectedDailyFunction ?? "")
+                print(selectedDistractingApps ?? "")
+                print(selectedFromTime)
+                print(selectedToTime)
+                print(repeatModel.selected)
             } label: {
                 Text("Next")
             }

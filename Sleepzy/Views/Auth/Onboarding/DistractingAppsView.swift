@@ -13,11 +13,11 @@ struct DistractingAppsView: View {
     @Binding var selectedDistractingApps: String?
     
     let items: [RowItem] = [
-        RowItem(title: "Not at all"),
-        RowItem(title: "Barely"),
-        RowItem(title: "Somewhat"),
-        RowItem(title: "Much"),
-        RowItem(title: "Very much interfering")
+        RowItem(title: "Instagram"),
+        RowItem(title: "Tiktok"),
+        RowItem(title: "Youtube"),
+        RowItem(title: "Facebook"),
+        RowItem(title: "Messenger")
     ]
     
     // MARK: - Body

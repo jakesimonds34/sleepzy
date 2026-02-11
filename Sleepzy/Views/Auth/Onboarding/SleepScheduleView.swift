@@ -52,7 +52,7 @@ struct SleepEditorView: View {
     @Binding var bedHour: Double     // 10 PM
     @Binding var wakeHour: Double     // 8 AM
     
-    var sleepDuration: Double {
+    var sleepTime: Double {
         let diff = wakeHour - bedHour
         return diff >= 0 ? diff : (24 + diff)
     }
@@ -137,7 +137,7 @@ struct SleepEditorView: View {
                         Text("Sleep time")
                             .foregroundColor(.white.opacity(0.8))
                         
-                        Text("\(Int(sleepDuration)) hours")
+                        Text("\(Int(sleepTime)) hours")
                             .foregroundColor(.white)
                     }
                     

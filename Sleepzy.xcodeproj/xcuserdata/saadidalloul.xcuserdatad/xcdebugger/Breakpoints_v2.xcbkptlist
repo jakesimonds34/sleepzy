@@ -7,22 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "AAC4F3AD-85BC-446E-80C9-80FE3927463E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Sleepzy/Models/Repositories/AuthRepository.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "signUp(email:password:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "5B0E1471-9680-4AD4-89E9-A4F23500EAF6"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -30,13 +14,13 @@
             filePath = "Sleepzy/Views/Auth/AuthViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "signIn(email:password:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "5B0E1471-9680-4AD4-89E9-A4F23500EAF6 - 663ae47859cb40df"
+                  uuid = "5B0E1471-9680-4AD4-89E9-A4F23500EAF6 - 663ae47859cb4d81"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -46,11 +30,11 @@
                   urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "92"
-                  endingLineNumber = "92">
+                  startingLineNumber = "114"
+                  endingLineNumber = "114">
                </Location>
                <Location
-                  uuid = "5B0E1471-9680-4AD4-89E9-A4F23500EAF6 - b0641860396a3ff4"
+                  uuid = "5B0E1471-9680-4AD4-89E9-A4F23500EAF6 - b0641860396a32aa"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -60,11 +44,11 @@
                   urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "92"
-                  endingLineNumber = "92">
+                  startingLineNumber = "114"
+                  endingLineNumber = "114">
                </Location>
                <Location
-                  uuid = "5B0E1471-9680-4AD4-89E9-A4F23500EAF6 - 971f8b615a6a6ec2"
+                  uuid = "5B0E1471-9680-4AD4-89E9-A4F23500EAF6 - 971f8b615a6a639c"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -74,8 +58,8 @@
                   urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "92"
-                  endingLineNumber = "92">
+                  startingLineNumber = "114"
+                  endingLineNumber = "114">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -90,8 +74,8 @@
             filePath = "Sleepzy/Views/Auth/AuthViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
             landmarkName = "signIn(email:password:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,13 +90,13 @@
             filePath = "Sleepzy/Views/Auth/AuthViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "signIn(email:password:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "7A1ACD3C-F716-4FB1-B6B3-06077CA2B1FB - f5a4c9dc3321871f"
+                  uuid = "7A1ACD3C-F716-4FB1-B6B3-06077CA2B1FB - f5a4c9dc332189c5"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -122,11 +106,11 @@
                   urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94">
+                  startingLineNumber = "116"
+                  endingLineNumber = "116">
                </Location>
                <Location
-                  uuid = "7A1ACD3C-F716-4FB1-B6B3-06077CA2B1FB - cf824e6743436038"
+                  uuid = "7A1ACD3C-F716-4FB1-B6B3-06077CA2B1FB - cf824e6743436ee2"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -136,11 +120,11 @@
                   urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94">
+                  startingLineNumber = "116"
+                  endingLineNumber = "116">
                </Location>
                <Location
-                  uuid = "7A1ACD3C-F716-4FB1-B6B3-06077CA2B1FB - 41569db0ad06cb01"
+                  uuid = "7A1ACD3C-F716-4FB1-B6B3-06077CA2B1FB - 41569db0ad06c5db"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -150,11 +134,11 @@
                   urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94">
+                  startingLineNumber = "116"
+                  endingLineNumber = "116">
                </Location>
                <Location
-                  uuid = "7A1ACD3C-F716-4FB1-B6B3-06077CA2B1FB - 2cc16117075f0f03"
+                  uuid = "7A1ACD3C-F716-4FB1-B6B3-06077CA2B1FB - 2cc16117075f01d9"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -164,8 +148,8 @@
                   urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94">
+                  startingLineNumber = "116"
+                  endingLineNumber = "116">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -180,13 +164,13 @@
             filePath = "Sleepzy/Views/Auth/AuthViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
             landmarkName = "signIn(email:password:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "5D8BD431-CD3D-4575-8D5A-53B7EAA43FC3 - 971f8b615a6a6dab"
+                  uuid = "5D8BD431-CD3D-4575-8D5A-53B7EAA43FC3 - 971f8b615a6a6285"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -196,11 +180,11 @@
                   urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "99"
-                  endingLineNumber = "99">
+                  startingLineNumber = "121"
+                  endingLineNumber = "121">
                </Location>
                <Location
-                  uuid = "5D8BD431-CD3D-4575-8D5A-53B7EAA43FC3 - 2cc16117075f0fa8"
+                  uuid = "5D8BD431-CD3D-4575-8D5A-53B7EAA43FC3 - 2cc16117075f0086"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -210,8 +194,8 @@
                   urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "99"
-                  endingLineNumber = "99">
+                  startingLineNumber = "121"
+                  endingLineNumber = "121">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -226,8 +210,8 @@
             filePath = "Sleepzy/Views/Auth/AuthViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
             landmarkName = "forgotPassword(email:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -242,8 +226,8 @@
             filePath = "Sleepzy/Views/Auth/AuthViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
             landmarkName = "forgotPassword(email:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -304,13 +288,13 @@
             filePath = "Sleepzy/Views/Auth/AuthViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "forgotPassword(email:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "717B1182-EE1C-45A3-BD03-B4959495B736 - a434958b9d2c6d15"
+                  uuid = "717B1182-EE1C-45A3-BD03-B4959495B736 - a434958b9d2c68cf"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -320,11 +304,11 @@
                   urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "122"
-                  endingLineNumber = "122">
+                  startingLineNumber = "144"
+                  endingLineNumber = "144">
                </Location>
                <Location
-                  uuid = "717B1182-EE1C-45A3-BD03-B4959495B736 - c35044584c817f79"
+                  uuid = "717B1182-EE1C-45A3-BD03-B4959495B736 - c35044584c817aa3"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -334,8 +318,8 @@
                   urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "122"
-                  endingLineNumber = "122">
+                  startingLineNumber = "144"
+                  endingLineNumber = "144">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -343,15 +327,31 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A115C06C-8A94-4410-B4B9-2CCD47021696"
+            uuid = "86ECF53C-A18E-4B4C-A77E-5BA0B846BD6C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Sleepzy/Views/Auth/Onboarding/OnboardingView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "content"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "36035EED-443E-43D0-9412-D0F1DC16B0B3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sleepzy/Views/Auth/Onboarding/OnboardingView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -359,17 +359,63 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3CC74F1A-C8E0-4566-980D-08DE88609F8C"
+            uuid = "3B39DE6F-E1AC-4594-9CDB-8899CAE36848"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Sleepzy/Views/Auth/Onboarding/OnboardingView.swift"
+            filePath = "Sleepzy/Views/Auth/AuthViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "signUp(fullName:email:password:profile:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3B39DE6F-E1AC-4594-9CDB-8899CAE36848 - b9a697231ae606c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) suspend resume partial function for Sleepzy.AuthViewModel.signUp(fullName: Swift.String, email: Swift.String, password: Swift.String, profile: Sleepzy.Profile) async -&gt; ()"
+                  moduleName = "Sleepzy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102">
+               </Location>
+               <Location
+                  uuid = "3B39DE6F-E1AC-4594-9CDB-8899CAE36848 - 56a4bdd96d93826f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for Sleepzy.AuthViewModel.signUp(fullName: Swift.String, email: Swift.String, password: Swift.String, profile: Sleepzy.Profile) async -&gt; ()"
+                  moduleName = "Sleepzy.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/saadidalloul/Desktop/Main/Projects/Upwork/Sleepzy/Sleepzy/Views/Auth/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D18E4029-7BED-4DFD-92E7-93C7B609F0F8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sleepzy/Views/Auth/AuthViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
+            landmarkName = "signUp(fullName:email:password:profile:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

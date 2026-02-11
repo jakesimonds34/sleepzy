@@ -12,6 +12,8 @@ struct SignupView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel = AuthViewModel()
     
+    var profile: Profile
+    
     // MARK: - Body
     var body: some View {
         content
@@ -78,7 +80,8 @@ struct SignupView: View {
                         await viewModel.signUp(
                             fullName: viewModel.fullName,
                             email: viewModel.email,
-                            password: viewModel.password
+                            password: viewModel.password,
+                            profile: profile
                         )
                     }
                 } label: {
@@ -112,5 +115,6 @@ struct SignupView: View {
 }
 
 #Preview {
-    SignupView()
+    var profile: Profile = Profile(id: UUID(), fullName: "")
+    SignupView(profile: profile)
 }

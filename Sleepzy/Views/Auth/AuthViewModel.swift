@@ -62,7 +62,7 @@ class AuthViewModel: ObservableObject {
     }
     
     //MARK: Signup
-    func signUp(fullName: String, email: String, password: String) async {
+    func signUp(fullName: String, email: String, password: String, profile: Profile) async {
         isLoading = true
         errorMessage = nil
         
@@ -70,7 +70,29 @@ class AuthViewModel: ObservableObject {
             let newUser = try await authRepo.signUp(email: email, password: password)
             self.user = newUser
             
-            let profile = Profile(id: newUser.id, fullName: fullName)
+            let profile = Profile(
+                id: newUser.id,
+                fullName: fullName,
+                createdAt: Date(),
+                ageRange: profile.ageRange,
+                gender: profile.gender,
+                email: email,
+                goal: profile.goal,
+                bedTime: profile.bedTime,
+                sleepTime: profile.sleepTime,
+                wakeUp: profile.wakeUp,
+                biggestDistraction: profile.biggestDistraction,
+                stayAsleep: profile.stayAsleep,
+                earlyWakeupRating: profile.earlyWakeupRating,
+                dailyFunctionInterference: profile.dailyFunctionInterference,
+                currentSleepScore: profile.currentSleepScore,
+                potentialSleepScore: profile.potentialSleepScore,
+                distractingApps: profile.distractingApps,
+                focusProtectionFrom: profile.focusProtectionFrom,
+                focusProtectionTo: profile.focusProtectionTo,
+                focusProtectionRepeatOn: profile.focusProtectionRepeatOn
+            )
+            
             try await profileRepo.createProfile(profile)
             self.profile = profile
             

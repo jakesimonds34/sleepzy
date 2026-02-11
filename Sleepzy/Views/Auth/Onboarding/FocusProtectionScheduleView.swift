@@ -15,14 +15,6 @@ struct FocusProtectionScheduleView: View {
     @Binding var fromTime: Date
     @Binding var toTime: Date
     
-    let items: [RowItem] = [
-        RowItem(title: "Not at all"),
-        RowItem(title: "Barely"),
-        RowItem(title: "Somewhat"),
-        RowItem(title: "Much"),
-        RowItem(title: "Very much interfering")
-    ]
-    
     // MARK: - Body
     var body: some View {
         content
@@ -32,8 +24,8 @@ struct FocusProtectionScheduleView: View {
     @ViewBuilder
     private var content: some View {
         VStack {
-            AppHeaderView(title: "Which apps usually keep you awake?",
-                          subTitle: "Select apps you want Sleepzy to block at night",
+            AppHeaderView(title: "When should Sleepzy protect your focus?",
+                          subTitle: "Choose when distracting apps are blocked to help you sleep better.",
                           isBack: false,
                           paddingTop: 16)
             .padding(.horizontal)
