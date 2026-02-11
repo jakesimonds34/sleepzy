@@ -11,9 +11,13 @@ struct ContentView: View {
     // MARK: - Properties
     @ObservedObject var appEnv = AppEnvironment.shared
     
+    @State var currentStep: Double = 9
+    @State var selectedDistractingApps: String? = ""
+    
     // MARK: - Body
     var body: some View {
         content
+//        DistractingAppsView(currentStep: $currentStep, selectedDistractingApps: $selectedDistractingApps)
             .buttonStyle(.plain)
             .preferredColorScheme(appEnv.colorScheme)
             .animation(.default, value: appEnv.appStatus)

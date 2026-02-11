@@ -5,6 +5,7 @@
 //  Created by Saadi Dalloul on 11/02/2026.
 //
 
+/*
 import Foundation
 import ManagedSettings
 import FamilyControls
@@ -25,3 +26,4 @@ final class BlockingManager: ObservableObject {
         store.shield.applicationCategories = nil
     }
 }
+*/

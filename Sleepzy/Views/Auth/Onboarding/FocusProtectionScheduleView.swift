@@ -36,6 +36,7 @@ struct FocusProtectionScheduleView: View {
             
             //MARK: Repeate Days Picker
             RepeatDaysPicker(model: repeatModel)
+                .padding(.bottom)
         }
     }
 }

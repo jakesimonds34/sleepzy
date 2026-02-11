@@ -48,8 +48,8 @@ struct OnboardingView: View {
         case 6: return selectedStayAsleep != nil
         case 7: return selectedEarlyWakeupRating != nil
         case 8: return selectedDailyFunction != nil
-        case 9: return selectedDistractingApps != nil
-        case 10: return selectedDistractingApps != nil
+        case 9: return !appSelection.selection.applicationTokens.isEmpty || !appSelection.selection.categoryTokens.isEmpty
+        case 10: return true
         default: return true
         }
     }
@@ -70,12 +70,12 @@ struct OnboardingView: View {
                 if authManager.isAuthorized {
                     FamilyActivityPicker(selection: $appSelection.selection)
                 } else {
-                    Text("يجب منح صلاحية Screen Time أولًا")
+                    Text("Screen Time permission must be granted first")
                 }
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("تم") {
+                    Button("Done") {
                         dismiss()
                     }
                 }
@@ -118,16 +118,6 @@ struct OnboardingView: View {
                 default:
                     Text("")
                 }
-            }
-            
-            if currentStep == 9 && authManager.isAuthorized {
-                Button {
-                    showPicker.toggle()
-                } label: {
-                    Text("Select apps")
-                }
-                .style(.primary)
-                .padding(.horizontal, 52)
             }
             
             Button {

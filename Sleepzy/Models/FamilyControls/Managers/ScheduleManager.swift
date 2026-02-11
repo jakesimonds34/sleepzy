@@ -5,6 +5,7 @@
 //  Created by Saadi Dalloul on 11/02/2026.
 //
 
+/*
 import Foundation
 import DeviceActivity
 
@@ -36,3 +37,4 @@ final class ScheduleManager {
         center.stopMonitoring([.kidsBlockSession])
     }
 }
+*/
