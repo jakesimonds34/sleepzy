@@ -25,7 +25,9 @@ struct TimePickerView: View {
             )
             .datePickerStyle(.wheel)
             .labelsHidden()
+            .frame(maxWidth: .infinity)
         }
         .padding(.vertical, 8)
+        .padding(.horizontal)
     }
 }

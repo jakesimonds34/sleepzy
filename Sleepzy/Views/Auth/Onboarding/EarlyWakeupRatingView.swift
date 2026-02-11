@@ -12,13 +12,7 @@ struct EarlyWakeupRatingView: View {
     @Binding var currentStep: Double
     @Binding var selectedEarlyWakeupRating: String?
     
-    let items: [RowItem] = [
-        RowItem(title: "None"),
-        RowItem(title: "Mild"),
-        RowItem(title: "Moderate"),
-        RowItem(title: "Severe"),
-        RowItem(title: "Very Severe")
-    ]
+    let items = LocalData.EarlyWakeupRating.items
     
     // MARK: - Body
     var body: some View {

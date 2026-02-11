@@ -12,13 +12,7 @@ struct DailyFunctionView: View {
     @Binding var currentStep: Double
     @Binding var selectedDailyFunction: String?
     
-    let items: [RowItem] = [
-        RowItem(title: "Not at all"),
-        RowItem(title: "Barely"),
-        RowItem(title: "Somewhat"),
-        RowItem(title: "Much"),
-        RowItem(title: "Very much interfering")
-    ]
+    let items = LocalData.DailyFunction.items
     
     // MARK: - Body
     var body: some View {

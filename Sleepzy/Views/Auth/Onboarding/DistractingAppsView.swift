@@ -12,13 +12,7 @@ struct DistractingAppsView: View {
     @Binding var currentStep: Double
     @Binding var selectedDistractingApps: String?
     
-    let items: [RowItem] = [
-        RowItem(title: "Instagram"),
-        RowItem(title: "Tiktok"),
-        RowItem(title: "Youtube"),
-        RowItem(title: "Facebook"),
-        RowItem(title: "Messenger")
-    ]
+    let items = LocalData.DistractingApps.items
     
     // MARK: - Body
     var body: some View {

@@ -96,7 +96,8 @@ class AuthViewModel: ObservableObject {
             try await profileRepo.createProfile(profile)
             self.profile = profile
             
-            self.showOnboarding.toggle()
+//            self.showOnboarding.toggle()
+            AppEnvironment.shared.appStatus = .home
         } catch {
             errorMessage = error.localizedDescription
             Alerts.show(title: nil, body: error.localizedDescription, theme: .error)

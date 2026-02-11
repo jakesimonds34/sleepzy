@@ -12,13 +12,7 @@ struct StayAsleepView: View {
     @Binding var currentStep: Double
     @Binding var selectedStayAsleep: String?
     
-    let items: [RowItem] = [
-        RowItem(title: "Not at all difficult"),
-        RowItem(title: "A little difficult"),
-        RowItem(title: "Somewhat difficult"),
-        RowItem(title: "Difficult"),
-        RowItem(title: "Very difficult")
-    ]
+    let items = LocalData.StayAsleep.items
     
     // MARK: - Body
     var body: some View {

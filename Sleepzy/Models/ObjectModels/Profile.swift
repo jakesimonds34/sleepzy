@@ -27,7 +27,7 @@ struct Profile: Codable, Identifiable {
     var distractingApps: String?
     var focusProtectionFrom: Date?
     var focusProtectionTo: Date?
-    var focusProtectionRepeatOn: String?
+    var focusProtectionRepeatOn: [String: Bool]?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -39,7 +39,9 @@ struct Profile: Codable, Identifiable {
         case goal = "goal"
         case bedTime = "bed_time"
         case sleepTime = "sleep_time"
+        case wakeUp = "wake_up"
         case biggestDistraction = "biggest_distraction"
+        case stayAsleep = "stay_asleep"
         case earlyWakeupRating = "early_wakeup_rating"
         case dailyFunctionInterference = "daily_function_interference"
         case currentSleepScore = "current_sleep_score"

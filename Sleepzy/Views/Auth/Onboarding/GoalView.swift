@@ -17,12 +17,7 @@ struct GoalView: View {
     @Binding var currentStep: Double
     @Binding var selectedGoal: String?
     
-    let goals: [RowItem] = [
-        RowItem(icon: .sleepIcon, title: "Fall asleep faster"),
-        RowItem(icon: .pillowIcon, title: "Stay asleep longer"),
-        RowItem(icon: .wakeUpIcon, title: "Wake up refreshed"),
-        RowItem(icon: .timeIcon, title: "Reduce screen time")
-    ]
+    let items = LocalData.Goals.items
     
     // MARK: - Body
     var body: some View {
@@ -40,7 +35,7 @@ struct GoalView: View {
             .padding(.horizontal)
             
             VStack(spacing: 16) {
-                ForEach(goals, id: \.title) { item in
+                ForEach(items, id: \.title) { item in
                     RowItemView(item: item, isSelected: selectedGoal == item.title)
                         .onTapGesture {
                             selectedGoal = item.title

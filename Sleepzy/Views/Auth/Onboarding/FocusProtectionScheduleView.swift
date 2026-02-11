@@ -35,7 +35,7 @@ struct FocusProtectionScheduleView: View {
             TimePickerView(time: $toTime, title: "TO")
             
             //MARK: Repeate Days Picker
-            RepeatDaysPicker(model: $repeatModel)
+            RepeatDaysPicker(model: repeatModel)
         }
     }
 }

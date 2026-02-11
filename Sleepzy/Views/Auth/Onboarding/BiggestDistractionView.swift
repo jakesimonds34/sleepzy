@@ -12,12 +12,7 @@ struct BiggestDistractionView: View {
     @Binding var currentStep: Double
     @Binding var selectedDistraction: String?
     
-    let items: [RowItem] = [
-        RowItem(icon: .socialMediaIcon, title: "Social media scrolling"),
-        RowItem(icon: .laptopIcon, title: "Late night work"),
-        RowItem(icon: .brainIcon, title: "Overactive thinking"),
-        RowItem(icon: .hearIcon, title: "Environmental noises ")
-    ]
+    let items = LocalData.Distractions.items
     
     // MARK: - Body
     var body: some View {

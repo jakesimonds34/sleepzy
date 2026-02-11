@@ -121,7 +121,9 @@ struct OnboardingView: View {
                         dailyFunctionInterference: selectedDailyFunction,
                         distractingApps: selectedDistractingApps,
                         focusProtectionFrom: selectedFromTime,
-                        focusProtectionTo: selectedToTime)
+                        focusProtectionTo: selectedToTime,
+                        focusProtectionRepeatOn: repeatDaysToJSON(repeatModel.selected)
+                    )
                     
                     viewModel.profile = profile
                     viewModel.showSignup.toggle()

@@ -45,7 +45,7 @@ class RepeatDaysModel: ObservableObject {
 }
 
 struct RepeatDaysPicker: View {
-    @Binding var model: RepeatDaysModel
+    @ObservedObject var model: RepeatDaysModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -80,4 +80,12 @@ struct RepeatDaysPicker: View {
             }
         }
     }
+}
+
+func repeatDaysToJSON(_ repeatDays: [WeekDay: Bool]) -> [String: Bool] {
+    var json: [String: Bool] = [:]
+    repeatDays.forEach { key, value in
+        json[key.rawValue] = value
+    }
+    return json
 }

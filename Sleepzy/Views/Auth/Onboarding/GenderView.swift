@@ -12,12 +12,7 @@ struct GenderView: View {
     @Binding var currentStep: Double
     @Binding var selectedGender: String?
     
-    let items: [RowItem] = [
-        RowItem(title: "Female"),
-        RowItem(title: "Male"),
-        RowItem(title: "Other"),
-        RowItem(title: "Prefer not to say")
-    ]
+    let items = LocalData.Gender.items
     
     // MARK: - Body
     var body: some View {

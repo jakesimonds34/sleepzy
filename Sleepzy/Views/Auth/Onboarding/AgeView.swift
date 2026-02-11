@@ -12,13 +12,7 @@ struct AgeView: View {
     @Binding var currentStep: Double
     @Binding var selectedAge: String?
     
-    let items: [RowItem] = [
-        RowItem(title: "10-17"),
-        RowItem(title: "18-24"),
-        RowItem(title: "25-34"),
-        RowItem(title: "35-44"),
-        RowItem(title: "45+")
-    ]
+    let items = LocalData.Ages.items
     
     // MARK: - Body
     var body: some View {
