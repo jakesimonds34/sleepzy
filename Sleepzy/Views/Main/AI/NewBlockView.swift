@@ -287,7 +287,7 @@ struct NewBlockView: View {
                 .tracking(1)
             
             HStack(spacing: 8) {
-                ForEach(Weekday.allCases, id: \.self) { day in
+                ForEach(WeekDay.allCases, id: \.self) { day in
                     DayButton(
                         day: day,
                         isSelected: viewModel.selectedDays.contains(day),
@@ -408,7 +408,7 @@ struct NewBlockView: View {
         }) {
             Text("Save")
                 .font(.system(size: 17, weight: .semibold))
-                .foregroundColor(Color(hex: "0A0B2E"))
+//                .foregroundColor(Color(hex: "0A0B2E"))
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
                 .background(Color.white)
@@ -494,7 +494,7 @@ struct PeriodButton: View {
 
 // Day Button
 struct DayButton: View {
-    let day: Weekday
+    let day: WeekDay
     let isSelected: Bool
     let action: () -> Void
     
@@ -653,7 +653,7 @@ class NewBlockViewModel: ObservableObject {
     @Published var toMinute = 2
     @Published var toPeriod: Period = .am
     
-    @Published var selectedDays: Set<Weekday> = Set(Weekday.allCases)
+    @Published var selectedDays: Set<WeekDay> = Set(WeekDay.allCases)
     
     // Timer properties
     @Published var durationMinutes = 20
@@ -661,7 +661,7 @@ class NewBlockViewModel: ObservableObject {
     // Brakes
     @Published var selectedBrake: BrakeType = .takeItEasy
     
-    func toggleDay(_ day: Weekday) {
+    func toggleDay(_ day: WeekDay) {
         if selectedDays.contains(day) {
             selectedDays.remove(day)
         } else {
@@ -697,51 +697,52 @@ enum BlockTab {
     case schedule, timer
 }
 
-enum Period: String {
-    case am = "AM"
-    case pm = "PM"
-}
+//enum Period: String {
+//    case am = "AM"
+//    case pm = "PM"
+//}
 
-enum Weekday: String, CaseIterable {
-    case m = "M"
-    case t = "T"
-    case w = "W"
-    case th = "TH"
-    case f = "F"
-    case s = "S"
-    case su = "SU"
-}
+//enum Weekday: String, CaseIterable {
+//    case m = "M"
+//    case t = "T"
+//    case w = "W"
+//    case th = "TH"
+//    case f = "F"
+//    case s = "S"
+//    case su = "SU"
+//}
 
-enum BrakeType: String, CaseIterable {
-    case takeItEasy = "Yes Take it easy"
-    case makeItHarder = "Yes but make it harder"
-    case hardcore = "No way, I am hardcore"
-    
-    var title: String {
-        switch self {
-        case .takeItEasy: return "Yes, take it easy"
-        case .makeItHarder: return "Yes but make it harder"
-        case .hardcore: return "No way, I am hardcore"
-        }
-    }
-    
-    var description: String {
-        switch self {
-        case .takeItEasy: return "You can bypass with one tap"
-        case .makeItHarder: return "Requires solving a challenge"
-        case .hardcore: return "No breaks until schedule ends"
-        }
-    }
-    
-    var icon: String {
-        switch self {
-        case .takeItEasy: return "hand.raised.slash"
-        case .makeItHarder: return "shield.lefthalf.filled"
-        case .hardcore: return "shield.fill"
-        }
-    }
-}
+//enum BrakeType: String, CaseIterable {
+//    case takeItEasy = "Yes Take it easy"
+//    case makeItHarder = "Yes but make it harder"
+//    case hardcore = "No way, I am hardcore"
+//    
+//    var title: String {
+//        switch self {
+//        case .takeItEasy: return "Yes, take it easy"
+//        case .makeItHarder: return "Yes but make it harder"
+//        case .hardcore: return "No way, I am hardcore"
+//        }
+//    }
+//    
+//    var description: String {
+//        switch self {
+//        case .takeItEasy: return "You can bypass with one tap"
+//        case .makeItHarder: return "Requires solving a challenge"
+//        case .hardcore: return "No breaks until schedule ends"
+//        }
+//    }
+//    
+//    var icon: String {
+//        switch self {
+//        case .takeItEasy: return "hand.raised.slash"
+//        case .makeItHarder: return "shield.lefthalf.filled"
+//        case .hardcore: return "shield.fill"
+//        }
+//    }
+//}
 
+// MARK: - Block Configuration
 struct BlockConfiguration: Codable {
     let name: String
     let type: BlockTab
@@ -751,11 +752,30 @@ struct BlockConfiguration: Codable {
     let toHour: Int
     let toMinute: Int
     let toPeriod: Period
-    let selectedDays: Set<Weekday>
+    let selectedDays: Set<WeekDay>
     let durationMinutes: Int
     let selectedApps: FamilyActivitySelection
     let brakeType: BrakeType
+
+    var timeRange: String {
+        if type == .timer {
+            return "\(durationMinutes) min"
+        } else {
+            return "\(fromHour):\(String(format: "%02d", fromMinute)) \(fromPeriod.rawValue) - \(toHour):\(String(format: "%02d", toMinute)) \(toPeriod.rawValue)"
+        }
+    }
+
+    var daysString: String {
+        if selectedDays.count == 7 {
+            return "Every day"
+        } else if selectedDays.isEmpty {
+            return "No days selected"
+        } else {
+            return selectedDays.map { $0.rawValue }.joined(separator: ", ")
+        }
+    }
 }
+
 
 // MARK: - Extensions
 //extension View {

@@ -62,20 +62,20 @@ struct RepeatDaysPicker: View {
                         .fill(isSelected ?
                               Color(hex: "5939A8").opacity(0.2) :
                               Color.white.opacity(0.1))
-                        .stroke(isSelected ?
-                                Color(hex: "988AE1").opacity(0.4) :
-                                .white.opacity(0.2),
-                                lineWidth: 1)
-                        .frame(width: 44, height: 44)
-                        .overlay(
-                            Text(day.label)
-                                .foregroundColor(.white)
-                        )
-                        .onTapGesture {
-                            withAnimation {
-                                model.toggle(day)
-                            }
-                        }
+//                        .stroke(isSelected ?
+//                                Color(hex: "988AE1").opacity(0.4) :
+//                                .white.opacity(0.2),
+//                                lineWidth: 1)
+//                        .frame(width: 44, height: 44)
+//                        .overlay(
+//                            Text(day.label)
+//                                .foregroundColor(.white)
+//                        )
+//                        .onTapGesture {
+//                            withAnimation {
+//                                model.toggle(day)
+//                            }
+//                        }
                 }
             }
         }

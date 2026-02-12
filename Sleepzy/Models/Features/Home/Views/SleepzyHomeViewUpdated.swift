@@ -1,12 +1,21 @@
+//
+//  SleepzyHomeView.swift
+//  Sleepzy
+//
+//  Created by Saadi Dalloul on 12/02/2026.
+//
+
 import SwiftUI
 import FamilyControls
 import Combine
 
-// MARK: - Home View
-struct SleepzyHomeView: View {
+// MARK: - Sleepzy Home View (Updated)
+struct SleepzyHomeViewUpdated: View {
     @EnvironmentObject var appSelection: AppSelectionManager
-    @StateObject private var viewModel = HomeViewModel()
+    @StateObject private var viewModel = HomeViewModelUpdated()
     @State private var showNewBlock = false
+    @State private var showManageApps = false
+    @State private var showBlocksList = false
     
     var body: some View {
         NavigationStack {
@@ -19,11 +28,19 @@ struct SleepzyHomeView: View {
                         // Header with moon and greeting
                         headerSection
                         
+                        // Active Blocks Section (NEW)
+                        if !viewModel.activeBlocks.isEmpty {
+                            activeBlocksSection
+                        }
+                        
                         // Upcoming Section
                         upcomingSection
                         
                         // Digital Shield Card
                         digitalShieldCard
+                        
+                        // Quick Actions (NEW)
+                        quickActionsSection
                         
                         // Manage Apps Button
                         manageAppsButton
@@ -52,6 +69,16 @@ struct SleepzyHomeView: View {
                         viewModel.addBlock(configuration)
                     }
                     .environmentObject(appSelection)
+                }
+            }
+            .sheet(isPresented: $showManageApps) {
+                NavigationStack {
+                    ManageAppsView()
+                }
+            }
+            .sheet(isPresented: $showBlocksList) {
+                NavigationStack {
+                    BlocksListView()
                 }
             }
         }
@@ -135,19 +162,67 @@ struct SleepzyHomeView: View {
         .padding(.top, 50)
     }
     
+    // MARK: - Active Blocks Section (NEW)
+    private var activeBlocksSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text("Active Now")
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundColor(.white)
+                
+                Spacer()
+                
+                Text("\(viewModel.activeBlocks.count) active")
+                    .font(.system(size: 13))
+                    .foregroundColor(.green)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 4)
+                    .background(
+                        Capsule()
+                            .fill(Color.green.opacity(0.2))
+                    )
+            }
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 12) {
+                    ForEach(viewModel.activeBlocks) { block in
+                        ActiveBlockMiniCard(
+                            block: block,
+                            onCancel: {
+                                viewModel.deactivateBlock(block)
+                            }
+                        )
+                    }
+                }
+            }
+        }
+    }
+    
     // MARK: - Upcoming Section
     private var upcomingSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Upcoming")
-                .font(.system(size: 20, weight: .semibold))
-                .foregroundColor(.white)
+            HStack {
+                Text("Upcoming")
+                    .font(.system(size: 20, weight: .semibold))
+                    .foregroundColor(.white)
+                
+                Spacer()
+                
+                if !viewModel.upcomingBlocks.isEmpty {
+                    Button(action: { showBlocksList = true }) {
+                        Text("See All")
+                            .font(.system(size: 13))
+                            .foregroundColor(.purple)
+                    }
+                }
+            }
             
             if viewModel.upcomingBlocks.isEmpty {
                 Text("No upcoming blocks")
                     .font(.system(size: 15))
                     .foregroundColor(.white.opacity(0.5))
             } else {
-                ForEach(viewModel.upcomingBlocks) { block in
+                ForEach(viewModel.upcomingBlocks.prefix(3)) { block in
                     UpcomingBlockCard(block: block)
                 }
             }
@@ -164,7 +239,7 @@ struct SleepzyHomeView: View {
                     .frame(width: 50, height: 50)
                 
                 Circle()
-                    .trim(from: 0, to: 0.75)
+                    .trim(from: 0, to: viewModel.shieldProgress)
                     .stroke(
                         LinearGradient(
                             colors: [.purple, .blue],
@@ -176,7 +251,7 @@ struct SleepzyHomeView: View {
                     .frame(width: 50, height: 50)
                     .rotationEffect(.degrees(-90))
                 
-                Image(systemName: "checkmark")
+                Image(systemName: viewModel.shieldIcon)
                     .font(.system(size: 16, weight: .bold))
                     .foregroundColor(.purple)
             }
@@ -199,9 +274,10 @@ struct SleepzyHomeView: View {
                     Text(viewModel.digitalShield.timing)
                         .font(.system(size: 13))
                         .foregroundColor(.white.opacity(0.6))
+                        .lineLimit(1)
                 }
                 
-                Text("Apps to be Locked")
+                Text("\(viewModel.blockedAppsCount) Apps Blocked")
                     .font(.system(size: 12))
                     .foregroundColor(.white.opacity(0.5))
             }
@@ -210,7 +286,7 @@ struct SleepzyHomeView: View {
             
             // Active indicator
             Circle()
-                .fill(Color.white)
+                .fill(viewModel.isAnyBlockActive ? Color.green : Color.gray)
                 .frame(width: 8, height: 8)
         }
         .padding()
@@ -224,10 +300,35 @@ struct SleepzyHomeView: View {
         )
     }
     
+    // MARK: - Quick Actions Section (NEW)
+    private var quickActionsSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Quick Actions")
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundColor(.white.opacity(0.8))
+            
+            HStack(spacing: 12) {
+                QuickActionCard(
+                    icon: "moon.zzz.fill",
+                    title: "Night Block",
+                    color: .indigo,
+                    action: { viewModel.createQuickNightBlock() }
+                )
+                
+                QuickActionCard(
+                    icon: "brain.head.profile",
+                    title: "Focus Time",
+                    color: .orange,
+                    action: { viewModel.createQuickFocusTimer() }
+                )
+            }
+        }
+    }
+    
     // MARK: - Manage Apps Button
     private var manageAppsButton: some View {
         Button(action: {
-            // Navigate to manage apps
+            showManageApps = true
         }) {
             HStack(spacing: 12) {
                 // App Icons Row
@@ -252,8 +353,8 @@ struct SleepzyHomeView: View {
                             .fill(Color.white.opacity(0.1))
                             .frame(width: 32, height: 32)
                             .overlay(
-                                Text("...")
-                                    .font(.system(size: 12, weight: .bold))
+                                Text("+\(viewModel.lockedApps.count - 5)")
+                                    .font(.system(size: 10, weight: .bold))
                                     .foregroundColor(.white)
                             )
                             .overlay(
@@ -265,9 +366,15 @@ struct SleepzyHomeView: View {
                 
                 Spacer()
                 
-                Text("Manage Apps")
-                    .font(.system(size: 15, weight: .medium))
-                    .foregroundColor(.white)
+                VStack(alignment: .trailing, spacing: 4) {
+                    Text("Manage Apps")
+                        .font(.system(size: 15, weight: .medium))
+                        .foregroundColor(.white)
+                    
+                    Text("\(viewModel.blockedAppsCount) blocked")
+                        .font(.system(size: 12))
+                        .foregroundColor(.white.opacity(0.5))
+                }
             }
             .padding()
             .background(
@@ -290,12 +397,12 @@ struct SleepzyHomeView: View {
                 Image(systemName: "plus")
                     .font(.system(size: 20))
                 
-                Text("Limit App or Website")
+                Text("Create New Block")
                     .font(.system(size: 15, weight: .medium))
             }
             .foregroundColor(.white.opacity(0.6))
             .frame(maxWidth: .infinity)
-            .frame(height: 80)
+            .frame(height: 60)
             .background(
                 RoundedRectangle(cornerRadius: 12)
                     .stroke(Color.white.opacity(0.2), style: StrokeStyle(lineWidth: 1, dash: [5]))
@@ -345,17 +452,20 @@ struct SleepzyHomeView: View {
             )
             
             TabBarButton(
-                icon: "music.note",
-                title: "Sounds",
-                isSelected: viewModel.selectedTab == .sounds,
-                action: { viewModel.selectedTab = .sounds }
+                icon: "square.stack.3d.up.fill",
+                title: "Blocks",
+                isSelected: viewModel.selectedTab == .sleepLog,
+                action: {
+                    viewModel.selectedTab = .sleepLog
+                    showBlocksList = true
+                }
             )
             
             TabBarButton(
-                icon: "list.bullet",
-                title: "Sleep Log",
-                isSelected: viewModel.selectedTab == .sleepLog,
-                action: { viewModel.selectedTab = .sleepLog }
+                icon: "app.badge",
+                title: "Apps",
+                isSelected: false,
+                action: { showManageApps = true }
             )
             
             TabBarButton(
@@ -383,329 +493,90 @@ struct SleepzyHomeView: View {
     }
 }
 
-// MARK: - Upcoming Block Card
-struct UpcomingBlockCard: View {
-    let block: UpcomingBlock
+// MARK: - Active Block Mini Card (NEW)
+struct ActiveBlockMiniCard: View {
+    let block: SavedBlock
+    let onCancel: () -> Void
     
     var body: some View {
-        HStack(spacing: 12) {
-            // Time indicator
-            VStack(spacing: 4) {
-                Text(block.timeRemaining)
-                    .font(.system(size: 11, weight: .medium))
-                    .foregroundColor(.purple)
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Image(systemName: block.typeIcon)
+                    .font(.system(size: 14))
+                    .foregroundColor(.green)
                 
-                Text("min")
-                    .font(.system(size: 9))
-                    .foregroundColor(.white.opacity(0.5))
-            }
-            .frame(width: 60)
-            
-            Divider()
-                .background(Color.white.opacity(0.1))
-                .frame(height: 40)
-            
-            // Content
-            VStack(alignment: .leading, spacing: 6) {
-                Text(block.name)
-                    .font(.system(size: 15, weight: .medium))
-                    .foregroundColor(.white)
+                Spacer()
                 
-                HStack(spacing: 4) {
-                    Image(systemName: "clock")
-                        .font(.system(size: 11))
-                    Text("\(block.startTime) - \(block.endTime)")
+                Button(action: onCancel) {
+                    Image(systemName: "xmark")
                         .font(.system(size: 12))
+                        .foregroundColor(.white.opacity(0.6))
                 }
-                .foregroundColor(.white.opacity(0.5))
             }
             
-            Spacer()
+            Text(block.displayName)
+                .font(.system(size: 15, weight: .semibold))
+                .foregroundColor(.white)
+                .lineLimit(1)
+            
+            if block.configuration.type == .timer {
+                Text("Timer active")
+                    .font(.system(size: 12))
+                    .foregroundColor(.white.opacity(0.6))
+            } else {
+                Text(block.configuration.timeRange)
+                    .font(.system(size: 12))
+                    .foregroundColor(.white.opacity(0.6))
+                    .lineLimit(1)
+            }
         }
         .padding()
+        .frame(width: 160)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color.white.opacity(0.05))
+                .fill(Color.green.opacity(0.1))
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.purple.opacity(0.3), lineWidth: 1)
+                        .stroke(Color.green.opacity(0.3), lineWidth: 1)
                 )
         )
     }
 }
 
-// MARK: - Tab Bar Button
-struct TabBarButton: View {
+// MARK: - Quick Action Card (NEW)
+struct QuickActionCard: View {
     let icon: String
     let title: String
-    let isSelected: Bool
+    let color: Color
     let action: () -> Void
     
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 4) {
+            VStack(spacing: 8) {
                 Image(systemName: icon)
-                    .font(.system(size: 20))
-                    .foregroundColor(isSelected ? .white : .white.opacity(0.4))
+                    .font(.system(size: 24))
+                    .foregroundColor(color)
                 
                 Text(title)
-                    .font(.system(size: 10))
-                    .foregroundColor(isSelected ? .white : .white.opacity(0.4))
+                    .font(.system(size: 13, weight: .medium))
+                    .foregroundColor(.white)
             }
             .frame(maxWidth: .infinity)
-        }
-    }
-}
-
-// MARK: - View Model
-class HomeViewModel: ObservableObject {
-    @Published var selectedTab: TabItem = .home
-    @Published var upcomingBlocks: [UpcomingBlock] = []
-    @Published var digitalShield = DigitalShield(
-        status: "Starting in 15 min",
-        timing: "Starts at 10:30 PM Starts at 10:30 PM"
-    )
-    @Published var lockedApps: [LockedApp] = [
-        LockedApp(icon: "camera.fill"),
-        LockedApp(icon: "message.fill"),
-        LockedApp(icon: "music.note"),
-        LockedApp(icon: "bell.fill"),
-        LockedApp(icon: "photo.fill"),
-        LockedApp(icon: "globe")
-    ]
-    @Published var sleepDuration = "7 Hr 15 min"
-    
-    var currentDate: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE, MMMM d"
-        return formatter.string(from: Date()).uppercased()
-    }
-    
-    var greeting: String {
-        let hour = Calendar.current.component(.hour, from: Date())
-        
-        switch hour {
-        case 0..<12: return "Good morning"
-        case 12..<17: return "Good afternoon"
-        default: return "Good evening"
-        }
-    }
-    
-    func addBlock(_ configuration: BlockConfiguration) {
-        // Add logic to save block
-        print("Block added: \(configuration.name)")
-    }
-}
-
-// MARK: - Models
-enum TabItem {
-    case home, sounds, sleepLog, alarm, settings
-}
-
-struct UpcomingBlock: Identifiable {
-    let id = UUID()
-    let name: String
-    let timeRemaining: String
-    let startTime: String
-    let endTime: String
-}
-
-struct DigitalShield {
-    let status: String
-    let timing: String
-}
-
-struct LockedApp: Identifiable, Hashable {
-    let id = UUID()
-    let icon: String
-}
-
-// MARK: - Home View Model (Updated)
-class HomeViewModelUpdated: ObservableObject {
-    @Published var selectedTab: TabItem = .home
-    @Published var upcomingBlocks: [UpcomingBlock] = []
-    @Published var activeBlocks: [SavedBlock] = []
-    @Published var digitalShield = DigitalShield(
-        status: "Ready",
-        timing: "No active blocks"
-    )
-    @Published var lockedApps: [LockedApp] = []
-    @Published var sleepDuration = "7 Hr 15 min"
-    @Published var blockedAppsCount: Int = 0
-    @Published var isAnyBlockActive: Bool = false
-    @Published var shieldProgress: CGFloat = 0.0
-    @Published var shieldIcon: String = "shield"
-    
-    private let blockManager = BlockManager.shared
-    private let shieldManager = ShieldManager.shared
-    private let appSelectionManager = AppSelectionManager.shared
-    private var cancellables = Set<AnyCancellable>()
-    
-    init() {
-        setupBindings()
-        loadData()
-        updateShieldStatus()
-    }
-    
-    var currentDate: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE, MMMM d"
-        return formatter.string(from: Date()).uppercased()
-    }
-    
-    var greeting: String {
-        let hour = Calendar.current.component(.hour, from: Date())
-        
-        switch hour {
-        case 0..<12: return "Good morning"
-        case 12..<17: return "Good afternoon"
-        default: return "Good evening"
-        }
-    }
-    
-    // MARK: - Data Loading
-    
-    func loadData() {
-        // Load active blocks
-        activeBlocks = blockManager.getActiveBlocks()
-        
-        // Load upcoming blocks
-        upcomingBlocks = blockManager.upcomingBlocks
-        
-        // Get blocked apps count
-        blockedAppsCount = blockManager.getAllBlockedApps().count
-        
-        // Update shield status
-        isAnyBlockActive = !activeBlocks.isEmpty
-        
-        // Load locked apps for display
-        loadLockedApps()
-    }
-    
-    private func loadLockedApps() {
-        // This is for UI display only
-        // In real scenario, you'd fetch from actual blocked apps
-        lockedApps = [
-            LockedApp(icon: "camera.fill"),
-            LockedApp(icon: "message.fill"),
-            LockedApp(icon: "music.note"),
-            LockedApp(icon: "bell.fill"),
-            LockedApp(icon: "photo.fill"),
-            LockedApp(icon: "globe"),
-            LockedApp(icon: "play.rectangle.fill"),
-            LockedApp(icon: "gamecontroller.fill")
-        ]
-    }
-    
-    private func updateShieldStatus() {
-        if activeBlocks.isEmpty {
-            digitalShield = DigitalShield(
-                status: "Inactive",
-                timing: "No active blocks"
+            .padding(.vertical, 16)
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(color.opacity(0.15))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(color.opacity(0.3), lineWidth: 1)
+                    )
             )
-            shieldProgress = 0.0
-            shieldIcon = "shield"
-        } else if let nextBlock = upcomingBlocks.first {
-            digitalShield = DigitalShield(
-                status: "Starting in \(nextBlock.timeRemaining) min",
-                timing: "Starts at \(nextBlock.startTime)"
-            )
-            shieldProgress = 0.75
-            shieldIcon = "checkmark.shield"
-        } else {
-            digitalShield = DigitalShield(
-                status: "\(activeBlocks.count) Active",
-                timing: "\(blockedAppsCount) apps blocked"
-            )
-            shieldProgress = 1.0
-            shieldIcon = "checkmark.shield.fill"
         }
     }
-    
-    // MARK: - Block Management
-    
-    func addBlock(_ configuration: BlockConfiguration) {
-        blockManager.addBlock(configuration)
-        loadData()
-        updateShieldStatus()
-    }
-    
-    func deactivateBlock(_ block: SavedBlock) {
-        blockManager.deactivateBlock(block)
-        loadData()
-        updateShieldStatus()
-    }
-    
-    // MARK: - Quick Actions
-    
-    func createQuickNightBlock() {
-        guard appSelectionManager.hasSelection else {
-            print("⚠️ No apps selected")
-            return
-        }
-        
-        blockManager.createQuickNightBlock(apps: appSelectionManager.selection)
-        loadData()
-        updateShieldStatus()
-    }
-    
-    func createQuickFocusTimer() {
-        guard appSelectionManager.hasSelection else {
-            print("⚠️ No apps selected")
-            return
-        }
-        
-        blockManager.createQuickFocusTimer(apps: appSelectionManager.selection, minutes: 60)
-        loadData()
-        updateShieldStatus()
-    }
-    
-    // MARK: - Bindings
-    
-    private func setupBindings() {
-        // Subscribe to block manager updates
-        blockManager.$blocks
-            .sink { [weak self] _ in
-                self?.loadData()
-                self?.updateShieldStatus()
-            }
-            .store(in: &cancellables)
-        
-        blockManager.$activeBlocks
-            .sink { [weak self] blocks in
-                self?.activeBlocks = blocks
-                self?.isAnyBlockActive = !blocks.isEmpty
-                self?.updateShieldStatus()
-            }
-            .store(in: &cancellables)
-        
-        blockManager.$upcomingBlocks
-            .sink { [weak self] blocks in
-                self?.upcomingBlocks = blocks
-                self?.updateShieldStatus()
-            }
-            .store(in: &cancellables)
-        
-        // Listen for notifications
-        NotificationCenter.default.publisher(for: .blockActivated)
-            .sink { [weak self] _ in
-                self?.loadData()
-                self?.updateShieldStatus()
-            }
-            .store(in: &cancellables)
-        
-        NotificationCenter.default.publisher(for: .blockDeactivated)
-            .sink { [weak self] _ in
-                self?.loadData()
-                self?.updateShieldStatus()
-            }
-            .store(in: &cancellables)
-        
-        NotificationCenter.default.publisher(for: .timerExpired)
-            .sink { [weak self] _ in
-                self?.loadData()
-                self?.updateShieldStatus()
-            }
-            .store(in: &cancellables)
-    }
+}
+
+// MARK: - Preview
+#Preview {
+    SleepzyHomeViewUpdated()
+        .environmentObject(AppSelectionManager.shared)
 }
