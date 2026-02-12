@@ -67,6 +67,8 @@
 		529E040C2F35318B0000CFEA /* CircularStd-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 529E03FB2F35318B0000CFEA /* CircularStd-Medium.ttf */; };
 		529E040D2F35318B0000CFEA /* CircularStd-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 529E03FA2F35318B0000CFEA /* CircularStd-Book.ttf */; };
 		529E040E2F35318B0000CFEA /* CircularStd-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 529E03F82F35318B0000CFEA /* CircularStd-Black.ttf */; };
+		52A009B32F3D91FA000D8DDA /* NewBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A009B22F3D91FA000D8DDA /* NewBlockView.swift */; };
+		52A009B52F3D9204000D8DDA /* SleepzyHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A009B42F3D9204000D8DDA /* SleepzyHomeView.swift */; };
 		52C1CD8D2F37591500BEED1E /* BiggestDistractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C1CD8C2F37591500BEED1E /* BiggestDistractionView.swift */; };
 		52C609642F392C59002E41D1 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C609632F392C57002E41D1 /* RoundedView.swift */; };
 		52C6C1822F3534420070850E /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = 52C6C1812F3534420070850E /* SwiftMessages */; };
@@ -78,6 +80,7 @@
 		52D5E1BD2F3CBEFB009B20A8 /* BlockingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5E1BC2F3CBEF9009B20A8 /* BlockingManager.swift */; };
 		52D5E1BF2F3CBF50009B20A8 /* ScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5E1BE2F3CBF4F009B20A8 /* ScheduleManager.swift */; };
 		52D5E1C32F3CBFD4009B20A8 /* DeviceActivityName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5E1C22F3CBFD3009B20A8 /* DeviceActivityName.swift */; };
+		52D5E1E22F3D1B0A009B20A8 /* ShieldManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5E1E12F3D1B08009B20A8 /* ShieldManager.swift */; };
 		52E272642F375DA500D9B65C /* AgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E272632F375DA500D9B65C /* AgeView.swift */; };
 		52E272662F375E4C00D9B65C /* GenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E272652F375E4C00D9B65C /* GenderView.swift */; };
 		52EB507C2F3621760031FE9D /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB507B2F3621760031FE9D /* ForgotPasswordView.swift */; };
@@ -152,6 +155,8 @@
 		529E03F92F35318B0000CFEA /* CircularStd-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Bold.ttf"; sourceTree = "<group>"; };
 		529E03FA2F35318B0000CFEA /* CircularStd-Book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Book.ttf"; sourceTree = "<group>"; };
 		529E03FB2F35318B0000CFEA /* CircularStd-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Medium.ttf"; sourceTree = "<group>"; };
+		52A009B22F3D91FA000D8DDA /* NewBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBlockView.swift; sourceTree = "<group>"; };
+		52A009B42F3D9204000D8DDA /* SleepzyHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepzyHomeView.swift; sourceTree = "<group>"; };
 		52C1CD8C2F37591500BEED1E /* BiggestDistractionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiggestDistractionView.swift; sourceTree = "<group>"; };
 		52C609632F392C57002E41D1 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		52C6C1832F3534520070850E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -164,6 +169,7 @@
 		52D5E1BC2F3CBEF9009B20A8 /* BlockingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockingManager.swift; sourceTree = "<group>"; };
 		52D5E1BE2F3CBF4F009B20A8 /* ScheduleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManager.swift; sourceTree = "<group>"; };
 		52D5E1C22F3CBFD3009B20A8 /* DeviceActivityName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceActivityName.swift; sourceTree = "<group>"; };
+		52D5E1E12F3D1B08009B20A8 /* ShieldManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldManager.swift; sourceTree = "<group>"; };
 		52E272632F375DA500D9B65C /* AgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeView.swift; sourceTree = "<group>"; };
 		52E272652F375E4C00D9B65C /* GenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderView.swift; sourceTree = "<group>"; };
 		52EB507B2F3621760031FE9D /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
@@ -419,6 +425,15 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
+		52A009B12F3D91EB000D8DDA /* AI */ = {
+			isa = PBXGroup;
+			children = (
+				52A009B42F3D9204000D8DDA /* SleepzyHomeView.swift */,
+				52A009B22F3D91FA000D8DDA /* NewBlockView.swift */,
+			);
+			path = AI;
+			sourceTree = "<group>";
+		};
 		52C6C1842F35372E0070850E /* Splash */ = {
 			isa = PBXGroup;
 			children = (
@@ -450,6 +465,7 @@
 			isa = PBXGroup;
 			children = (
 				52C6C18D2F35380A0070850E /* MainTabView.swift */,
+				52A009B12F3D91EB000D8DDA /* AI */,
 				524961CB2F37BBCC00D057F0 /* Home */,
 				524961D02F37BC9600D057F0 /* Sounds */,
 				524961D52F37BD0D00D057F0 /* SleepLog */,
@@ -464,6 +480,7 @@
 			children = (
 				52D5E1B82F3CBDFE009B20A8 /* ScreenTimeAuthorizationManager.swift */,
 				52D5E1BA2F3CBEAD009B20A8 /* AppSelectionManager.swift */,
+				52D5E1E12F3D1B08009B20A8 /* ShieldManager.swift */,
 				52D5E1BC2F3CBEF9009B20A8 /* BlockingManager.swift */,
 				52D5E1BE2F3CBF4F009B20A8 /* ScheduleManager.swift */,
 			);
@@ -742,6 +759,7 @@
 				52EB509F2F3625BC0031FE9D /* AEOTPView.swift in Sources */,
 				52EB50A02F3625BC0031FE9D /* AEOTPTextField.swift in Sources */,
 				526C3C412F3BB2E2004F1768 /* DistractingAppsView.swift in Sources */,
+				52D5E1E22F3D1B0A009B20A8 /* ShieldManager.swift in Sources */,
 				52EB50A12F3625BC0031FE9D /* AEOTPTextFieldImplementationProtocol.swift in Sources */,
 				524961E32F37BDED00D057F0 /* SettingsViewModel.swift in Sources */,
 				52EB50A22F3625BC0031FE9D /* AEOTPViewRepresentable.swift in Sources */,
@@ -750,10 +768,12 @@
 				527BC1A52F3A423500287638 /* SupabaseService.swift in Sources */,
 				529618AD2F35F2C2001E7C7C /* LoginView.swift in Sources */,
 				529618B82F361752001E7C7C /* appHeaderView.swift in Sources */,
+				52A009B32F3D91FA000D8DDA /* NewBlockView.swift in Sources */,
 				529E04072F35318B0000CFEA /* Language.swift in Sources */,
 				52EB507C2F3621760031FE9D /* ForgotPasswordView.swift in Sources */,
 				528169BB2F35B173007AE539 /* MyImage.swift in Sources */,
 				529E04082F35318B0000CFEA /* SwiftUI+Extensions.swift in Sources */,
+				52A009B52F3D9204000D8DDA /* SleepzyHomeView.swift in Sources */,
 				526C3C432F3BC043004F1768 /* FocusProtectionScheduleView.swift in Sources */,
 				52E272642F375DA500D9B65C /* AgeView.swift in Sources */,
 				529E04092F35318B0000CFEA /* Font+Swizzle.swift in Sources */,

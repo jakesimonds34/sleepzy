@@ -501,3 +501,19 @@ extension Decodable {
         }
     }
 }
+
+extension Double {
+    func rounded(toDecimalPlaces places: Int) -> Double {
+        let multiplier = pow(10.0, Double(places))
+        return (self * multiplier).rounded() / multiplier
+    }
+    
+    var hours: Int {
+        return Int(self)
+    }
+    
+    var minutes: Int {
+        let decimal = self - Double(Int(self))
+        return Int(decimal * 100)
+    }
+}

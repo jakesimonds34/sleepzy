@@ -24,7 +24,8 @@ struct MainTabView: View {
         TabView(selection: $selection) {
 
             NavigationStack {
-                HomeView(selection: $selection)
+                SleepzyHomeView(appSelection: .init())
+//                HomeView(selection: $selection)
             }
             .tabItem {
                 tabItem(for: .home)
