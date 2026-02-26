@@ -13,8 +13,13 @@ import SwiftMessages
 class AuthViewModel: ObservableObject {
     //MARK: Auth parameters
     @Published var fullName: String = ""
+    #if DEBUG
+    @Published var email: String = "saadi.dalloul@gmail.com"
+    @Published var password: String = "123123123"
+    #else
     @Published var email: String = ""
     @Published var password: String = ""
+    #endif
     @Published var confirmPassword: String = ""
     
     @Published var verificationCode = ""
@@ -78,9 +83,6 @@ class AuthViewModel: ObservableObject {
                 gender: profile.gender,
                 email: email,
                 goal: profile.goal,
-                bedTime: profile.bedTime,
-                sleepTime: profile.sleepTime,
-                wakeUp: profile.wakeUp,
                 biggestDistraction: profile.biggestDistraction,
                 stayAsleep: profile.stayAsleep,
                 earlyWakeupRating: profile.earlyWakeupRating,
@@ -88,9 +90,12 @@ class AuthViewModel: ObservableObject {
                 currentSleepScore: profile.currentSleepScore,
                 potentialSleepScore: profile.potentialSleepScore,
                 distractingApps: profile.distractingApps,
+                focusProtectionRepeatOn: profile.focusProtectionRepeatOn,
+                sleepTime: profile.sleepTime,
+                wakeUp: profile.wakeUp,
+                bedTime: profile.bedTime,
                 focusProtectionFrom: profile.focusProtectionFrom,
-                focusProtectionTo: profile.focusProtectionTo,
-                focusProtectionRepeatOn: profile.focusProtectionRepeatOn
+                focusProtectionTo: profile.focusProtectionTo
             )
             
             try await profileRepo.createProfile(profile)

@@ -60,19 +60,20 @@ import SwiftUI
 //}
 
 // MARK: - TextField Placeholder Extension
-extension View {
-    func placeholder<Content: View>(
-        when condition: Bool,
-        @ViewBuilder content: () -> Content
-    ) -> some View {
-        ZStack(alignment: .leading) {
-            if condition {
-                content()
-            }
-            self
-        }
-    }
-}
+//extension View {
+//    func placeholder<Content: View>(
+//        when condition: Bool,
+//        @ViewBuilder content: () -> Content
+//    ) -> some View {
+//        ZStack(alignment: .leading) {
+//            if condition {
+//                content()
+//                    .font(.appRegular(size: 22))
+//            }
+//            self
+//        }
+//    }
+//}
 
 //// MARK: - Date Extensions
 //extension Date {

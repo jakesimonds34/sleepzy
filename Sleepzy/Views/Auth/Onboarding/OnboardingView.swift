@@ -133,17 +133,17 @@ struct OnboardingView: View {
                         gender: selectedGender,
                         email: "",
                         goal: selectedGoal,
-                        bedTime: bedHour.rounded(toDecimalPlaces: 2),
-                        sleepTime: sleepTime.rounded(toDecimalPlaces: 2),
-                        wakeUp: wakeHour.rounded(toDecimalPlaces: 2),
                         biggestDistraction: selectedBiggestDistraction,
                         stayAsleep: selectedStayAsleep,
                         earlyWakeupRating: selectedEarlyWakeupRating,
                         dailyFunctionInterference: selectedDailyFunction,
                         distractingApps: selectedDistractingApps,
+                        focusProtectionRepeatOn: repeatDaysToJSON(repeatModel.selected),
+                        sleepTime: sleepTime.rounded(toDecimalPlaces: 2),
+                        wakeUp: wakeHour.rounded(toDecimalPlaces: 2),
+                        bedTime: bedHour.rounded(toDecimalPlaces: 2),
                         focusProtectionFrom: selectedFromTime,
-                        focusProtectionTo: selectedToTime,
-                        focusProtectionRepeatOn: repeatDaysToJSON(repeatModel.selected)
+                        focusProtectionTo: selectedToTime
                     )
                     
                     viewModel.profile = profile

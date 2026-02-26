@@ -15,9 +15,6 @@ struct Profile: Codable, Identifiable {
     var gender: String?
     var email: String?
     var goal: String?
-    var bedTime: Double?
-    var sleepTime: Double?
-    var wakeUp: Double?
     var biggestDistraction: String?
     var stayAsleep: String?
     var earlyWakeupRating: String?
@@ -25,9 +22,12 @@ struct Profile: Codable, Identifiable {
     var currentSleepScore: String?
     var potentialSleepScore: String?
     var distractingApps: String?
+    var focusProtectionRepeatOn: [String: Bool]?
+    var sleepTime: Double?
+    var wakeUp: Double?
+    var bedTime: Double?
     var focusProtectionFrom: Date?
     var focusProtectionTo: Date?
-    var focusProtectionRepeatOn: [String: Bool]?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -37,9 +37,6 @@ struct Profile: Codable, Identifiable {
         case gender = "gender"
         case email = "email"
         case goal = "goal"
-        case bedTime = "bed_time"
-        case sleepTime = "sleep_time"
-        case wakeUp = "wake_up"
         case biggestDistraction = "biggest_distraction"
         case stayAsleep = "stay_asleep"
         case earlyWakeupRating = "early_wakeup_rating"
@@ -47,8 +44,11 @@ struct Profile: Codable, Identifiable {
         case currentSleepScore = "current_sleep_score"
         case potentialSleepScore = "potential_sleep_score"
         case distractingApps = "distracting_apps"
+        case focusProtectionRepeatOn = "focus_protection_repeat_on"
+        case sleepTime = "sleep_time"
+        case wakeUp = "wake_up"
+        case bedTime = "bed_time"
         case focusProtectionFrom = "focus_protection_from"
         case focusProtectionTo = "focus_protection_to"
-        case focusProtectionRepeatOn = "focus_protection_repeat_on"
     }
 }

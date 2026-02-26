@@ -20,7 +20,7 @@ struct SleepzyApp: App {
     
     var body: some Scene {
         WindowGroup {
-            SleepzyHomeViewUpdated()
+            ContentView()
                 .environmentObject(authManager)
                 .environmentObject(selectionManager)
                 .environmentObject(shieldManager)
