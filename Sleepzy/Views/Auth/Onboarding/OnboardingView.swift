@@ -260,7 +260,21 @@ struct OnboardingView: View {
                 if currentStepIndex < steps.count - 1 {
                     currentStepIndex += 1
                 } else {
-                    AppEnvironment.shared.appStatus = .home
+                    let profile = Profile(
+                        id: UUID(),
+                        fullName: viewModel.fullName,
+                        email: viewModel.email,
+                        createdAt: Date(),
+                        goal: selections[.goal],
+                        biggestDistraction: selections[.distraction],
+                        ageRange: selections[.age],
+                        gender: selections[.gender],
+                        stayAsleep: selections[.stayAsleep],
+                        earlyWakeupRating: selections[.earlyWakeup],
+                        dailyFunctionInterference: selections[.dailyFunction]
+                    )
+                    viewModel.profile = profile
+                    viewModel.showSignup.toggle()
                 }
             } label: {
                 Text((currentStep == .sleepScore) || (currentStep == .potentialScore) ? "Continue " : "Next")

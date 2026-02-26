@@ -78,24 +78,24 @@ class AuthViewModel: ObservableObject {
             let profile = Profile(
                 id: newUser.id,
                 fullName: fullName,
-                createdAt: Date(),
-                ageRange: profile.ageRange,
-                gender: profile.gender,
                 email: email,
+                createdAt: Date(),
                 goal: profile.goal,
                 biggestDistraction: profile.biggestDistraction,
+                ageRange: profile.ageRange,
+                gender: profile.gender,
                 stayAsleep: profile.stayAsleep,
                 earlyWakeupRating: profile.earlyWakeupRating,
                 dailyFunctionInterference: profile.dailyFunctionInterference,
-                currentSleepScore: profile.currentSleepScore,
-                potentialSleepScore: profile.potentialSleepScore,
-                distractingApps: profile.distractingApps,
-                focusProtectionRepeatOn: profile.focusProtectionRepeatOn,
-                sleepTime: profile.sleepTime,
-                wakeUp: profile.wakeUp,
-                bedTime: profile.bedTime,
-                focusProtectionFrom: profile.focusProtectionFrom,
-                focusProtectionTo: profile.focusProtectionTo
+//                currentSleepScore: profile.currentSleepScore,
+//                potentialSleepScore: profile.potentialSleepScore,
+//                distractingApps: profile.distractingApps,
+//                focusProtectionRepeatOn: profile.focusProtectionRepeatOn,
+//                sleepTime: profile.sleepTime,
+//                wakeUp: profile.wakeUp,
+//                bedTime: profile.bedTime,
+//                focusProtectionFrom: profile.focusProtectionFrom,
+//                focusProtectionTo: profile.focusProtectionTo
             )
             
             try await profileRepo.createProfile(profile)
