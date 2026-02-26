@@ -76,6 +76,22 @@ struct LocalData {
         ]
     }
     
+    struct SleepScore {
+        static let items: [RowItem] = [
+            RowItem(icon: .smartphoneIcon, title: "Late-night Scrolling"),
+            RowItem(icon: .sinusIcon, title: "Irregular sleep window"),
+            RowItem(icon: .chartIcon, title: "Low deep sleep consistency")
+        ]
+    }
+    
+    struct PotentialScore {
+        static let items: [RowItem] = [
+            RowItem(icon: .checkGreenIcon, title: "Fewer distractions"),
+            RowItem(icon: .checkGreenIcon, title: "More deep sleep"),
+            RowItem(icon: .checkGreenIcon, title: "Consistent bedtime")
+        ]
+    }
+    
     struct DistractingApps {
         static let items: [RowItem] = [
             RowItem(title: "Instagram"),

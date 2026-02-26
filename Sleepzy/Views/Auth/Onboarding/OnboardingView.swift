@@ -219,31 +219,51 @@ struct OnboardingView: View {
     }
     
     private var isStepValid: Bool {
-        selections[currentStep] != nil
+        (currentStep == .sleepScore || currentStep == .potentialScore) ? true : selections[currentStep] != nil
     }
     
     var body: some View {
         VStack {
-            progressBarView
+            if (currentStep == .sleepScore) || (currentStep == .potentialScore) {
+                backButtonOnly
+            } else {
+                progressBarView
+            }
             
             ScrollView {
-                OnboardingStepView(
-                    data: currentStep,
-                    selectedValue: Binding(
-                        get: { selections[currentStep] },
-                        set: { selections[currentStep] = $0 }
+                if currentStep == .sleepScore {
+                    SleepScoreView(
+                        title: "Your current sleep score",
+                        image: .scoreProgress, heightImage: 172,
+                        issues: LocalData.SleepScore.items,
+                        footerNote: "Your current habits maybe affecting your rest"
                     )
-                )
+                } else if currentStep == .potentialScore {
+                    SleepScoreView(
+                        title: "Your Potential Score",
+                        image: .scoreChart, heightImage: 234,
+                        issues: LocalData.PotentialScore.items,
+                        footerNote: "Sleepzy can help you enjoy way better rest."
+                    )
+                } else {
+                    OnboardingStepView(
+                        data: currentStep,
+                        selectedValue: Binding(
+                            get: { selections[currentStep] },
+                            set: { selections[currentStep] = $0 }
+                        )
+                    )
+                }
             }
             
             Button {
                 if currentStepIndex < steps.count - 1 {
                     currentStepIndex += 1
                 } else {
-                    // handle completion
+                    AppEnvironment.shared.appStatus = .home
                 }
             } label: {
-                Text("Next")
+                Text((currentStep == .sleepScore) || (currentStep == .potentialScore) ? "Continue " : "Next")
             }
             .style(.primary)
             .padding(.horizontal, 52)
@@ -261,8 +281,12 @@ struct OnboardingView: View {
         }
     }
     
+    // MARK: - Progress Bar (for normal steps)
     private var progressBarView: some View {
-        HStack {
+        let normalSteps = steps.filter { ($0 != .sleepScore) || ($0 != .potentialScore) }
+        let normalIndex = normalSteps.firstIndex(of: currentStep) ?? 0
+        
+        return HStack {
             if currentStepIndex > 0 {
                 Button { currentStepIndex -= 1 } label: {
                     MyImage(source: .system("arrow.backward"))
@@ -272,16 +296,33 @@ struct OnboardingView: View {
                 }
             }
             
-            ProgressView(value: Double(currentStepIndex + 1) / Double(steps.count), total: 1)
-                .progressViewStyle(LinearProgressViewStyle(tint: Color(hex: "#5939A8")))
-                .frame(height: 6)
+            ProgressView(
+                value: Double(normalIndex + 1),
+                total: Double(normalSteps.count-2)
+            )
+            .progressViewStyle(LinearProgressViewStyle(tint: Color(hex: "#5939A8")))
+            .frame(height: 6)
             
-            Text("\(currentStepIndex + 1)/\(steps.count)")
+            Text("\(normalIndex + 1)/\(normalSteps.count-2)")
                 .foregroundStyle(.white.opacity(0.75))
                 .font(.appRegular(size: 17))
         }
         .padding(.horizontal)
     }
+    
+    // MARK: - Back Button Only (for sleepScore step)
+        private var backButtonOnly: some View {
+            HStack {
+                Button { currentStepIndex -= 1 } label: {
+                    MyImage(source: .system("arrow.backward"))
+                        .scaledToFit()
+                        .frame(width: 18)
+                        .foregroundStyle(.white)
+                }
+                Spacer()
+            }
+            .padding(.horizontal)
+        }
 }
 
 #Preview {

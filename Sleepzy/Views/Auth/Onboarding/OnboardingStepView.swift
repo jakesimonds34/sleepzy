@@ -50,6 +50,7 @@ struct OnboardingStepView: View {
 struct RowItemView: View {
     var item: RowItem
     var isSelected: Bool
+    var isCheck: Bool = true
     
     var body: some View {
         HStack {
@@ -65,18 +66,20 @@ struct RowItemView: View {
             
             Spacer()
             
-            if isSelected {
-                MyImage(source: .asset(.checkIcon))
-                    .frame(width: 12, height: 12)
-                    .font(.appBold20)
-                    .foregroundStyle(.white)
-                    .frame(width: 16, height: 16)
-                    .background(Color(hex: "5939A8"))
-                    .cornerRadius(8)
-            } else {
-                Circle()
-                    .frame(width: 16, height: 16)
-                    .foregroundStyle(Color.white.opacity(0.2))
+            if isCheck {
+                if isSelected {
+                    MyImage(source: .asset(.checkIcon))
+                        .frame(width: 12, height: 12)
+                        .font(.appBold20)
+                        .foregroundStyle(.white)
+                        .frame(width: 16, height: 16)
+                        .background(Color(hex: "5939A8"))
+                        .cornerRadius(8)
+                } else {
+                    Circle()
+                        .frame(width: 16, height: 16)
+                        .foregroundStyle(Color.white.opacity(0.2))
+                }
             }
         }
         .padding()
@@ -95,6 +98,7 @@ struct RowItemView: View {
 // MARK: - Step Definitions
 enum OnboardingStep: CaseIterable {
     case goal, distraction, age, gender, stayAsleep, earlyWakeup, dailyFunction
+    case sleepScore, potentialScore
 }
 
 extension OnboardingStep: OnboardingStepData {
@@ -107,6 +111,8 @@ extension OnboardingStep: OnboardingStepData {
         case .stayAsleep:   return "How difficult is it for you to stay asleep?"
         case .earlyWakeup:  return "Rate your problem with waking up too early?"
         case .dailyFunction: return "How does poor sleep affect your daily function?"
+        case .sleepScore: return "Your current sleep score"
+        case .potentialScore: return "Your current sleep score"
         }
     }
     
@@ -126,6 +132,8 @@ extension OnboardingStep: OnboardingStepData {
         case .stayAsleep:    return LocalData.StayAsleep.items
         case .earlyWakeup:   return LocalData.EarlyWakeupRating.items
         case .dailyFunction: return LocalData.DailyFunction.items
+        case .sleepScore: return LocalData.SleepScore.items
+        case .potentialScore: return LocalData.PotentialScore.items
         }
     }
 }

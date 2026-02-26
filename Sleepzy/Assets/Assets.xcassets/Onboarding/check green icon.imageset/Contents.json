@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "check green icon.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

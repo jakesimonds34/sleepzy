@@ -30,6 +30,7 @@
 		526C3C452F3BC36D004F1768 /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C442F3BC36D004F1768 /* TimePickerView.swift */; };
 		526C3C472F3BC492004F1768 /* RepeatDaysPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C462F3BC492004F1768 /* RepeatDaysPicker.swift */; };
 		527B26472F506014003CFDC5 /* OnboardingStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527B26462F506013003CFDC5 /* OnboardingStepView.swift */; };
+		527B264A2F50645A003CFDC5 /* SleepScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527B26492F50645A003CFDC5 /* SleepScoreView.swift */; };
 		527BC1A22F3A413900287638 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527BC1A12F3A413700287638 /* Profile.swift */; };
 		527BC1A52F3A423500287638 /* SupabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527BC1A42F3A423400287638 /* SupabaseService.swift */; };
 		527BC1A82F3A42B100287638 /* ProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527BC1A72F3A42B000287638 /* ProfileRepository.swift */; };
@@ -148,6 +149,7 @@
 		526C3C442F3BC36D004F1768 /* TimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
 		526C3C462F3BC492004F1768 /* RepeatDaysPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatDaysPicker.swift; sourceTree = "<group>"; };
 		527B26462F506013003CFDC5 /* OnboardingStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStepView.swift; sourceTree = "<group>"; };
+		527B26492F50645A003CFDC5 /* SleepScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepScoreView.swift; sourceTree = "<group>"; };
 		527BC1A12F3A413700287638 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		527BC1A42F3A423400287638 /* SupabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseService.swift; sourceTree = "<group>"; };
 		527BC1A72F3A42B000287638 /* ProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepository.swift; sourceTree = "<group>"; };
@@ -716,6 +718,7 @@
 			children = (
 				529618A92F35F28C001E7C7C /* OnboardingView.swift */,
 				527B26462F506013003CFDC5 /* OnboardingStepView.swift */,
+				527B26492F50645A003CFDC5 /* SleepScoreView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -1063,6 +1066,7 @@
 				52A00A142F3DA32F000D8DDA /* BlockDetailViewModel.swift in Sources */,
 				529E04082F35318B0000CFEA /* SwiftUI+Extensions.swift in Sources */,
 				52A009B52F3D9204000D8DDA /* SleepzyHomeView.swift in Sources */,
+				527B264A2F50645A003CFDC5 /* SleepScoreView.swift in Sources */,
 				526C3C432F3BC043004F1768 /* FocusProtectionScheduleView.swift in Sources */,
 				529E04092F35318B0000CFEA /* Font+Swizzle.swift in Sources */,
 				529618B02F35F2F0001E7C7C /* SignupView.swift in Sources */,
