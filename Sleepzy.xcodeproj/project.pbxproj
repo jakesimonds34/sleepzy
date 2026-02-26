@@ -309,6 +309,16 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		527B26482F506129003CFDC5 /* Deleted */ = {
+			isa = PBXGroup;
+			children = (
+				526C3C402F3BB2E2004F1768 /* DistractingAppsView.swift */,
+				526C3C422F3BC043004F1768 /* FocusProtectionScheduleView.swift */,
+				522628EE2F363A5100C79B73 /* SleepScheduleView.swift */,
+			);
+			path = Deleted;
+			sourceTree = "<group>";
+		};
 		527BC1A02F3A410E00287638 /* ObjectModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -706,9 +716,6 @@
 			children = (
 				529618A92F35F28C001E7C7C /* OnboardingView.swift */,
 				527B26462F506013003CFDC5 /* OnboardingStepView.swift */,
-				526C3C402F3BB2E2004F1768 /* DistractingAppsView.swift */,
-				526C3C422F3BC043004F1768 /* FocusProtectionScheduleView.swift */,
-				522628EE2F363A5100C79B73 /* SleepScheduleView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -764,6 +771,7 @@
 				52EB507D2F36222E0031FE9D /* EnterCode */,
 				52EB50842F3623080031FE9D /* NewPassword */,
 				52C6C1872F3537850070850E /* Onboarding */,
+				527B26482F506129003CFDC5 /* Deleted */,
 			);
 			path = Auth;
 			sourceTree = "<group>";

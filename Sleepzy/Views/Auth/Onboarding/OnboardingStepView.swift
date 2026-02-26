@@ -14,6 +14,11 @@ protocol OnboardingStepData {
     var subTitle: String { get }
 }
 
+struct RowItem {
+    var icon: ImageResource?
+    var title: String
+}
+
 // MARK: - Generic Onboarding Step View
 struct OnboardingStepView: View {
     let data: any OnboardingStepData
@@ -39,6 +44,51 @@ struct OnboardingStepView: View {
             }
             .padding(.horizontal)
         }
+    }
+}
+
+struct RowItemView: View {
+    var item: RowItem
+    var isSelected: Bool
+    
+    var body: some View {
+        HStack {
+            if let icon = item.icon {
+                MyImage(source: .asset(icon))
+                    .scaledToFit()
+                    .frame(width: 20)
+            }
+            
+            Text(item.title)
+                .foregroundColor(.white)
+                .font(.appRegular16)
+            
+            Spacer()
+            
+            if isSelected {
+                MyImage(source: .asset(.checkIcon))
+                    .frame(width: 12, height: 12)
+                    .font(.appBold20)
+                    .foregroundStyle(.white)
+                    .frame(width: 16, height: 16)
+                    .background(Color(hex: "5939A8"))
+                    .cornerRadius(8)
+            } else {
+                Circle()
+                    .frame(width: 16, height: 16)
+                    .foregroundStyle(Color.white.opacity(0.2))
+            }
+        }
+        .padding()
+        .contentShape(Rectangle())
+        .background(
+            RoundedRectangle(cornerRadius: 40)
+                .fill(isSelected ? Color(hex: "5939A8").opacity(0.1) : Color.clear)
+                .stroke(
+                    isSelected ? Color(hex: "988AE1").opacity(0.8) : Color.white.opacity(0.08),
+                    lineWidth: 1
+                )
+        )
     }
 }
 
