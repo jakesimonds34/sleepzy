@@ -8,6 +8,7 @@
 import SwiftUI
 import FamilyControls
 
+/*
 struct OnboardingView: View {
     // MARK: - Properties
     @EnvironmentObject var authManager: ScreenTimeAuthorizationManager
@@ -195,6 +196,87 @@ struct OnboardingView: View {
                 .frame(height: 6)
             
             Text("\(Int(currentStep))/10")
+                .foregroundStyle(.white.opacity(0.75))
+                .font(.appRegular(size: 17))
+        }
+        .padding(.horizontal)
+    }
+}
+*/
+
+// MARK: - OnboardingView
+struct OnboardingView: View {
+    @StateObject var viewModel = AuthViewModel()
+    @Environment(\.dismiss) var dismiss
+    
+    @State private var currentStepIndex: Int = 0
+    @State private var selections: [OnboardingStep: String] = [:]
+    
+    private let steps = OnboardingStep.allCases
+    
+    private var currentStep: OnboardingStep {
+        steps[currentStepIndex]
+    }
+    
+    private var isStepValid: Bool {
+        selections[currentStep] != nil
+    }
+    
+    var body: some View {
+        VStack {
+            progressBarView
+            
+            ScrollView {
+                OnboardingStepView(
+                    data: currentStep,
+                    selectedValue: Binding(
+                        get: { selections[currentStep] },
+                        set: { selections[currentStep] = $0 }
+                    )
+                )
+            }
+            
+            Button {
+                if currentStepIndex < steps.count - 1 {
+                    currentStepIndex += 1
+                } else {
+                    // handle completion
+                }
+            } label: {
+                Text("Next")
+            }
+            .style(.primary)
+            .padding(.horizontal, 52)
+            .disabled(!isStepValid)
+            .opacity(isStepValid ? 1 : 0.5)
+        }
+        .padding(.vertical, 90)
+        .background(
+            MyImage(source: .asset(.bg)).scaledToFill()
+        )
+        .ignoresSafeArea()
+        .navigationBarHidden(true)
+        .navigationDestination(isPresented: $viewModel.showSignup) {
+            SignupView(profile: viewModel.profile ?? Profile(id: UUID(), fullName: ""))
+        }
+    }
+    
+    private var progressBarView: some View {
+        HStack {
+            if currentStepIndex > 0 {
+                Button { currentStepIndex -= 1 } label: {
+                    MyImage(source: .system("arrow.backward"))
+                        .scaledToFit()
+                        .frame(width: 18)
+                        .foregroundStyle(.white)
+                }
+            }
+            
+            ProgressView(value: Double(currentStepIndex + 1) / Double(steps.count), total: 1)
+                .progressViewStyle(LinearProgressViewStyle(tint: Color(hex: "#5939A8")))
+                .frame(height: 6)
+            
+            Text("\(currentStepIndex + 1)/\(steps.count)")
                 .foregroundStyle(.white.opacity(0.75))
                 .font(.appRegular(size: 17))
         }

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		520B7B472F3A122300F04F56 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 520B7B462F3A122300F04F56 /* Auth */; };
 		520B7B492F3A122300F04F56 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 520B7B482F3A122300F04F56 /* Supabase */; };
-		522628ED2F3639AB00C79B73 /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522628EC2F3639AA00C79B73 /* GoalView.swift */; };
 		522628EF2F363A5100C79B73 /* SleepScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522628EE2F363A5100C79B73 /* SleepScheduleView.swift */; };
 		522628F12F36415100C79B73 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522628F02F36414E00C79B73 /* SplashViewModel.swift */; };
 		522628F42F3645B200C79B73 /* IQKeyboardToolbarManager in Frameworks */ = {isa = PBXBuildFile; productRef = 522628F32F3645B200C79B73 /* IQKeyboardToolbarManager */; };
@@ -26,13 +25,11 @@
 		524961E32F37BDED00D057F0 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961E22F37BDE900D057F0 /* SettingsViewModel.swift */; };
 		524961E52F37C5EA00D057F0 /* IfAvailableiOS26.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961E42F37C5EA00D057F0 /* IfAvailableiOS26.swift */; };
 		524AA2F12F38F90E00F97B25 /* NewAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524AA2F02F38F90E00F97B25 /* NewAlarmView.swift */; };
-		526C3C3B2F3BAF5B004F1768 /* StayAsleepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C3A2F3BAF5B004F1768 /* StayAsleepView.swift */; };
-		526C3C3D2F3BB0AE004F1768 /* EarlyWakeupRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C3C2F3BB0AE004F1768 /* EarlyWakeupRatingView.swift */; };
-		526C3C3F2F3BB155004F1768 /* DailyFunctionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C3E2F3BB155004F1768 /* DailyFunctionView.swift */; };
 		526C3C412F3BB2E2004F1768 /* DistractingAppsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C402F3BB2E2004F1768 /* DistractingAppsView.swift */; };
 		526C3C432F3BC043004F1768 /* FocusProtectionScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C422F3BC043004F1768 /* FocusProtectionScheduleView.swift */; };
 		526C3C452F3BC36D004F1768 /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C442F3BC36D004F1768 /* TimePickerView.swift */; };
 		526C3C472F3BC492004F1768 /* RepeatDaysPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C462F3BC492004F1768 /* RepeatDaysPicker.swift */; };
+		527B26472F506014003CFDC5 /* OnboardingStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527B26462F506013003CFDC5 /* OnboardingStepView.swift */; };
 		527BC1A22F3A413900287638 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527BC1A12F3A413700287638 /* Profile.swift */; };
 		527BC1A52F3A423500287638 /* SupabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527BC1A42F3A423400287638 /* SupabaseService.swift */; };
 		527BC1A82F3A42B100287638 /* ProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527BC1A72F3A42B000287638 /* ProfileRepository.swift */; };
@@ -107,7 +104,6 @@
 		52A00A192F3DA369000D8DDA /* ManageAppsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A00A182F3DA368000D8DDA /* ManageAppsView.swift */; };
 		52A00A1B2F3DA372000D8DDA /* AppBlockStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A00A1A2F3DA370000D8DDA /* AppBlockStatusView.swift */; };
 		52A00A1D2F3DA37B000D8DDA /* ManageAppsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A00A1C2F3DA37B000D8DDA /* ManageAppsViewModel.swift */; };
-		52C1CD8D2F37591500BEED1E /* BiggestDistractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C1CD8C2F37591500BEED1E /* BiggestDistractionView.swift */; };
 		52C609642F392C59002E41D1 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C609632F392C57002E41D1 /* RoundedView.swift */; };
 		52C6C1822F3534420070850E /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = 52C6C1812F3534420070850E /* SwiftMessages */; };
 		52C6C1862F35375A0070850E /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6C1852F35375A0070850E /* SplashView.swift */; };
@@ -117,8 +113,6 @@
 		52D5E1BD2F3CBEFB009B20A8 /* BlockingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5E1BC2F3CBEF9009B20A8 /* BlockingManager.swift */; };
 		52D5E1BF2F3CBF50009B20A8 /* ScheduleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5E1BE2F3CBF4F009B20A8 /* ScheduleManager.swift */; };
 		52D5E1C32F3CBFD4009B20A8 /* DeviceActivityName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5E1C22F3CBFD3009B20A8 /* DeviceActivityName.swift */; };
-		52E272642F375DA500D9B65C /* AgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E272632F375DA500D9B65C /* AgeView.swift */; };
-		52E272662F375E4C00D9B65C /* GenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E272652F375E4C00D9B65C /* GenderView.swift */; };
 		52EB507C2F3621760031FE9D /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB507B2F3621760031FE9D /* ForgotPasswordView.swift */; };
 		52EB507F2F3622420031FE9D /* EnterCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB507E2F3622420031FE9D /* EnterCodeView.swift */; };
 		52EB50862F36231C0031FE9D /* NewPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50852F36231C0031FE9D /* NewPasswordView.swift */; };
@@ -134,7 +128,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		522628EC2F3639AA00C79B73 /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
 		522628EE2F363A5100C79B73 /* SleepScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepScheduleView.swift; sourceTree = "<group>"; };
 		522628F02F36414E00C79B73 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		52263DC22F38E38E003AE6D4 /* SleepLogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepLogDetailView.swift; sourceTree = "<group>"; };
@@ -150,13 +143,11 @@
 		524961E22F37BDE900D057F0 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		524961E42F37C5EA00D057F0 /* IfAvailableiOS26.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfAvailableiOS26.swift; sourceTree = "<group>"; };
 		524AA2F02F38F90E00F97B25 /* NewAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlarmView.swift; sourceTree = "<group>"; };
-		526C3C3A2F3BAF5B004F1768 /* StayAsleepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StayAsleepView.swift; sourceTree = "<group>"; };
-		526C3C3C2F3BB0AE004F1768 /* EarlyWakeupRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarlyWakeupRatingView.swift; sourceTree = "<group>"; };
-		526C3C3E2F3BB155004F1768 /* DailyFunctionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyFunctionView.swift; sourceTree = "<group>"; };
 		526C3C402F3BB2E2004F1768 /* DistractingAppsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistractingAppsView.swift; sourceTree = "<group>"; };
 		526C3C422F3BC043004F1768 /* FocusProtectionScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusProtectionScheduleView.swift; sourceTree = "<group>"; };
 		526C3C442F3BC36D004F1768 /* TimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
 		526C3C462F3BC492004F1768 /* RepeatDaysPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatDaysPicker.swift; sourceTree = "<group>"; };
+		527B26462F506013003CFDC5 /* OnboardingStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingStepView.swift; sourceTree = "<group>"; };
 		527BC1A12F3A413700287638 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		527BC1A42F3A423400287638 /* SupabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseService.swift; sourceTree = "<group>"; };
 		527BC1A72F3A42B000287638 /* ProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepository.swift; sourceTree = "<group>"; };
@@ -231,7 +222,6 @@
 		52A00A182F3DA368000D8DDA /* ManageAppsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAppsView.swift; sourceTree = "<group>"; };
 		52A00A1A2F3DA370000D8DDA /* AppBlockStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBlockStatusView.swift; sourceTree = "<group>"; };
 		52A00A1C2F3DA37B000D8DDA /* ManageAppsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageAppsViewModel.swift; sourceTree = "<group>"; };
-		52C1CD8C2F37591500BEED1E /* BiggestDistractionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiggestDistractionView.swift; sourceTree = "<group>"; };
 		52C609632F392C57002E41D1 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		52C6C1832F3534520070850E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		52C6C1852F35375A0070850E /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
@@ -242,8 +232,6 @@
 		52D5E1BC2F3CBEF9009B20A8 /* BlockingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockingManager.swift; sourceTree = "<group>"; };
 		52D5E1BE2F3CBF4F009B20A8 /* ScheduleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManager.swift; sourceTree = "<group>"; };
 		52D5E1C22F3CBFD3009B20A8 /* DeviceActivityName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceActivityName.swift; sourceTree = "<group>"; };
-		52E272632F375DA500D9B65C /* AgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeView.swift; sourceTree = "<group>"; };
-		52E272652F375E4C00D9B65C /* GenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenderView.swift; sourceTree = "<group>"; };
 		52EB507B2F3621760031FE9D /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		52EB507E2F3622420031FE9D /* EnterCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterCodeView.swift; sourceTree = "<group>"; };
 		52EB50852F36231C0031FE9D /* NewPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPasswordView.swift; sourceTree = "<group>"; };
@@ -717,16 +705,10 @@
 			isa = PBXGroup;
 			children = (
 				529618A92F35F28C001E7C7C /* OnboardingView.swift */,
-				522628EC2F3639AA00C79B73 /* GoalView.swift */,
-				522628EE2F363A5100C79B73 /* SleepScheduleView.swift */,
-				52C1CD8C2F37591500BEED1E /* BiggestDistractionView.swift */,
-				52E272632F375DA500D9B65C /* AgeView.swift */,
-				52E272652F375E4C00D9B65C /* GenderView.swift */,
-				526C3C3A2F3BAF5B004F1768 /* StayAsleepView.swift */,
-				526C3C3C2F3BB0AE004F1768 /* EarlyWakeupRatingView.swift */,
-				526C3C3E2F3BB155004F1768 /* DailyFunctionView.swift */,
+				527B26462F506013003CFDC5 /* OnboardingStepView.swift */,
 				526C3C402F3BB2E2004F1768 /* DistractingAppsView.swift */,
 				526C3C422F3BC043004F1768 /* FocusProtectionScheduleView.swift */,
+				522628EE2F363A5100C79B73 /* SleepScheduleView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -975,12 +957,10 @@
 				529618B42F360536001E7C7C /* ErrorField.swift in Sources */,
 				524961CF2F37BC0800D057F0 /* HomeViewModel.swift in Sources */,
 				52A00A0A2F3DA307000D8DDA /* BlockDetailView.swift in Sources */,
-				526C3C3F2F3BB155004F1768 /* DailyFunctionView.swift in Sources */,
 				529E03FE2F35318B0000CFEA /* LocalizedExtensions.swift in Sources */,
 				529618B22F3604FE001E7C7C /* TextFieldFormView.swift in Sources */,
 				524961D22F37BCA900D057F0 /* SoundsView.swift in Sources */,
 				52C6C1862F35375A0070850E /* SplashView.swift in Sources */,
-				522628ED2F3639AB00C79B73 /* GoalView.swift in Sources */,
 				524AA2F12F38F90E00F97B25 /* NewAlarmView.swift in Sources */,
 				52A009F72F3DA27C000D8DDA /* BrakesAllowedSheet.swift in Sources */,
 				52A009C72F3D9FC5000D8DDA /* UpcomingBlock.swift in Sources */,
@@ -993,7 +973,6 @@
 				529E04012F35318B0000CFEA /* AppEnvironment.swift in Sources */,
 				52A009D42F3D9FFE000D8DDA /* TimerDuration.swift in Sources */,
 				528169BF2F35B519007AE539 /* ButtonStyle.swift in Sources */,
-				526C3C3B2F3BAF5B004F1768 /* StayAsleepView.swift in Sources */,
 				52D5E1BD2F3CBEFB009B20A8 /* BlockingManager.swift in Sources */,
 				52A009E72F3DA215000D8DDA /* SleepzyHomeViewUpdated.swift in Sources */,
 				52A00A082F3DA300000D8DDA /* BlocksListView.swift in Sources */,
@@ -1001,6 +980,7 @@
 				529E04022F35318B0000CFEA /* Localizer.swift in Sources */,
 				52A009D02F3D9FF0000D8DDA /* BrakeType.swift in Sources */,
 				52C609642F392C59002E41D1 /* RoundedView.swift in Sources */,
+				527B26472F506014003CFDC5 /* OnboardingStepView.swift in Sources */,
 				52EB507F2F3622420031FE9D /* EnterCodeView.swift in Sources */,
 				529E04032F35318B0000CFEA /* SwiftMessages+Extensions.swift in Sources */,
 				529E04042F35318B0000CFEA /* ContentView.swift in Sources */,
@@ -1023,8 +1003,6 @@
 				52A009FA2F3DA28F000D8DDA /* TabButton.swift in Sources */,
 				529E04052F35318B0000CFEA /* CornerRadius.swift in Sources */,
 				52A009C52F3D9FBE000D8DDA /* SavedBlock.swift in Sources */,
-				526C3C3D2F3BB0AE004F1768 /* EarlyWakeupRatingView.swift in Sources */,
-				52C1CD8D2F37591500BEED1E /* BiggestDistractionView.swift in Sources */,
 				526C3C452F3BC36D004F1768 /* TimePickerView.swift in Sources */,
 				52A009D72F3DA013000D8DDA /* TabItem.swift in Sources */,
 				52A00A122F3DA328000D8DDA /* BlocksListViewModel.swift in Sources */,
@@ -1036,7 +1014,6 @@
 				527BC1A82F3A42B100287638 /* ProfileRepository.swift in Sources */,
 				52EB509A2F3625BC0031FE9D /* ChangeObserverModifier.swift in Sources */,
 				52D5E1B52F3CB08C009B20A8 /* LocalData.swift in Sources */,
-				52E272662F375E4C00D9B65C /* GenderView.swift in Sources */,
 				52A00A002F3DA2A8000D8DDA /* DayButton.swift in Sources */,
 				52EB509B2F3625BC0031FE9D /* AEOTPTextFieldDelegate.swift in Sources */,
 				524961CD2F37BBF200D057F0 /* HomeView.swift in Sources */,
@@ -1079,7 +1056,6 @@
 				529E04082F35318B0000CFEA /* SwiftUI+Extensions.swift in Sources */,
 				52A009B52F3D9204000D8DDA /* SleepzyHomeView.swift in Sources */,
 				526C3C432F3BC043004F1768 /* FocusProtectionScheduleView.swift in Sources */,
-				52E272642F375DA500D9B65C /* AgeView.swift in Sources */,
 				529E04092F35318B0000CFEA /* Font+Swizzle.swift in Sources */,
 				529618B02F35F2F0001E7C7C /* SignupView.swift in Sources */,
 				529E03E42F3531530000CFEA /* SleepzyApp.swift in Sources */,

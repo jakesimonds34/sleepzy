@@ -9,12 +9,12 @@ import SwiftUI
 
 struct AppHeaderView: View {
     @Environment(\.dismiss) private var dismiss
-    let title: LocalizedStringKey
-    let subTitle: LocalizedStringKey
+    let title: String
+    let subTitle: String
     let isBack: Bool
     var paddingTop: Double
     
-    init(title: LocalizedStringKey, subTitle: LocalizedStringKey, isBack: Bool = false, paddingTop: Double = 68) {
+    init(title: String, subTitle: String, isBack: Bool = false, paddingTop: Double = 68) {
         self.title = title
         self.subTitle = subTitle
         self.isBack = isBack

@@ -1,0 +1,81 @@
+//
+//  OnboardingStepView.swift
+//  Sleepzy
+//
+//  Created by Saadi Dalloul on 26/02/2026.
+//
+
+import SwiftUI
+
+// MARK: - Protocol
+protocol OnboardingStepData {
+    var items: [RowItem] { get }
+    var title: String { get }
+    var subTitle: String { get }
+}
+
+// MARK: - Generic Onboarding Step View
+struct OnboardingStepView: View {
+    let data: any OnboardingStepData
+    @Binding var selectedValue: String?
+    
+    var body: some View {
+        VStack {
+            AppHeaderView(
+                title: data.title,
+                subTitle: data.subTitle,
+                isBack: false,
+                paddingTop: 16
+            )
+            .padding(.horizontal)
+            
+            VStack(spacing: 16) {
+                ForEach(data.items, id: \.title) { item in
+                    RowItemView(item: item, isSelected: selectedValue == item.title)
+                        .onTapGesture {
+                            selectedValue = item.title
+                        }
+                }
+            }
+            .padding(.horizontal)
+        }
+    }
+}
+
+// MARK: - Step Definitions
+enum OnboardingStep: CaseIterable {
+    case goal, distraction, age, gender, stayAsleep, earlyWakeup, dailyFunction
+}
+
+extension OnboardingStep: OnboardingStepData {
+    var title: String {
+        switch self {
+        case .goal:         return "What's your goal?"
+        case .distraction:  return "What is your biggest distraction?"
+        case .age:          return "How old are you?"
+        case .gender:       return "What's your gender?"
+        case .stayAsleep:   return "How difficult is it for you to stay asleep?"
+        case .earlyWakeup:  return "Rate your problem with waking up too early?"
+        case .dailyFunction: return "How does poor sleep affect your daily function?"
+        }
+    }
+    
+    var subTitle: String {
+        switch self {
+        case .goal: return "We'll tailor the experience to your needs."
+        default:    return ""
+        }
+    }
+    
+    var items: [RowItem] {
+        switch self {
+        case .goal:          return LocalData.Goals.items
+        case .distraction:   return LocalData.Distractions.items
+        case .age:           return LocalData.Ages.items
+        case .gender:        return LocalData.Gender.items
+        case .stayAsleep:    return LocalData.StayAsleep.items
+        case .earlyWakeup:   return LocalData.EarlyWakeupRating.items
+        case .dailyFunction: return LocalData.DailyFunction.items
+        }
+    }
+}
