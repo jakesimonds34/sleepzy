@@ -4,7 +4,7 @@
 //
 //  Created by Saadi Dalloul on 10/02/2026.
 //
-
+/*
 import SwiftUI
 import FamilyControls
 import ManagedSettings
@@ -820,3 +820,4 @@ struct CategoryTokenCard: View {
     @Previewable @State var selectedDistractingApps: String? = ""
     DistractingAppsView(currentStep: $currentStep, selectedDistractingApps: $selectedDistractingApps)
 }
+*/

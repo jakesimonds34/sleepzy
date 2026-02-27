@@ -17,7 +17,6 @@ struct ContentView: View {
     // MARK: - Body
     var body: some View {
         content
-//        DistractingAppsView(currentStep: $currentStep, selectedDistractingApps: $selectedDistractingApps)
             .buttonStyle(.plain)
             .preferredColorScheme(appEnv.colorScheme)
             .animation(.default, value: appEnv.appStatus)
