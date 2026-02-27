@@ -1,4 +1,5 @@
 import Foundation
+import DeveloperToolsSupport
 import FamilyControls
 import ManagedSettings
 
@@ -18,11 +19,11 @@ enum BrakeLevel: String, CaseIterable, Codable, Identifiable {
     
     var id: String { rawValue }
     
-    var iconName: String {
+    var iconName: ImageResource {
         switch self {
-        case .easy:     return "shield.slash"
-        case .harder:   return "shield"
-        case .hardcore: return "lock.shield.fill"
+        case .easy:     return .shieldSlashIcon
+        case .harder:   return .shieldWithoutSlashIcon
+        case .hardcore: return .shieldStarIcon
         }
     }
 }

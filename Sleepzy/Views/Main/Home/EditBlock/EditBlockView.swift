@@ -125,7 +125,9 @@ struct EditScheduleBlockView: View {
             SectionLabel(text: "BRAKES ALLOWED")
             Button { showBrakePicker = true } label: {
                 HStack {
-                    Image(systemName: brakeLevel.iconName).foregroundColor(AppTheme.textSecondary)
+                    MyImage(source: .asset(brakeLevel.iconName))
+                        .frame(width: 24, height: 24)
+                    
                     Text(brakeLevel.rawValue).font(.system(size: 15)).foregroundColor(.white)
                     Spacer()
                     Image(systemName: "chevron.right").foregroundColor(AppTheme.textSecondary).font(.system(size: 13))
@@ -248,7 +250,9 @@ struct EditTimerBlockView: View {
                             SectionLabel(text: "BRAKES ALLOWED")
                             Button { showBrakePicker = true } label: {
                                 HStack {
-                                    Image(systemName: brakeLevel.iconName).foregroundColor(AppTheme.textSecondary)
+                                    MyImage(source: .asset(brakeLevel.iconName))
+                                        .frame(width: 24, height: 24)
+                                    
                                     Text(brakeLevel.rawValue).font(.system(size: 15)).foregroundColor(.white)
                                     Spacer()
                                     Image(systemName: "chevron.right")

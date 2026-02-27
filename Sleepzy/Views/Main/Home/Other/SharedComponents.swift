@@ -264,9 +264,9 @@ struct BrakeLevelRow: View {
     var body: some View {
         Button(action: action) {
             HStack(spacing: 12) {
-                Image(systemName: level.iconName).font(.system(size: 16))
-                    .foregroundColor(isSelected ? AppTheme.accentBright : AppTheme.textSecondary)
-                    .frame(width: 22)
+                MyImage(source: .asset(level.iconName))
+                    .frame(width: 24, height: 24)
+                
                 Text(level.rawValue).font(.system(size: 15)).foregroundColor(AppTheme.textPrimary)
                 Spacer()
                 ZStack {

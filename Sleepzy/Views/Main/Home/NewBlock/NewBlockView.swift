@@ -9,33 +9,34 @@ struct NewBlockView: View {
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                AppTheme.background.ignoresSafeArea()
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading, spacing: 20) {
 
-                ScrollView(showsIndicators: false) {
-                    VStack(alignment: .leading, spacing: 20) {
+                    modePicker
+                    nameField
 
-                        modePicker
-                        nameField
-
-                        switch vm.blockMode {
-                        case .schedule: scheduleBody
-                        case .timer:    timerBody
-                        }
-
-                        appBlockSection
-                        brakesSection
-
-                        PrimaryButton(title: "Save",
-                                      action: saveAndDismiss,
-                                      isEnabled: vm.canSave)
-                            .padding(.top, 8)
-                            .padding(.bottom, 40)
+                    switch vm.blockMode {
+                    case .schedule: scheduleBody
+                    case .timer:    timerBody
                     }
-                    .padding(.horizontal, AppTheme.pagePadding)
-                    .padding(.top, 8)
+
+                    appBlockSection
+                    brakesSection
+
+                    PrimaryButton(title: "Save",
+                                  action: saveAndDismiss,
+                                  isEnabled: vm.canSave)
+                        .padding(.top, 8)
+                        .padding(.bottom, 40)
                 }
+                .padding(.horizontal, AppTheme.pagePadding)
+                .padding(.top, 8)
             }
+            .background(
+                MyImage(source: .asset(.bgSounds))
+                    .scaledToFill()
+                    .ignoresSafeArea()
+            )
             .navigationTitle("New Block")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -73,8 +74,9 @@ struct NewBlockView: View {
                     withAnimation(.easeInOut(duration: 0.2)) { vm.blockMode = mode }
                 } label: {
                     HStack(spacing: 6) {
-                        Image(systemName: mode == .schedule ? "calendar" : "clock")
-                            .font(.system(size: 13))
+                        MyImage(source: .asset(mode == .schedule ? .calendarIcon : .stopwatchIcon))
+                            .frame(width: 20, height: 20)
+                        
                         Text(mode.rawValue)
                             .font(.system(size: 14, weight: .semibold))
                     }
@@ -82,13 +84,15 @@ struct NewBlockView: View {
                     .frame(maxWidth: .infinity)
                     .frame(height: 38)
                     .background(vm.blockMode == mode ? AppTheme.accent : Color.clear)
-                    .clipShape(Capsule())
+                    .clipShape(.rect)
+                    .cornerRadius(8)
                 }
             }
         }
         .padding(4)
         .background(AppTheme.pillBackground)
-        .clipShape(Capsule())
+        .clipShape(.rect)
+        .cornerRadius(8)
     }
 
     // MARK: - Name Field
@@ -101,8 +105,10 @@ struct NewBlockView: View {
                     .font(.system(size: 16))
                     .foregroundColor(.white)
                     .tint(AppTheme.accentBright)
-                Image(systemName: "sparkles")
-                    .foregroundColor(AppTheme.textSecondary)
+                    .colorScheme(.dark)
+                
+                MyImage(source: .asset(.puzzleIcon))
+                    .frame(width: 24, height: 24)
             }
             .padding(.horizontal, 14)
             .frame(height: 48)
@@ -147,6 +153,7 @@ struct NewBlockView: View {
                             vm.toggleDay(day)
                         }
                     }
+                    .frame(maxWidth: .infinity)
                 }
             }
         }
@@ -192,8 +199,9 @@ struct NewBlockView: View {
             SectionLabel(text: "BRAKES ALLOWED")
             Button { vm.showBrakePicker = true } label: {
                 HStack {
-                    Image(systemName: vm.brakeLevel.iconName)
-                        .foregroundColor(AppTheme.textSecondary)
+                    MyImage(source: .asset(vm.brakeLevel.iconName))
+                        .frame(width: 24, height: 24)
+                    
                     Text(vm.brakeLevel.rawValue)
                         .font(.system(size: 15))
                         .foregroundColor(.white)

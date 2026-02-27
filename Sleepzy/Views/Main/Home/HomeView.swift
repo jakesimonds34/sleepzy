@@ -20,7 +20,7 @@ struct HomeView: View {
     
     var body: some View {
         Group {
-            if authManager.isAuthorized {
+            if !authManager.isAuthorized {
                 ScrollView {
                     content
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -153,14 +153,9 @@ struct HomeView: View {
 
                 // Title + toggle
                 HStack(spacing: 12) {
-                    ZStack {
-                        Circle()
-                            .stroke(AppTheme.accentBright.opacity(0.5), lineWidth: 1.5)
-                            .frame(width: 42, height: 42)
-                        Image(systemName: "checkmark.shield.fill")
-                            .foregroundColor(AppTheme.accentBright)
-                            .font(.system(size: 18))
-                    }
+                    MyImage(source: .asset(.shieldIcon))
+                        .frame(width: 50, height: 50)
+                    
                     VStack(alignment: .leading, spacing: 3) {
                         Text(shield.name)
                             .font(.system(size: 16, weight: .semibold))
@@ -350,11 +345,11 @@ struct HomeView: View {
     private var addLimitButton: some View {
         Button { showNewBlock = true } label: {
             HStack(spacing: 10) {
-                Image(systemName: "plus.circle.fill")
-                    .font(.system(size: 20)).foregroundColor(AppTheme.accentBright)
+                Image(systemName: "plus")
+                    .font(.system(size: 20)).foregroundColor(.white)
                 Text("Limit App or Website")
                     .font(.system(size: 15, weight: .medium))
-                    .foregroundColor(.white.opacity(0.7))
+                    .foregroundColor(.white)
             }
             .frame(maxWidth: .infinity, alignment: .center)
             .frame(height: 56)
