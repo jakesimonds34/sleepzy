@@ -5,6 +5,7 @@
 //  Created by Saadi Dalloul on 12/02/2026.
 //
 
+/*
 import Foundation
 import FamilyControls
 
@@ -29,3 +30,4 @@ struct SavedBlock: Identifiable, Codable {
         isActive ? "green" : "gray"
     }
 }
+*/

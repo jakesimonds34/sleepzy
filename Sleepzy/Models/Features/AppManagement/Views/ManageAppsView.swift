@@ -4,7 +4,7 @@
 //
 //  Created by Saadi Dalloul on 12/02/2026.
 //
-
+/*
 import SwiftUI
 import FamilyControls
 import ManagedSettings
@@ -299,3 +299,4 @@ struct AppBlockCard: View {
 #Preview {
     ManageAppsView()
 }
+*/

@@ -13,18 +13,18 @@ struct SleepzyApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @Environment(\.scenePhase) var scenePhase
     
-    @StateObject private var authManager = ScreenTimeAuthorizationManager()
-    @StateObject private var selectionManager = AppSelectionManager()
-    @StateObject private var shieldManager = ShieldManager.shared
-    @StateObject private var blockManager = BlockManager.shared
+//    @StateObject private var authManager = ScreenTimeAuthorizationManager()
+//    @StateObject private var selectionManager = AppSelectionManager()
+//    @StateObject private var shieldManager = ShieldManager.shared
+//    @StateObject private var blockManager = BlockManager.shared
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(authManager)
-                .environmentObject(selectionManager)
-                .environmentObject(shieldManager)
-                .environmentObject(blockManager)
+//                .environmentObject(authManager)
+//                .environmentObject(selectionManager)
+//                .environmentObject(shieldManager)
+//                .environmentObject(blockManager)
                 .onChange(of: scenePhase) { _, newPhase in
                     switch newPhase {
                     case .active:

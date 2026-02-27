@@ -48,6 +48,8 @@ import FamilyControls
 //
 //// MARK: - Codable Extensions
 //
+
+/*
 extension BlockConfiguration {
     enum CodingKeys: String, CodingKey {
         case name, type, fromHour, fromMinute, fromPeriod
@@ -104,3 +106,4 @@ extension BlockConfiguration {
         selectedApps = FamilyActivitySelection()
     }
 }
+*/

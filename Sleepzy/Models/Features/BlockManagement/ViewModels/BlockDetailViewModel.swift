@@ -4,6 +4,7 @@
 //
 //  Created by Saadi Dalloul on 12/02/2026.
 //
+/*
 
 import SwiftUI
 import Combine
@@ -109,3 +110,4 @@ class BlockDetailViewModel: ObservableObject {
         return formatter.string(from: date)
     }
 }
+*/

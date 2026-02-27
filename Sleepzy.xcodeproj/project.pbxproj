@@ -25,6 +25,7 @@
 		524961E32F37BDED00D057F0 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961E22F37BDE900D057F0 /* SettingsViewModel.swift */; };
 		524961E52F37C5EA00D057F0 /* IfAvailableiOS26.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961E42F37C5EA00D057F0 /* IfAvailableiOS26.swift */; };
 		524AA2F12F38F90E00F97B25 /* NewAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524AA2F02F38F90E00F97B25 /* NewAlarmView.swift */; };
+		5263E2312F51033800BB27A1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5263E2302F51033700BB27A1 /* Settings.swift */; };
 		526C3C412F3BB2E2004F1768 /* DistractingAppsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C402F3BB2E2004F1768 /* DistractingAppsView.swift */; };
 		526C3C432F3BC043004F1768 /* FocusProtectionScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C422F3BC043004F1768 /* FocusProtectionScheduleView.swift */; };
 		526C3C452F3BC36D004F1768 /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C442F3BC36D004F1768 /* TimePickerView.swift */; };
@@ -65,8 +66,6 @@
 		529E040C2F35318B0000CFEA /* CircularStd-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 529E03FB2F35318B0000CFEA /* CircularStd-Medium.ttf */; };
 		529E040D2F35318B0000CFEA /* CircularStd-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 529E03FA2F35318B0000CFEA /* CircularStd-Book.ttf */; };
 		529E040E2F35318B0000CFEA /* CircularStd-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 529E03F82F35318B0000CFEA /* CircularStd-Black.ttf */; };
-		52A009B32F3D91FA000D8DDA /* NewBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A009B22F3D91FA000D8DDA /* NewBlockView.swift */; };
-		52A009B52F3D9204000D8DDA /* SleepzyHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A009B42F3D9204000D8DDA /* SleepzyHomeView.swift */; };
 		52A009BC2F3D9F8C000D8DDA /* ShieldManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A009BB2F3D9F8B000D8DDA /* ShieldManager.swift */; };
 		52A009BE2F3D9F94000D8DDA /* BlockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A009BD2F3D9F93000D8DDA /* BlockManager.swift */; };
 		52A009C02F3D9FA5000D8DDA /* AppSelectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A009BF2F3D9FA5000D8DDA /* AppSelectionManager.swift */; };
@@ -144,6 +143,7 @@
 		524961E22F37BDE900D057F0 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		524961E42F37C5EA00D057F0 /* IfAvailableiOS26.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfAvailableiOS26.swift; sourceTree = "<group>"; };
 		524AA2F02F38F90E00F97B25 /* NewAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlarmView.swift; sourceTree = "<group>"; };
+		5263E2302F51033700BB27A1 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		526C3C402F3BB2E2004F1768 /* DistractingAppsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistractingAppsView.swift; sourceTree = "<group>"; };
 		526C3C422F3BC043004F1768 /* FocusProtectionScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusProtectionScheduleView.swift; sourceTree = "<group>"; };
 		526C3C442F3BC36D004F1768 /* TimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
@@ -184,8 +184,6 @@
 		529E03F92F35318B0000CFEA /* CircularStd-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Bold.ttf"; sourceTree = "<group>"; };
 		529E03FA2F35318B0000CFEA /* CircularStd-Book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Book.ttf"; sourceTree = "<group>"; };
 		529E03FB2F35318B0000CFEA /* CircularStd-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Medium.ttf"; sourceTree = "<group>"; };
-		52A009B22F3D91FA000D8DDA /* NewBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBlockView.swift; sourceTree = "<group>"; };
-		52A009B42F3D9204000D8DDA /* SleepzyHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepzyHomeView.swift; sourceTree = "<group>"; };
 		52A009BB2F3D9F8B000D8DDA /* ShieldManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldManager.swift; sourceTree = "<group>"; };
 		52A009BD2F3D9F93000D8DDA /* BlockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockManager.swift; sourceTree = "<group>"; };
 		52A009BF2F3D9FA5000D8DDA /* AppSelectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSelectionManager.swift; sourceTree = "<group>"; };
@@ -456,6 +454,7 @@
 		529E03EE2F35318B0000CFEA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5263E2302F51033700BB27A1 /* Settings.swift */,
 				52D5E1C02F3CBFAE009B20A8 /* FamilyControls */,
 				529E03E92F35318B0000CFEA /* Core */,
 				52A009E22F3DA1E0000D8DDA /* Features */,
@@ -499,15 +498,6 @@
 				529E03FC2F35318B0000CFEA /* Fonts */,
 			);
 			path = Assets;
-			sourceTree = "<group>";
-		};
-		52A009B12F3D91EB000D8DDA /* AI */ = {
-			isa = PBXGroup;
-			children = (
-				52A009B42F3D9204000D8DDA /* SleepzyHomeView.swift */,
-				52A009B22F3D91FA000D8DDA /* NewBlockView.swift */,
-			);
-			path = AI;
 			sourceTree = "<group>";
 		};
 		52A009B82F3D9EFB000D8DDA /* Managers */ = {
@@ -727,7 +717,6 @@
 			isa = PBXGroup;
 			children = (
 				52C6C18D2F35380A0070850E /* MainTabView.swift */,
-				52A009B12F3D91EB000D8DDA /* AI */,
 				524961CB2F37BBCC00D057F0 /* Home */,
 				524961D02F37BC9600D057F0 /* Sounds */,
 				524961D52F37BD0D00D057F0 /* SleepLog */,
@@ -1026,6 +1015,7 @@
 				52EB509A2F3625BC0031FE9D /* ChangeObserverModifier.swift in Sources */,
 				52D5E1B52F3CB08C009B20A8 /* LocalData.swift in Sources */,
 				52A00A002F3DA2A8000D8DDA /* DayButton.swift in Sources */,
+				5263E2312F51033800BB27A1 /* Settings.swift in Sources */,
 				52EB509B2F3625BC0031FE9D /* AEOTPTextFieldDelegate.swift in Sources */,
 				524961CD2F37BBF200D057F0 /* HomeView.swift in Sources */,
 				52EB509C2F3625BC0031FE9D /* AEOTPTextFieldImplementation.swift in Sources */,
@@ -1059,13 +1049,11 @@
 				52A009BE2F3D9F94000D8DDA /* BlockManager.swift in Sources */,
 				52A009DB2F3DA022000D8DDA /* LockedApp.swift in Sources */,
 				529618B82F361752001E7C7C /* appHeaderView.swift in Sources */,
-				52A009B32F3D91FA000D8DDA /* NewBlockView.swift in Sources */,
 				529E04072F35318B0000CFEA /* Language.swift in Sources */,
 				52EB507C2F3621760031FE9D /* ForgotPasswordView.swift in Sources */,
 				528169BB2F35B173007AE539 /* MyImage.swift in Sources */,
 				52A00A142F3DA32F000D8DDA /* BlockDetailViewModel.swift in Sources */,
 				529E04082F35318B0000CFEA /* SwiftUI+Extensions.swift in Sources */,
-				52A009B52F3D9204000D8DDA /* SleepzyHomeView.swift in Sources */,
 				527B264A2F50645A003CFDC5 /* SleepScoreView.swift in Sources */,
 				526C3C432F3BC043004F1768 /* FocusProtectionScheduleView.swift in Sources */,
 				529E04092F35318B0000CFEA /* Font+Swizzle.swift in Sources */,

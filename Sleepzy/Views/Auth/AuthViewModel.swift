@@ -101,6 +101,7 @@ class AuthViewModel: ObservableObject {
             try await profileRepo.createProfile(profile)
             self.profile = profile
             
+            Settings.shared.currentUser = profile
 //            self.showOnboarding.toggle()
             AppEnvironment.shared.appStatus = .home
         } catch {
@@ -121,6 +122,7 @@ class AuthViewModel: ObservableObject {
             self.user = loggedUser
             self.profile = try await profileRepo.getProfile(by: loggedUser.id)
             
+            Settings.shared.currentUser = profile
             AppEnvironment.shared.appStatus = .home
         } catch {
             errorMessage = error.localizedDescription

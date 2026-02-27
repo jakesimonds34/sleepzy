@@ -39,12 +39,16 @@ struct ContentView: View {
     // MARK: - View Components
     @ViewBuilder
     private var content: some View {
-        if appEnv.appStatus == .loading {
-            SplashView()
-        } else if appEnv.appStatus == .resetPassword {
-            NewPasswordView()
-        } else {
+        if Settings.shared.isLoggedIn {
             MainTabView()
+        } else {
+            if appEnv.appStatus == .loading {
+                SplashView()
+            } else if appEnv.appStatus == .resetPassword {
+                NewPasswordView()
+            } else {
+                MainTabView()
+            }
         }
     }
 }
