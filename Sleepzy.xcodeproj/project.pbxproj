@@ -56,6 +56,8 @@
 		529618B22F3604FE001E7C7C /* TextFieldFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529618B12F3604FE001E7C7C /* TextFieldFormView.swift */; };
 		529618B42F360536001E7C7C /* ErrorField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529618B32F360536001E7C7C /* ErrorField.swift */; };
 		529618B82F361752001E7C7C /* appHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529618B72F361752001E7C7C /* appHeaderView.swift */; };
+		5296871B2F52C21800F71099 /* AlarmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5296871A2F52C21800F71099 /* AlarmManager.swift */; };
+		5296871D2F52C2C400F71099 /* AlarmFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5296871C2F52C2C400F71099 /* AlarmFormView.swift */; };
 		529E03E22F3531530000CFEA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529E03DD2F3531530000CFEA /* AppDelegate.swift */; };
 		529E03E42F3531530000CFEA /* SleepzyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529E03E02F3531530000CFEA /* SleepzyApp.swift */; };
 		529E03FE2F35318B0000CFEA /* LocalizedExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 529E03EC2F35318B0000CFEA /* LocalizedExtensions.swift */; };
@@ -144,6 +146,8 @@
 		529618B12F3604FE001E7C7C /* TextFieldFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldFormView.swift; sourceTree = "<group>"; };
 		529618B32F360536001E7C7C /* ErrorField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorField.swift; sourceTree = "<group>"; };
 		529618B72F361752001E7C7C /* appHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appHeaderView.swift; sourceTree = "<group>"; };
+		5296871A2F52C21800F71099 /* AlarmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmManager.swift; sourceTree = "<group>"; };
+		5296871C2F52C2C400F71099 /* AlarmFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmFormView.swift; sourceTree = "<group>"; };
 		529E03CD2F35312D0000CFEA /* Sleepzy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sleepzy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		529E03DD2F3531530000CFEA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		529E03E02F3531530000CFEA /* SleepzyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepzyApp.swift; sourceTree = "<group>"; };
@@ -237,10 +241,10 @@
 			children = (
 				524961CC2F37BBF200D057F0 /* HomeView.swift */,
 				524961CE2F37BC0700D057F0 /* HomeViewModel.swift */,
-				522691992F523B9200CB4F22 /* AuthorizationManager.swift */,
-				522691972F523B1300CB4F22 /* BrakePickerSheet.swift */,
 				522691912F5239E000CB4F22 /* NewBlock */,
 				522691932F523A1C00CB4F22 /* EditBlock */,
+				529687182F52C04000F71099 /* Sheets */,
+				529687172F52C03200F71099 /* Model */,
 				522691922F5239ED00CB4F22 /* Other */,
 			);
 			path = Home;
@@ -269,8 +273,10 @@
 			isa = PBXGroup;
 			children = (
 				524961DB2F37BD8B00D057F0 /* AlarmsView.swift */,
-				524AA2F02F38F90E00F97B25 /* NewAlarmView.swift */,
 				524961DD2F37BD9600D057F0 /* AlarmsViewModel.swift */,
+				5296871C2F52C2C400F71099 /* AlarmFormView.swift */,
+				524AA2F02F38F90E00F97B25 /* NewAlarmView.swift */,
+				529687192F52C21100F71099 /* Model */,
 			);
 			path = Alarms;
 			sourceTree = "<group>";
@@ -358,6 +364,30 @@
 				529618AF2F35F2F0001E7C7C /* SignupView.swift */,
 			);
 			path = Signup;
+			sourceTree = "<group>";
+		};
+		529687172F52C03200F71099 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				522691992F523B9200CB4F22 /* AuthorizationManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		529687182F52C04000F71099 /* Sheets */ = {
+			isa = PBXGroup;
+			children = (
+				522691972F523B1300CB4F22 /* BrakePickerSheet.swift */,
+			);
+			path = Sheets;
+			sourceTree = "<group>";
+		};
+		529687192F52C21100F71099 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5296871A2F52C21800F71099 /* AlarmManager.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		529E03C42F35312C0000CFEA = {
@@ -797,12 +827,14 @@
 				527BC1A52F3A423500287638 /* SupabaseService.swift in Sources */,
 				529618AD2F35F2C2001E7C7C /* LoginView.swift in Sources */,
 				529618B82F361752001E7C7C /* appHeaderView.swift in Sources */,
+				5296871B2F52C21800F71099 /* AlarmManager.swift in Sources */,
 				522691952F523A2C00CB4F22 /* EditBlockView.swift in Sources */,
 				529E04072F35318B0000CFEA /* Language.swift in Sources */,
 				52EB507C2F3621760031FE9D /* ForgotPasswordView.swift in Sources */,
 				528169BB2F35B173007AE539 /* MyImage.swift in Sources */,
 				529E04082F35318B0000CFEA /* SwiftUI+Extensions.swift in Sources */,
 				527B264A2F50645A003CFDC5 /* SleepScoreView.swift in Sources */,
+				5296871D2F52C2C400F71099 /* AlarmFormView.swift in Sources */,
 				526C3C432F3BC043004F1768 /* FocusProtectionScheduleView.swift in Sources */,
 				529E04092F35318B0000CFEA /* Font+Swizzle.swift in Sources */,
 				529618B02F35F2F0001E7C7C /* SignupView.swift in Sources */,

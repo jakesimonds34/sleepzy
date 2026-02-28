@@ -12,10 +12,10 @@ struct AlarmsView: View {
     @StateObject private var viewModel = AlarmsViewModel()
     @Binding var selection: Taps
     
-    @State var showNewAlarm: Bool = false
-    @State private var isOn: Bool = true
+    @StateObject private var manager = AlarmManager.shared
     
-    let isEmpty: Bool = true
+    @State var showingAddAlarm: Bool = false
+    @State private var isOn: Bool = true
     
     // MARK: - Body
     var body: some View {
@@ -25,8 +25,8 @@ struct AlarmsView: View {
                     .scaledToFill()
                     .ignoresSafeArea()
             )
-            .sheet(isPresented: $showNewAlarm) {
-                NewAlarmView()
+            .sheet(isPresented: $showingAddAlarm) {
+                AlarmFormView()
             }
     }
     
@@ -37,17 +37,55 @@ struct AlarmsView: View {
             AppHeaderView(title: "Alarm", subTitle: "", paddingTop: 0)
                 .padding(.horizontal)
             
-            if isEmpty {
-                emptyData()
+            if manager.alarms.isEmpty {
+                EmptyAlarmsView(showingAddAlarm: $showingAddAlarm)
             } else {
-                alarmsView()
-                    .padding(.top, 30)
+                AlarmsListView(showingAddAlarm: $showingAddAlarm)
             }
         }
     }
     
-    //MARK: Empty data
-    private func emptyData() -> some View {
+//    @ViewBuilder
+//    private func alarmsView() -> some View {
+//        VStack(alignment: .leading, spacing: 30) {
+//            // MARK: - Alarm Remaining Time
+//            Text("Alarm in 10 hours and 30 minutes")
+//                .font(.appRegular(size: 24))
+//                .foregroundColor(.white.opacity(0.8))
+//            
+//            ScrollView {
+//                HStack {
+//                    VStack(alignment: .leading, spacing: 4) {
+//                        // MARK: - Time
+//                        Text("10:30")
+//                            .font(.system(size: 48, weight: .bold))
+//                            .foregroundColor(.white)
+//                        
+//                        // MARK: - Days
+//                        Text("Monday to Friday")
+//                            .font(.subheadline)
+//                            .foregroundColor(.white.opacity(0.8))
+//                    }
+//                    Spacer()
+//                    // MARK: - Toggle
+//                    Toggle("", isOn: $isOn)
+//                        .labelsHidden()
+//                        .tint(Color(hex: "5939A8"))
+//                }
+//                .padding()
+//                .background(.white.opacity(0.05))
+//                .cornerRadius(8)
+//            }
+//        }
+//        .padding(.horizontal)
+//    }
+}
+
+// MARK: - Empty State
+struct EmptyAlarmsView: View {
+    @Binding var showingAddAlarm: Bool
+    
+    var body: some View {
         VStack(spacing: 0) {
             Spacer()
             VStack(spacing: 20) {
@@ -65,7 +103,7 @@ struct AlarmsView: View {
                 }
                 
                 Button {
-                    showNewAlarm.toggle()
+                    showingAddAlarm.toggle()
                 } label: {
                     HStack {
                         MyImage(source: .asset(.alarmClockIcon))
@@ -94,40 +132,114 @@ struct AlarmsView: View {
             Spacer()
         }
     }
+}
+
+// MARK: - Alarms List
+struct AlarmsListView: View {
+    @StateObject private var manager = AlarmManager.shared
+    @Binding var showingAddAlarm: Bool
     
-    @ViewBuilder
-    private func alarmsView() -> some View {
-        VStack(alignment: .leading, spacing: 30) {
-            // MARK: - Alarm Remaining Time
-            Text("Alarm in 10 hours and 30 minutes")
-                .font(.appRegular(size: 24))
-                .foregroundColor(.white.opacity(0.8))
-            
-            ScrollView {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            // Next alarm label
+            if let nextAlarm = manager.alarms.filter({ $0.isEnabled }).first {
+                let (h, m) = nextAlarm.timeUntilNextAlarm()
                 HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        // MARK: - Time
-                        Text("10:30")
-                            .font(.system(size: 48, weight: .bold))
-                            .foregroundColor(.white)
-                        
-                        // MARK: - Days
-                        Text("Monday to Friday")
-                            .font(.subheadline)
-                            .foregroundColor(.white.opacity(0.8))
-                    }
-                    Spacer()
-                    // MARK: - Toggle
-                    Toggle("", isOn: $isOn)
-                        .labelsHidden()
-                        .tint(Color(hex: "5939A8"))
+                    Text("Alarm in \(h) hours and \(m) minutes")
+                        .font(.system(size: 17, weight: .medium))
+                        .foregroundColor(.white)
                 }
-                .padding()
-                .background(.white.opacity(0.05))
-                .cornerRadius(8)
+                .padding(.horizontal, 24)
+                .transition(.opacity)
+            }
+            
+            // Alarm cards
+            ScrollView {
+                VStack(spacing: 12) {
+                    ForEach(manager.alarms) { alarm in
+                        AlarmCardView(alarm: alarm)
+                    }
+                }
+                .padding(.horizontal, 16)
+                .padding(.bottom, 100)
             }
         }
-        .padding(.horizontal)
+        .overlay(alignment: .bottomTrailing) {
+            // FAB Add button
+            Button(action: { showingAddAlarm = true }) {
+                Image(systemName: "plus")
+                    .font(.system(size: 22, weight: .semibold))
+                    .foregroundColor(.white)
+                    .frame(width: 58, height: 58)
+                    .background(
+                        LinearGradient(
+                            colors: [
+                                Color(red: 0.45, green: 0.3, blue: 0.9),
+                                Color(red: 0.5, green: 0.25, blue: 0.85)
+                            ],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .clipShape(Circle())
+                    .shadow(color: Color(red: 0.4, green: 0.2, blue: 0.8).opacity(0.5), radius: 10, x: 0, y: 5)
+            }
+            .padding(.trailing, 24)
+            .padding(.bottom, 34)
+        }
+    }
+}
+
+// MARK: - Alarm Card
+struct AlarmCardView: View {
+    let alarm: Alarm
+    @StateObject private var manager = AlarmManager.shared
+    @State private var showEdit = false
+    
+    var body: some View {
+        Button(action: { showEdit = true }) {
+            HStack {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(alarm.timeString)
+                        .font(.system(size: 38, weight: .light, design: .rounded))
+                        .foregroundColor(alarm.isEnabled ? .white : .white.opacity(0.35))
+                    
+                    Text(alarm.repeatLabel)
+                        .font(.system(size: 14))
+                        .foregroundColor(alarm.isEnabled ? .white.opacity(0.6) : .white.opacity(0.25))
+                }
+                
+                Spacer()
+                
+                Toggle("", isOn: Binding(
+                    get: { alarm.isEnabled },
+                    set: { _ in manager.toggleAlarm(alarm) }
+                ))
+                .labelsHidden()
+                .tint(Color(red: 0.45, green: 0.3, blue: 0.9))
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 18)
+            .background(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color.white.opacity(0.06))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .strokeBorder(Color.white.opacity(0.1), lineWidth: 0.5)
+                    )
+            )
+        }
+        .buttonStyle(.plain)
+        .contextMenu {
+            Button(role: .destructive) {
+                manager.deleteAlarm(alarm)
+            } label: {
+                Label("Delete", systemImage: "trash")
+            }
+        }
+        .sheet(isPresented: $showEdit) {
+            AlarmFormView(editingAlarm: alarm)
+        }
     }
 }
 
