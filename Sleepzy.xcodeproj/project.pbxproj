@@ -33,7 +33,6 @@
 		524961E12F37BDE300D057F0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961E02F37BDE300D057F0 /* SettingsView.swift */; };
 		524961E32F37BDED00D057F0 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961E22F37BDE900D057F0 /* SettingsViewModel.swift */; };
 		524961E52F37C5EA00D057F0 /* IfAvailableiOS26.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961E42F37C5EA00D057F0 /* IfAvailableiOS26.swift */; };
-		524AA2F12F38F90E00F97B25 /* NewAlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524AA2F02F38F90E00F97B25 /* NewAlarmView.swift */; };
 		5263E2312F51033800BB27A1 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5263E2302F51033700BB27A1 /* Settings.swift */; };
 		526C3C412F3BB2E2004F1768 /* DistractingAppsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C402F3BB2E2004F1768 /* DistractingAppsView.swift */; };
 		526C3C432F3BC043004F1768 /* FocusProtectionScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526C3C422F3BC043004F1768 /* FocusProtectionScheduleView.swift */; };
@@ -124,7 +123,6 @@
 		524961E02F37BDE300D057F0 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		524961E22F37BDE900D057F0 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		524961E42F37C5EA00D057F0 /* IfAvailableiOS26.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfAvailableiOS26.swift; sourceTree = "<group>"; };
-		524AA2F02F38F90E00F97B25 /* NewAlarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAlarmView.swift; sourceTree = "<group>"; };
 		5263E2302F51033700BB27A1 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		526C3C402F3BB2E2004F1768 /* DistractingAppsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistractingAppsView.swift; sourceTree = "<group>"; };
 		526C3C422F3BC043004F1768 /* FocusProtectionScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusProtectionScheduleView.swift; sourceTree = "<group>"; };
@@ -275,7 +273,6 @@
 				524961DB2F37BD8B00D057F0 /* AlarmsView.swift */,
 				524961DD2F37BD9600D057F0 /* AlarmsViewModel.swift */,
 				5296871C2F52C2C400F71099 /* AlarmFormView.swift */,
-				524AA2F02F38F90E00F97B25 /* NewAlarmView.swift */,
 				529687192F52C21100F71099 /* Model */,
 			);
 			path = Alarms;
@@ -769,7 +766,6 @@
 				524961D22F37BCA900D057F0 /* SoundsView.swift in Sources */,
 				522691902F5239D200CB4F22 /* NewBlockViewModel.swift in Sources */,
 				52C6C1862F35375A0070850E /* SplashView.swift in Sources */,
-				524AA2F12F38F90E00F97B25 /* NewAlarmView.swift in Sources */,
 				52263DC32F38E38E003AE6D4 /* SleepLogDetailView.swift in Sources */,
 				524961DE2F37BD9A00D057F0 /* AlarmsViewModel.swift in Sources */,
 				529E03FF2F35318B0000CFEA /* UIFont+Swizzel.swift in Sources */,
