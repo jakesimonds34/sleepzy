@@ -306,6 +306,11 @@ final class BlockStore: ObservableObject {
         if let data = try? JSONEncoder().encode(timerBlocks) {
             defaults.set(data, forKey: AppGroupConfig.timersKey)
         }
+        // ✅ حفظ الـ Digital Shield
+        if let shield = digitalShield,
+           let data = try? JSONEncoder().encode(shield) {
+            defaults.set(data, forKey: AppGroupConfig.shieldKey)
+        }
     }
 
     private func loadAll() {
@@ -324,15 +329,26 @@ final class BlockStore: ObservableObject {
            let decoded = try? JSONDecoder().decode([TimerBlock].self, from: data) {
             timerBlocks = decoded
         }
+        // ✅ تحميل الـ Digital Shield المحفوظ
+        if let data    = defaults.data(forKey: AppGroupConfig.shieldKey),
+           let decoded = try? JSONDecoder().decode(DigitalShield.self, from: data) {
+            digitalShield = decoded
+            // أعد تسجيل الـ activity إذا كان مفعّلاً
+            if decoded.isEnabled {
+                persistSelection(decoded.appSelection,
+                                 key: AppGroupConfig.selectionKey(for: "digitalShield"))
+                registerShieldActivity(decoded)
+            }
+        }
     }
 
     private func setupDefaultShieldIfNeeded() {
-        if digitalShield == nil {
-            digitalShield = DigitalShield(
-                startTime:    DateComponents(hour: 22, minute: 30),
-                endTime:      DateComponents(hour: 8,  minute: 0),
-                appSelection: FamilyActivitySelection()
-            )
-        }
+        // فقط إذا لم يُحمَّل من الـ storage
+        guard digitalShield == nil else { return }
+        digitalShield = DigitalShield(
+            startTime:    DateComponents(hour: 22, minute: 30),
+            endTime:      DateComponents(hour: 8,  minute: 0),
+            appSelection: FamilyActivitySelection()
+        )
     }
 }

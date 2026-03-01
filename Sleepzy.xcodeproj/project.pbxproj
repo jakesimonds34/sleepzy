@@ -76,6 +76,8 @@
 		529E040C2F35318B0000CFEA /* CircularStd-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 529E03FB2F35318B0000CFEA /* CircularStd-Medium.ttf */; };
 		529E040D2F35318B0000CFEA /* CircularStd-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 529E03FA2F35318B0000CFEA /* CircularStd-Book.ttf */; };
 		529E040E2F35318B0000CFEA /* CircularStd-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 529E03F82F35318B0000CFEA /* CircularStd-Black.ttf */; };
+		52A667262F52F8FA005B66C4 /* DigitalShieldScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A667252F52F8F9005B66C4 /* DigitalShieldScheduleView.swift */; };
+		52A6672A2F52F939005B66C4 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A667292F52F938005B66C4 /* UserProfile.swift */; };
 		52C609642F392C59002E41D1 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C609632F392C57002E41D1 /* RoundedView.swift */; };
 		52C6C1822F3534420070850E /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = 52C6C1812F3534420070850E /* SwiftMessages */; };
 		52C6C1862F35375A0070850E /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6C1852F35375A0070850E /* SplashView.swift */; };
@@ -166,6 +168,8 @@
 		529E03F92F35318B0000CFEA /* CircularStd-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Bold.ttf"; sourceTree = "<group>"; };
 		529E03FA2F35318B0000CFEA /* CircularStd-Book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Book.ttf"; sourceTree = "<group>"; };
 		529E03FB2F35318B0000CFEA /* CircularStd-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CircularStd-Medium.ttf"; sourceTree = "<group>"; };
+		52A667252F52F8F9005B66C4 /* DigitalShieldScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitalShieldScheduleView.swift; sourceTree = "<group>"; };
+		52A667292F52F938005B66C4 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		52C609632F392C57002E41D1 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		52C6C1832F3534520070850E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		52C6C1852F35375A0070850E /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
@@ -283,6 +287,8 @@
 			children = (
 				524961E02F37BDE300D057F0 /* SettingsView.swift */,
 				524961E22F37BDE900D057F0 /* SettingsViewModel.swift */,
+				52A667252F52F8F9005B66C4 /* DigitalShieldScheduleView.swift */,
+				52A667292F52F938005B66C4 /* UserProfile.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -805,6 +811,7 @@
 				524961CD2F37BBF200D057F0 /* HomeView.swift in Sources */,
 				522691982F523B1300CB4F22 /* BrakePickerSheet.swift in Sources */,
 				52EB509C2F3625BC0031FE9D /* AEOTPTextFieldImplementation.swift in Sources */,
+				52A667262F52F8FA005B66C4 /* DigitalShieldScheduleView.swift in Sources */,
 				52EB509D2F3625BC0031FE9D /* View+Helpers.swift in Sources */,
 				527BC1AA2F3A42BD00287638 /* AuthRepository.swift in Sources */,
 				52EB509E2F3625BC0031FE9D /* AEOTPTextFieldSwiftUI.swift in Sources */,
@@ -824,6 +831,7 @@
 				529618AD2F35F2C2001E7C7C /* LoginView.swift in Sources */,
 				529618B82F361752001E7C7C /* appHeaderView.swift in Sources */,
 				5296871B2F52C21800F71099 /* AlarmManager.swift in Sources */,
+				52A6672A2F52F939005B66C4 /* UserProfile.swift in Sources */,
 				522691952F523A2C00CB4F22 /* EditBlockView.swift in Sources */,
 				529E04072F35318B0000CFEA /* Language.swift in Sources */,
 				52EB507C2F3621760031FE9D /* ForgotPasswordView.swift in Sources */,

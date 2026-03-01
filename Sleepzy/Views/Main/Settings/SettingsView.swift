@@ -5,6 +5,7 @@
 //  Created by Saadi Dalloul on 07/02/2026.
 //
 
+/*
 import SwiftUI
 
 struct SettingsView: View {
@@ -192,4 +193,460 @@ struct SettingsView: View {
 #Preview {
     @Previewable @State var selection: Taps = .home
     SettingsView(selection: $selection)
+}
+*/
+
+import SwiftUI
+import FamilyControls
+
+struct SettingsView: View {
+
+    @StateObject private var profileStore = UserProfileStore.shared
+    @StateObject private var blockStore   = BlockStore.shared
+    @State private var showEditProfile          = false
+    @State private var showShieldAppPicker      = false
+    @State private var showShieldSchedule       = false
+    
+    @Binding var selection: Taps
+
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                // Same night sky gradient as HomeView
+                AppTheme.nightSkyGradient.ignoresSafeArea()
+
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 0) {
+
+                        // ── Profile Card ──────────────────────────────
+                        profileCard
+                            .padding(.horizontal, AppTheme.pagePadding)
+                            .padding(.top, 24)
+                            .padding(.bottom, 28)
+
+                        // ── DIGITAL SHIELD section ────────────────────
+                        settingsSection(title: "DIGITAL SHIELD") {
+
+                            // Row 1: Apps Blocked
+                            settingsRow(
+                                icon: "app.badge.fill",
+                                iconColor: AppTheme.accentBright,
+                                title: appsBlockedTitle,
+                                hasChevron: true
+                            ) {
+                                showShieldAppPicker = true
+                            }
+                        }
+
+                        spacer24
+
+                        // ── DIGITAL SHIELD SCHEDULE section ──────────
+                        settingsSection(title: "DIGITAL SHIELD SCHEDULE") {
+
+                            // Single row: time range + repeat days badge
+                            shieldScheduleRow
+                        }
+
+                        spacer24
+
+                        // ── NOTIFICATION section ──────────────────────
+                        settingsSection(title: "NOTIFICATION") {
+
+                            toggleRow(
+                                icon: "wind",
+                                iconColor: Color(hex: "7B8FF7"),
+                                title: "Wind down",
+                                isOn: Binding(
+                                    get: { profileStore.profile.windDownNotification },
+                                    set: { profileStore.profile.windDownNotification = $0; profileStore.save() }
+                                )
+                            )
+
+                            settingsDivider
+
+                            toggleRow(
+                                icon: "checkmark.shield.fill",
+                                iconColor: AppTheme.accentBright,
+                                title: "Digital Shield",
+                                isOn: Binding(
+                                    get: { profileStore.profile.shieldNotification },
+                                    set: { profileStore.profile.shieldNotification = $0; profileStore.save() }
+                                )
+                            )
+                        }
+
+                        spacer24
+
+                        // ── DATA SYNC section ─────────────────────────
+                        settingsSection(title: "DATA SYNC") {
+
+                            toggleRow(
+                                icon: "heart.fill",
+                                iconColor: Color.red,
+                                title: "Apple Health",
+                                isOn: Binding(
+                                    get: { profileStore.profile.appleHealthSync },
+                                    set: { profileStore.profile.appleHealthSync = $0; profileStore.save() }
+                                )
+                            )
+                        }
+
+                        spacer24
+
+                        // ── Log out ───────────────────────────────────
+                        logoutButton
+                            .padding(.horizontal, AppTheme.pagePadding)
+
+                        // ── Bottom links ──────────────────────────────
+                        VStack(spacing: 16) {
+                            Button("Help and Support") {}
+                                .font(.system(size: 14))
+                                .foregroundColor(AppTheme.textSecondary)
+                                .underline()
+
+                            Button("Privacy Policy") {}
+                                .font(.system(size: 14))
+                                .foregroundColor(AppTheme.textSecondary)
+                                .underline()
+                        }
+                        .padding(.top, 24)
+                        .padding(.bottom, 48)
+                    }
+                }
+            }
+            .navigationTitle("Settings")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Settings")
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundColor(.white)
+                }
+            }
+        }
+        // Shield App Picker
+        .sheet(isPresented: $showShieldAppPicker) {
+            if var shield = blockStore.digitalShield {
+                FamilyPickerSheet(
+                    isPresented: $showShieldAppPicker,
+                    selection: Binding(
+                        get: { shield.appSelection },
+                        set: { shield.appSelection = $0; blockStore.updateDigitalShield(shield) }
+                    )
+                )
+            }
+        }
+        // Shield Schedule editor
+        .sheet(isPresented: $showShieldSchedule) {
+            DigitalShieldScheduleView()
+        }
+        // Edit Profile
+        .sheet(isPresented: $showEditProfile) {
+            EditProfileView()
+        }
+    }
+
+    // MARK: - Profile Card
+
+    private var profileCard: some View {
+        VStack(spacing: 12) {
+
+            // Avatar circle
+            ZStack {
+                Circle()
+                    .fill(AppTheme.pillBackground)
+                    .frame(width: 72, height: 72)
+                Text(profileStore.profile.initials)
+                    .font(.system(size: 26, weight: .bold))
+                    .foregroundColor(.white)
+            }
+
+            // Name
+            Text(profileStore.profile.fullName)
+                .font(.system(size: 20, weight: .bold))
+                .foregroundColor(.white)
+
+            // Sleep goal
+            HStack(spacing: 4) {
+                Text("Sleep Goal:")
+                    .font(.system(size: 14))
+                    .foregroundColor(AppTheme.textSecondary)
+                Text(profileStore.profile.sleepGoal)
+                    .font(.system(size: 14, weight: .bold))
+                    .foregroundColor(.white)
+            }
+
+            // View Profile button
+            Button { showEditProfile = true } label: {
+                Text("View Profile")
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(.white)
+                    .underline()
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 24)
+        .background(AppTheme.cardBackground)
+        .clipShape(RoundedRectangle(cornerRadius: AppTheme.cardRadius))
+        .overlay(
+            RoundedRectangle(cornerRadius: AppTheme.cardRadius)
+                .stroke(AppTheme.separatorColor, lineWidth: 1)
+        )
+    }
+
+    // MARK: - Shield Schedule Row (custom — shows time + days)
+
+    private var shieldScheduleRow: some View {
+        Button { showShieldSchedule = true } label: {
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 6) {
+
+                    // Time range
+                    if let shield = blockStore.digitalShield {
+                        Text("\(shield.displayStartTime)  -  \(shield.displayEndTime)")
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundColor(.white)
+
+                        // Repeat days pills
+                        HStack(spacing: 6) {
+                            ForEach(RepeatDay.allCases, id: \.0.rawValue) { day, label in
+                                let active = shield.repeatDays.contains(day)
+                                Text(label)
+                                    .font(.system(size: 12, weight: .semibold))
+                                    .foregroundColor(active ? .white : AppTheme.textSecondary)
+                                    .frame(width: 28, height: 28)
+                                    .background(active ? AppTheme.accent : AppTheme.tagBackground)
+                                    .clipShape(RoundedRectangle(cornerRadius: 7))
+                            }
+                        }
+                    } else {
+                        Text("Not configured")
+                            .font(.system(size: 15))
+                            .foregroundColor(AppTheme.textSecondary)
+                    }
+                }
+
+                Spacer()
+
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 13, weight: .medium))
+                    .foregroundColor(AppTheme.textSecondary)
+            }
+            .padding(.horizontal, AppTheme.cardPadding)
+            .padding(.vertical, 14)
+        }
+    }
+
+    // MARK: - Apps blocked title helper
+
+    private var appsBlockedTitle: String {
+        guard let shield = blockStore.digitalShield else { return "No apps selected" }
+        let count = shield.appSelection.applicationTokens.count + shield.appSelection.categoryTokens.count
+        return count == 0 ? "Select apps to block" : "\(count) App\(count == 1 ? "" : "s") Blocked"
+    }
+
+    // MARK: - Log Out Button
+
+    private var logoutButton: some View {
+        Button {
+            // handle logout
+        } label: {
+            HStack(spacing: 10) {
+                Image(systemName: "rectangle.portrait.and.arrow.right")
+                    .font(.system(size: 16))
+                Text("Log out")
+                    .font(.system(size: 16, weight: .medium))
+            }
+            .foregroundColor(Color(hex: "D95B7A"))
+            .frame(maxWidth: .infinity)
+            .frame(height: 54)
+            .background(Color(hex: "D95B7A").opacity(0.15))
+            .clipShape(RoundedRectangle(cornerRadius: AppTheme.buttonRadius))
+            .overlay(
+                RoundedRectangle(cornerRadius: AppTheme.buttonRadius)
+                    .stroke(Color(hex: "D95B7A").opacity(0.3), lineWidth: 1)
+            )
+        }
+    }
+
+    // MARK: - Reusable sub-components
+
+    private var spacer24: some View { Color.clear.frame(height: 24) }
+    private var settingsDivider: some View {
+        Divider()
+            .background(AppTheme.separatorColor)
+            .padding(.leading, AppTheme.cardPadding + 28 + 12)
+    }
+
+    @ViewBuilder
+    private func settingsSection<Content: View>(
+        title: String,
+        @ViewBuilder content: () -> Content
+    ) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(title)
+                .font(.system(size: 11, weight: .semibold))
+                .foregroundColor(AppTheme.textSecondary)
+                .kerning(1.2)
+                .padding(.horizontal, AppTheme.pagePadding)
+
+            VStack(spacing: 0) {
+                content()
+            }
+            .background(AppTheme.cardBackground)
+            .clipShape(RoundedRectangle(cornerRadius: AppTheme.cardRadius))
+            .overlay(
+                RoundedRectangle(cornerRadius: AppTheme.cardRadius)
+                    .stroke(AppTheme.separatorColor, lineWidth: 1)
+            )
+            .padding(.horizontal, AppTheme.pagePadding)
+        }
+    }
+
+    @ViewBuilder
+    private func settingsRow(
+        icon: String,
+        iconColor: Color,
+        title: String,
+        hasChevron: Bool,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button(action: action) {
+            HStack(spacing: 12) {
+                Image(systemName: icon)
+                    .font(.system(size: 15))
+                    .foregroundColor(iconColor)
+                    .frame(width: 28)
+
+                Text(title)
+                    .font(.system(size: 15))
+                    .foregroundColor(.white)
+
+                Spacer()
+
+                if hasChevron {
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 13, weight: .medium))
+                        .foregroundColor(AppTheme.textSecondary)
+                }
+            }
+            .padding(.horizontal, AppTheme.cardPadding)
+            .frame(height: 52)
+        }
+    }
+
+    @ViewBuilder
+    private func toggleRow(
+        icon: String,
+        iconColor: Color,
+        title: String,
+        isOn: Binding<Bool>
+    ) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: icon)
+                .font(.system(size: 15))
+                .foregroundColor(iconColor)
+                .frame(width: 28)
+
+            Text(title)
+                .font(.system(size: 15))
+                .foregroundColor(.white)
+
+            Spacer()
+
+            Toggle("", isOn: isOn)
+                .toggleStyle(SwitchToggleStyle(tint: AppTheme.toggleOnTint))
+                .labelsHidden()
+        }
+        .padding(.horizontal, AppTheme.cardPadding)
+        .frame(height: 52)
+    }
+}
+
+// MARK: - EditProfileView
+
+struct EditProfileView: View {
+    @StateObject private var store = UserProfileStore.shared
+    @Environment(\.dismiss) private var dismiss
+    @State private var firstName = ""
+    @State private var lastName  = ""
+    @State private var sleepGoal = ""
+
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                AppTheme.background.ignoresSafeArea()
+                ScrollView(showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: 20) {
+
+                        // Avatar preview
+                        HStack {
+                            Spacer()
+                            ZStack {
+                                Circle()
+                                    .fill(AppTheme.accent.opacity(0.3))
+                                    .frame(width: 80, height: 80)
+                                Text(initials)
+                                    .font(.system(size: 28, weight: .bold))
+                                    .foregroundColor(.white)
+                            }
+                            Spacer()
+                        }
+                        .padding(.top, 8)
+                        .padding(.bottom, 8)
+
+                        fieldSection(label: "FIRST NAME", placeholder: "First name", text: $firstName)
+                        fieldSection(label: "LAST NAME",  placeholder: "Last name",  text: $lastName)
+                        fieldSection(label: "SLEEP GOAL", placeholder: "e.g. Better Sleep", text: $sleepGoal)
+
+                        PrimaryButton(title: "Save Profile", action: save)
+                            .padding(.top, 8)
+                            .padding(.bottom, 40)
+                    }
+                    .padding(.horizontal, AppTheme.pagePadding)
+                }
+            }
+            .navigationTitle("Edit Profile")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button { dismiss() } label: {
+                        HStack(spacing: 4) { Image(systemName: "chevron.left"); Text("Back") }
+                            .foregroundColor(AppTheme.accentBright)
+                    }
+                }
+            }
+            .toolbarColorScheme(.dark, for: .navigationBar)
+        }
+        .onAppear {
+            firstName = store.profile.firstName
+            lastName  = store.profile.lastName
+            sleepGoal = store.profile.sleepGoal
+        }
+    }
+
+    private var initials: String {
+        (firstName.prefix(1) + lastName.prefix(1)).uppercased()
+    }
+
+    @ViewBuilder
+    private func fieldSection(label: String, placeholder: String, text: Binding<String>) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            SectionLabel(text: label)
+            TextField(placeholder, text: text)
+                .font(.system(size: 16)).foregroundColor(.white).tint(AppTheme.accentBright)
+                .padding(.horizontal, 14).frame(height: 48)
+                .background(AppTheme.cardBackground)
+                .clipShape(RoundedRectangle(cornerRadius: AppTheme.buttonRadius))
+        }
+    }
+
+    private func save() {
+        store.profile.firstName = firstName.isEmpty ? store.profile.firstName : firstName
+        store.profile.lastName  = lastName.isEmpty  ? store.profile.lastName  : lastName
+        store.profile.sleepGoal = sleepGoal.isEmpty ? store.profile.sleepGoal : sleepGoal
+        store.save()
+        dismiss()
+    }
 }

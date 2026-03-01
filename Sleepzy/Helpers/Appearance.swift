@@ -78,12 +78,21 @@ class Appearance {
         let appearance = UITabBarAppearance()
         appearance.configureWithOpaqueBackground()
         
+        if #unavailable(iOS 26) {
+            appearance.backgroundColor = UIColor(hex: "#00012E")
+            appearance.backgroundEffect = nil
+        }
+        
         updateTabBarItemAppearance(appearance: appearance.compactInlineLayoutAppearance)
         updateTabBarItemAppearance(appearance: appearance.inlineLayoutAppearance)
         updateTabBarItemAppearance(appearance: appearance.stackedLayoutAppearance)
         
         UITabBar.appearance().standardAppearance = appearance
         UITabBar.appearance().scrollEdgeAppearance = appearance
+        
+        if #unavailable(iOS 26) {
+            UITabBar.appearance().backgroundColor = UIColor(hex: "#00012E")
+        }
     }
     
     private static func updateTabBarItemAppearance(appearance: UITabBarItemAppearance) {
@@ -116,4 +125,20 @@ extension UINavigationController {
         navigationBar.topItem?.backButtonDisplayMode = .minimal
     }
     
+}
+
+extension UIColor {
+    convenience init(hex: String, alpha: CGFloat = 1.0) {
+        var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
+        hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
+        
+        var rgb: UInt64 = 0
+        Scanner(string: hexSanitized).scanHexInt64(&rgb)
+        
+        let r = CGFloat((rgb & 0xFF0000) >> 16) / 255.0
+        let g = CGFloat((rgb & 0x00FF00) >> 8) / 255.0
+        let b = CGFloat(rgb & 0x0000FF) / 255.0
+        
+        self.init(red: r, green: g, blue: b, alpha: alpha)
+    }
 }

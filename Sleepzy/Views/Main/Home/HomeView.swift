@@ -20,7 +20,7 @@ struct HomeView: View {
     
     var body: some View {
         Group {
-            if authManager.isAuthorized {
+            if !authManager.isAuthorized {
                 ScrollView {
                     content
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -95,7 +95,7 @@ struct HomeView: View {
             Spacer()
             
             VStack(spacing: 10) {
-                Text("TimeScreen")
+                Text("Enable Screen Time")
                     .font(.system(size: 34, weight: .bold))
                     .foregroundColor(.white)
                 
