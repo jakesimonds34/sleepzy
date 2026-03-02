@@ -4,9 +4,9 @@ import Combine
 // MARK: - UserProfile model + persistence
 
 struct UserProfile: Codable {
-    var firstName: String = "Your"
-    var lastName:  String = "Name"
-    var sleepGoal: String = "Better Sleep"
+    var firstName: String = Settings.shared.currentUser?.fullName.components(separatedBy: " ").first ?? ""
+    var lastName:  String = Settings.shared.currentUser?.fullName.components(separatedBy: " ").last ?? ""
+    var sleepGoal: String = Settings.shared.currentUser?.goal ?? ""
     var windDownNotification: Bool  = true
     var shieldNotification:   Bool  = true
     var appleHealthSync:      Bool  = true

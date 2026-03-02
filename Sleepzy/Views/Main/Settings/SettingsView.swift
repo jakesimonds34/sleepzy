@@ -210,121 +210,112 @@ struct SettingsView: View {
     @Binding var selection: Taps
 
     var body: some View {
-        NavigationStack {
-            ZStack {
-                // Same night sky gradient as HomeView
-                AppTheme.nightSkyGradient.ignoresSafeArea()
-
-                ScrollView(showsIndicators: false) {
-                    VStack(spacing: 0) {
-
-                        // ── Profile Card ──────────────────────────────
-                        profileCard
-                            .padding(.horizontal, AppTheme.pagePadding)
-                            .padding(.top, 24)
-                            .padding(.bottom, 28)
-
-                        // ── DIGITAL SHIELD section ────────────────────
-                        settingsSection(title: "DIGITAL SHIELD") {
-
-                            // Row 1: Apps Blocked
-                            settingsRow(
-                                icon: "app.badge.fill",
-                                iconColor: AppTheme.accentBright,
-                                title: appsBlockedTitle,
-                                hasChevron: true
-                            ) {
-                                showShieldAppPicker = true
-                            }
-                        }
-
-                        spacer24
-
-                        // ── DIGITAL SHIELD SCHEDULE section ──────────
-                        settingsSection(title: "DIGITAL SHIELD SCHEDULE") {
-
-                            // Single row: time range + repeat days badge
-                            shieldScheduleRow
-                        }
-
-                        spacer24
-
-                        // ── NOTIFICATION section ──────────────────────
-                        settingsSection(title: "NOTIFICATION") {
-
-                            toggleRow(
-                                icon: "wind",
-                                iconColor: Color(hex: "7B8FF7"),
-                                title: "Wind down",
-                                isOn: Binding(
-                                    get: { profileStore.profile.windDownNotification },
-                                    set: { profileStore.profile.windDownNotification = $0; profileStore.save() }
-                                )
-                            )
-
-                            settingsDivider
-
-                            toggleRow(
-                                icon: "checkmark.shield.fill",
-                                iconColor: AppTheme.accentBright,
-                                title: "Digital Shield",
-                                isOn: Binding(
-                                    get: { profileStore.profile.shieldNotification },
-                                    set: { profileStore.profile.shieldNotification = $0; profileStore.save() }
-                                )
-                            )
-                        }
-
-                        spacer24
-
-                        // ── DATA SYNC section ─────────────────────────
-                        settingsSection(title: "DATA SYNC") {
-
-                            toggleRow(
-                                icon: "heart.fill",
-                                iconColor: Color.red,
-                                title: "Apple Health",
-                                isOn: Binding(
-                                    get: { profileStore.profile.appleHealthSync },
-                                    set: { profileStore.profile.appleHealthSync = $0; profileStore.save() }
-                                )
-                            )
-                        }
-
-                        spacer24
-
-                        // ── Log out ───────────────────────────────────
-                        logoutButton
-                            .padding(.horizontal, AppTheme.pagePadding)
-
-                        // ── Bottom links ──────────────────────────────
-                        VStack(spacing: 16) {
-                            Button("Help and Support") {}
-                                .font(.system(size: 14))
-                                .foregroundColor(AppTheme.textSecondary)
-                                .underline()
-
-                            Button("Privacy Policy") {}
-                                .font(.system(size: 14))
-                                .foregroundColor(AppTheme.textSecondary)
-                                .underline()
-                        }
-                        .padding(.top, 24)
-                        .padding(.bottom, 48)
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 0) {
+                AppHeaderView(title: "Settings", subTitle: "", paddingTop: 0)
+                    .padding(.horizontal)
+                
+                // ── Profile Card ──────────────────────────────
+                profileCard
+                    .padding(.horizontal, AppTheme.cardPadding)
+                    .padding(.top, 25)
+                    .padding(.bottom, 20)
+                
+                // ── DIGITAL SHIELD section ────────────────────
+                settingsSection(title: "DIGITAL SHIELD") {
+                    
+                    // Row 1: Apps Blocked
+                    settingsRow(
+                        icon: "app.badge.fill",
+                        iconColor: AppTheme.accentBright,
+                        title: appsBlockedTitle,
+                        hasChevron: true
+                    ) {
+                        showShieldAppPicker = true
                     }
                 }
-            }
-            .navigationTitle("Settings")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbarColorScheme(.dark, for: .navigationBar)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("Settings")
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundColor(.white)
+                
+                spacer24
+                
+                // ── DIGITAL SHIELD SCHEDULE section ──────────
+                settingsSection(title: "DIGITAL SHIELD SCHEDULE") {
+                    
+                    // Single row: time range + repeat days badge
+                    shieldScheduleRow
                 }
+                
+                spacer24
+                
+                // ── NOTIFICATION section ──────────────────────
+                settingsSection(title: "NOTIFICATION") {
+                    
+                    toggleRow(
+                        icon: "wind",
+                        iconColor: Color(hex: "7B8FF7"),
+                        title: "Wind down",
+                        isOn: Binding(
+                            get: { profileStore.profile.windDownNotification },
+                            set: { profileStore.profile.windDownNotification = $0; profileStore.save() }
+                        )
+                    )
+                    
+                    settingsDivider
+                    
+                    toggleRow(
+                        icon: "checkmark.shield.fill",
+                        iconColor: AppTheme.accentBright,
+                        title: "Digital Shield",
+                        isOn: Binding(
+                            get: { profileStore.profile.shieldNotification },
+                            set: { profileStore.profile.shieldNotification = $0; profileStore.save() }
+                        )
+                    )
+                }
+                
+                spacer24
+                
+                // ── DATA SYNC section ─────────────────────────
+                settingsSection(title: "DATA SYNC") {
+                    
+                    toggleRow(
+                        icon: "heart.fill",
+                        iconColor: Color.red,
+                        title: "Apple Health",
+                        isOn: Binding(
+                            get: { profileStore.profile.appleHealthSync },
+                            set: { profileStore.profile.appleHealthSync = $0; profileStore.save() }
+                        )
+                    )
+                }
+                
+                spacer24
+                
+                // ── Log out ───────────────────────────────────
+                logoutButton
+                    .padding(.horizontal, AppTheme.pagePadding)
+                
+                // ── Bottom links ──────────────────────────────
+                VStack(spacing: 16) {
+                    Button("Help and Support") {}
+                        .font(.system(size: 14))
+                        .foregroundColor(AppTheme.textSecondary)
+                        .underline()
+                    
+                    Button("Privacy Policy") {}
+                        .font(.system(size: 14))
+                        .foregroundColor(AppTheme.textSecondary)
+                        .underline()
+                }
+                .padding(.top, 24)
+                .padding(.bottom, 48)
             }
         }
+        .background(
+            MyImage(source: .asset(.bgSounds))
+                .scaledToFill()
+                .ignoresSafeArea()
+        )
+        .navigationBarHidden(true)
         // Shield App Picker
         .sheet(isPresented: $showShieldAppPicker) {
             if var shield = blockStore.digitalShield {
@@ -356,31 +347,31 @@ struct SettingsView: View {
             ZStack {
                 Circle()
                     .fill(AppTheme.pillBackground)
-                    .frame(width: 72, height: 72)
+                    .frame(width: 80, height: 80)
                 Text(profileStore.profile.initials)
-                    .font(.system(size: 26, weight: .bold))
+                    .font(.system(size: 33, weight: .bold))
                     .foregroundColor(.white)
             }
 
             // Name
             Text(profileStore.profile.fullName)
-                .font(.system(size: 20, weight: .bold))
+                .font(.system(size: 22, weight: .bold))
                 .foregroundColor(.white)
 
             // Sleep goal
             HStack(spacing: 4) {
                 Text("Sleep Goal:")
-                    .font(.system(size: 14))
+                    .font(.system(size: 16))
                     .foregroundColor(AppTheme.textSecondary)
                 Text(profileStore.profile.sleepGoal)
-                    .font(.system(size: 14, weight: .bold))
+                    .font(.system(size: 22, weight: .bold))
                     .foregroundColor(.white)
             }
 
             // View Profile button
             Button { showEditProfile = true } label: {
                 Text("View Profile")
-                    .font(.system(size: 14, weight: .medium))
+                    .font(.system(size: 16, weight: .medium))
                     .foregroundColor(.white)
                     .underline()
             }
@@ -400,11 +391,11 @@ struct SettingsView: View {
     private var shieldScheduleRow: some View {
         Button { showShieldSchedule = true } label: {
             HStack(spacing: 12) {
-                VStack(alignment: .leading, spacing: 6) {
+                VStack(alignment: .leading, spacing: 16) {
 
                     // Time range
                     if let shield = blockStore.digitalShield {
-                        Text("\(shield.displayStartTime)  -  \(shield.displayEndTime)")
+                        Text("\(shield.displayStartTime) - \(shield.displayEndTime)")
                             .font(.system(size: 15, weight: .semibold))
                             .foregroundColor(.white)
 
@@ -413,11 +404,12 @@ struct SettingsView: View {
                             ForEach(RepeatDay.allCases, id: \.0.rawValue) { day, label in
                                 let active = shield.repeatDays.contains(day)
                                 Text(label)
-                                    .font(.system(size: 12, weight: .semibold))
-                                    .foregroundColor(active ? .white : AppTheme.textSecondary)
-                                    .frame(width: 28, height: 28)
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .foregroundColor(.white)
+                                    .frame(width: 38, height: 38)
                                     .background(active ? AppTheme.accent : AppTheme.tagBackground)
                                     .clipShape(RoundedRectangle(cornerRadius: 7))
+                                    .overlay(RoundedCorner(radius: 8, corners: .allCorners).stroke(Color(hex: active ? "988AE1" : "FFFFFF").opacity(0.4), lineWidth: 0.5))
                             }
                         }
                     } else {
@@ -457,11 +449,13 @@ struct SettingsView: View {
                     .font(.system(size: 16))
                 Text("Log out")
                     .font(.system(size: 16, weight: .medium))
+                Spacer()
             }
-            .foregroundColor(Color(hex: "D95B7A"))
+            .padding(.horizontal, AppTheme.cardPadding)
+            .foregroundStyle(.white)
             .frame(maxWidth: .infinity)
             .frame(height: 54)
-            .background(Color(hex: "D95B7A").opacity(0.15))
+            .background(Color(hex: "FF7694").opacity(0.4))
             .clipShape(RoundedRectangle(cornerRadius: AppTheme.buttonRadius))
             .overlay(
                 RoundedRectangle(cornerRadius: AppTheme.buttonRadius)
@@ -486,18 +480,18 @@ struct SettingsView: View {
     ) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(title)
-                .font(.system(size: 11, weight: .semibold))
+                .font(.system(size: 14, weight: .medium))
                 .foregroundColor(AppTheme.textSecondary)
-                .kerning(1.2)
+                .kerning(2.2)
                 .padding(.horizontal, AppTheme.pagePadding)
 
             VStack(spacing: 0) {
                 content()
             }
             .background(AppTheme.cardBackground)
-            .clipShape(RoundedRectangle(cornerRadius: AppTheme.cardRadius))
+            .clipShape(RoundedRectangle(cornerRadius: AppTheme.fieldRadius))
             .overlay(
-                RoundedRectangle(cornerRadius: AppTheme.cardRadius)
+                RoundedRectangle(cornerRadius: AppTheme.fieldRadius)
                     .stroke(AppTheme.separatorColor, lineWidth: 1)
             )
             .padding(.horizontal, AppTheme.pagePadding)
@@ -513,7 +507,7 @@ struct SettingsView: View {
         action: @escaping () -> Void
     ) -> some View {
         Button(action: action) {
-            HStack(spacing: 12) {
+            HStack(spacing: 5) {
                 Image(systemName: icon)
                     .font(.system(size: 15))
                     .foregroundColor(iconColor)
@@ -531,7 +525,7 @@ struct SettingsView: View {
                         .foregroundColor(AppTheme.textSecondary)
                 }
             }
-            .padding(.horizontal, AppTheme.cardPadding)
+            .padding(.horizontal, AppTheme.itemSpacing)
             .frame(height: 52)
         }
     }
@@ -544,11 +538,6 @@ struct SettingsView: View {
         isOn: Binding<Bool>
     ) -> some View {
         HStack(spacing: 12) {
-            Image(systemName: icon)
-                .font(.system(size: 15))
-                .foregroundColor(iconColor)
-                .frame(width: 28)
-
             Text(title)
                 .font(.system(size: 15))
                 .foregroundColor(.white)
@@ -569,9 +558,9 @@ struct SettingsView: View {
 struct EditProfileView: View {
     @StateObject private var store = UserProfileStore.shared
     @Environment(\.dismiss) private var dismiss
-    @State private var firstName = ""
-    @State private var lastName  = ""
-    @State private var sleepGoal = ""
+    @State private var fullName = ""
+    @State private var selectedGoal: String? = nil
+    @State private var showGoalPicker = false  // ← جديد
 
     var body: some View {
         NavigationStack {
@@ -580,7 +569,7 @@ struct EditProfileView: View {
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .leading, spacing: 20) {
 
-                        // Avatar preview
+                        // Avatar
                         HStack {
                             Spacer()
                             ZStack {
@@ -593,12 +582,30 @@ struct EditProfileView: View {
                             }
                             Spacer()
                         }
-                        .padding(.top, 8)
-                        .padding(.bottom, 8)
+                        .padding(.vertical, 8)
 
-                        fieldSection(label: "FIRST NAME", placeholder: "First name", text: $firstName)
-                        fieldSection(label: "LAST NAME",  placeholder: "Last name",  text: $lastName)
-                        fieldSection(label: "SLEEP GOAL", placeholder: "e.g. Better Sleep", text: $sleepGoal)
+                        // First Name
+                        fieldSection(label: "FIRST NAME", placeholder: "Full name", text: $fullName)
+
+                        // Sleep Goal ← نفس شكل fieldSection ولكن تفتح sheet
+                        VStack(alignment: .leading, spacing: 6) {
+                            SectionLabel(text: "SLEEP GOAL")
+                            Button { showGoalPicker = true } label: {
+                                HStack {
+                                    Text(selectedGoal ?? "Select a goal")
+                                        .font(.system(size: 16))
+                                        .foregroundColor(selectedGoal == nil ? .white.opacity(0.4) : .white)
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .font(.system(size: 13))
+                                        .foregroundColor(AppTheme.textSecondary)
+                                }
+                                .padding(.horizontal, 14)
+                                .frame(height: 48)
+                                .background(AppTheme.cardBackground)
+                                .clipShape(RoundedRectangle(cornerRadius: AppTheme.buttonRadius))
+                            }
+                        }
 
                         PrimaryButton(title: "Save Profile", action: save)
                             .padding(.top, 8)
@@ -618,16 +625,21 @@ struct EditProfileView: View {
                 }
             }
             .toolbarColorScheme(.dark, for: .navigationBar)
+            // ✅ Sheet الـ Goals
+            .sheet(isPresented: $showGoalPicker) {
+                GoalPickerSheet(selectedGoal: $selectedGoal)
+            }
         }
         .onAppear {
-            firstName = store.profile.firstName
-            lastName  = store.profile.lastName
-            sleepGoal = store.profile.sleepGoal
+            fullName = store.profile.fullName
+            selectedGoal = store.profile.sleepGoal
         }
     }
 
     private var initials: String {
-        (firstName.prefix(1) + lastName.prefix(1)).uppercased()
+        let parts = fullName.split(separator: " ")
+        return (parts.first?.prefix(1).uppercased() ?? "") +
+               (parts.dropFirst().last?.prefix(1).uppercased() ?? "")
     }
 
     @ViewBuilder
@@ -643,10 +655,47 @@ struct EditProfileView: View {
     }
 
     private func save() {
-        store.profile.firstName = firstName.isEmpty ? store.profile.firstName : firstName
-        store.profile.lastName  = lastName.isEmpty  ? store.profile.lastName  : lastName
-        store.profile.sleepGoal = sleepGoal.isEmpty ? store.profile.sleepGoal : sleepGoal
+        let parts = fullName.split(separator: " ")
+        let first = parts.first.map(String.init) ?? ""
+        let last  = parts.dropFirst().joined(separator: " ")
+        if !first.isEmpty { store.profile.firstName = first }
+        if !last.isEmpty  { store.profile.lastName  = last }
+        if let goal = selectedGoal { store.profile.sleepGoal = goal }
         store.save()
         dismiss()
     }
+}
+
+// MARK: - Goal Picker Sheet
+struct GoalPickerSheet: View {
+    @Binding var selectedGoal: String?
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            OnboardingStepView(
+                data: OnboardingStep.goal,
+                selectedValue: $selectedGoal
+            )
+            .background(
+                MyImage(source: .asset(.bgSounds))
+                    .scaledToFill()
+                    .ignoresSafeArea()
+            )
+            .navigationTitle("Sleep Goal")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") { dismiss() }
+                        .foregroundColor(AppTheme.accentBright)
+                }
+            }
+            .toolbarColorScheme(.dark, for: .navigationBar)
+        }
+        .presentationDetents([.medium, .large])
+    }
+}
+
+#Preview {
+    SettingsView(selection: .constant(.settings))
 }
