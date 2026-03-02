@@ -86,16 +86,7 @@ class AuthViewModel: ObservableObject {
                 gender: profile.gender,
                 stayAsleep: profile.stayAsleep,
                 earlyWakeupRating: profile.earlyWakeupRating,
-                dailyFunctionInterference: profile.dailyFunctionInterference,
-//                currentSleepScore: profile.currentSleepScore,
-//                potentialSleepScore: profile.potentialSleepScore,
-//                distractingApps: profile.distractingApps,
-//                focusProtectionRepeatOn: profile.focusProtectionRepeatOn,
-//                sleepTime: profile.sleepTime,
-//                wakeUp: profile.wakeUp,
-//                bedTime: profile.bedTime,
-//                focusProtectionFrom: profile.focusProtectionFrom,
-//                focusProtectionTo: profile.focusProtectionTo
+                dailyFunctionInterference: profile.dailyFunctionInterference
             )
             
             try await profileRepo.createProfile(profile)
@@ -171,6 +162,56 @@ class AuthViewModel: ObservableObject {
             
         } catch {
             errorMessage = error.localizedDescription
+            Alerts.show(title: nil, body: error.localizedDescription, theme: .error)
+        }
+        
+        isLoading = false
+    }
+    
+    // MARK: - Update Profile
+    func updateProfile(fullName: String, goal: String) async {
+        guard let userId = Settings.shared.currentUser?.id else {
+            Alerts.show(title: nil, body: "User not found", theme: .error)
+            return
+        }
+        isLoading = true
+        
+        do {
+            try await profileRepo.updateProfile(
+                id: userId,
+                fullName: fullName,
+                goal: goal
+            )
+            
+            // تحديث الـ local state
+            profile?.fullName = fullName
+            profile?.goal = goal
+            Settings.shared.currentUser?.fullName = fullName
+            Settings.shared.currentUser?.goal = goal
+            
+        } catch {
+            Alerts.show(title: nil, body: error.localizedDescription, theme: .error)
+        }
+        
+        isLoading = false
+    }
+    
+    // MARK: - Update Sleep Schedule
+    func updateSleepSchedule(bedHour: Double, wakeHour: Double) async {
+        guard let userId = Settings.shared.currentUser?.id else { return }
+        isLoading = true
+        
+        do {
+            try await profileRepo.updateSleepSchedule(id: userId, bedHour: bedHour, wakeHour: wakeHour)
+            
+            // تحديث الـ local state
+            Settings.shared.currentUser?.bedHour = bedHour
+            Settings.shared.currentUser?.wakeHour = wakeHour
+            UserProfileStore.shared.profile.bedHour = bedHour
+            UserProfileStore.shared.profile.wakeHour = wakeHour
+            UserProfileStore.shared.save()
+            
+        } catch {
             Alerts.show(title: nil, body: error.localizedDescription, theme: .error)
         }
         

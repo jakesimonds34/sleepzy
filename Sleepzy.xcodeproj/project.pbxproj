@@ -289,6 +289,7 @@
 				524961E22F37BDE900D057F0 /* SettingsViewModel.swift */,
 				52A667252F52F8F9005B66C4 /* DigitalShieldScheduleView.swift */,
 				52A667292F52F938005B66C4 /* UserProfile.swift */,
+				522628EE2F363A5100C79B73 /* SleepScheduleView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -298,7 +299,6 @@
 			children = (
 				526C3C402F3BB2E2004F1768 /* DistractingAppsView.swift */,
 				526C3C422F3BC043004F1768 /* FocusProtectionScheduleView.swift */,
-				522628EE2F363A5100C79B73 /* SleepScheduleView.swift */,
 			);
 			path = Deleted;
 			sourceTree = "<group>";

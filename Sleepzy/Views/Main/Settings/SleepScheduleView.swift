@@ -270,3 +270,70 @@ struct ClockLabels: View {
             .position(x: radius + x, y: radius + y)
     }
 }
+
+struct SleepScheduleSheet: View {
+    @ObservedObject var viewModel: AuthViewModel
+    @StateObject private var store = UserProfileStore.shared
+    @Environment(\.dismiss) private var dismiss
+    
+    @State private var bedHour:  Double = 22
+    @State private var wakeHour: Double = 7
+
+    var body: some View {
+        VStack(spacing: 0) {
+            // Back button
+            HStack {
+                Button { dismiss() } label: {
+                    Image(systemName: "arrow.backward")
+                        .foregroundStyle(.white)
+                        .frame(width: 18)
+                }
+                Spacer()
+            }
+            .padding(.horizontal)
+            .padding(.top, 30)
+            
+            // Header
+            AppHeaderView(
+                title: "Sleep schedule",
+                subTitle: "Consistency matters. Your body loves predictability when it comes to sleep.",
+                isBack: false,
+                paddingTop: 16
+            )
+            .padding(.horizontal)
+            
+            // Clock Editor
+            SleepEditorView(bedHour: $bedHour, wakeHour: $wakeHour)
+            
+            // Save Button
+            Button {
+                guard !viewModel.isLoading else { return }
+                Task {
+                    await viewModel.updateSleepSchedule(
+                        bedHour: bedHour,
+                        wakeHour: wakeHour
+                    )
+                    dismiss()
+                }
+            } label: {
+                if viewModel.isLoading {
+                    ProgressView().tint(.black)
+                } else {
+                    Text("Save")
+                }
+            }
+            .style(.primary)
+            .padding(.horizontal, 52)
+            .padding(.bottom, 32)
+        }
+        .background(
+            MyImage(source: .asset(.bgSounds))
+                .scaledToFill()
+                .ignoresSafeArea()
+        )
+        .onAppear {
+            bedHour  = store.profile.bedHour
+            wakeHour = store.profile.wakeHour
+        }
+    }
+}

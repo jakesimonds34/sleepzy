@@ -7,9 +7,11 @@ struct UserProfile: Codable {
     var firstName: String = Settings.shared.currentUser?.fullName.components(separatedBy: " ").first ?? ""
     var lastName:  String = Settings.shared.currentUser?.fullName.components(separatedBy: " ").last ?? ""
     var sleepGoal: String = Settings.shared.currentUser?.goal ?? ""
-    var windDownNotification: Bool  = true
-    var shieldNotification:   Bool  = true
-    var appleHealthSync:      Bool  = true
+    var bedHour:   Double = Settings.shared.currentUser?.bedHour ?? 22
+    var wakeHour:  Double = Settings.shared.currentUser?.wakeHour ?? 7
+    var windDownNotification: Bool = true
+    var shieldNotification:   Bool = true
+    var appleHealthSync:      Bool = true
 
     var initials: String {
         let f = firstName.prefix(1).uppercased()

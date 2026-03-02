@@ -198,14 +198,17 @@ struct SettingsView: View {
 
 import SwiftUI
 import FamilyControls
+import SwiftMessages
 
 struct SettingsView: View {
 
     @StateObject private var profileStore = UserProfileStore.shared
     @StateObject private var blockStore   = BlockStore.shared
+    @StateObject private var viewModel    = AuthViewModel()
     @State private var showEditProfile          = false
     @State private var showShieldAppPicker      = false
     @State private var showShieldSchedule       = false
+    @State private var showSleepSchedule        = false
     
     @Binding var selection: Taps
 
@@ -242,6 +245,19 @@ struct SettingsView: View {
                     
                     // Single row: time range + repeat days badge
                     shieldScheduleRow
+                }
+                
+                spacer24
+                
+                settingsSection(title: "SLEEP SCHEDULE") {
+                    settingsRow(
+                        icon: "moon.stars.fill",
+                        iconColor: Color(hex: "7B8FF7"),
+                        title: sleepScheduleTitle,
+                        hasChevron: true
+                    ) {
+                        showSleepSchedule = true
+                    }
                 }
                 
                 spacer24
@@ -335,6 +351,9 @@ struct SettingsView: View {
         // Edit Profile
         .sheet(isPresented: $showEditProfile) {
             EditProfileView()
+        }
+        .sheet(isPresented: $showSleepSchedule) {
+            SleepScheduleSheet(viewModel: viewModel)
         }
     }
 
@@ -551,21 +570,36 @@ struct SettingsView: View {
         .padding(.horizontal, AppTheme.cardPadding)
         .frame(height: 52)
     }
+    
+    // عنوان يعرض الوقت الحالي
+    private var sleepScheduleTitle: String {
+        let bed  = formatHour(profileStore.profile.bedHour)
+        let wake = formatHour(profileStore.profile.wakeHour)
+        return "\(bed)  →  \(wake)"
+    }
+    
+    private func formatHour(_ hour: Double) -> String {
+        let h = Int(hour) % 24
+        let suffix = h >= 12 ? "PM" : "AM"
+        let display = h == 0 ? 12 : (h > 12 ? h - 12 : h)
+        return "\(display):00 \(suffix)"
+    }
 }
 
-// MARK: - EditProfileView
-
 struct EditProfileView: View {
+    @StateObject private var viewModel = AuthViewModel()
     @StateObject private var store = UserProfileStore.shared
     @Environment(\.dismiss) private var dismiss
+    
     @State private var fullName = ""
     @State private var selectedGoal: String? = nil
-    @State private var showGoalPicker = false  // ← جديد
+    @State private var showGoalPicker = false
 
     var body: some View {
         NavigationStack {
             ZStack {
                 AppTheme.background.ignoresSafeArea()
+                
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .leading, spacing: 20) {
 
@@ -584,10 +618,10 @@ struct EditProfileView: View {
                         }
                         .padding(.vertical, 8)
 
-                        // First Name
+                        // Full Name
                         fieldSection(label: "FIRST NAME", placeholder: "Full name", text: $fullName)
 
-                        // Sleep Goal ← نفس شكل fieldSection ولكن تفتح sheet
+                        // Sleep Goal
                         VStack(alignment: .leading, spacing: 6) {
                             SectionLabel(text: "SLEEP GOAL")
                             Button { showGoalPicker = true } label: {
@@ -607,9 +641,26 @@ struct EditProfileView: View {
                             }
                         }
 
-                        PrimaryButton(title: "Save Profile", action: save)
-                            .padding(.top, 8)
-                            .padding(.bottom, 40)
+                        // Save Button
+                        Button {
+                            guard !viewModel.isLoading, !fullName.isEmpty, selectedGoal != nil else { return }
+                            Task { await save() }
+                        } label: {
+                            if viewModel.isLoading {
+                                ProgressView()
+                                    .tint(.black)
+                            } else {
+                                Text("Save Profile")
+                            }
+                        }
+                        .style(.primary)
+                        .padding(.top, 8)
+                        .padding(.bottom, 40)
+//                        PrimaryButton(title: "Save Profile", action: {
+//                            Task { await save() }
+//                        })
+//                        .padding(.top, 8)
+//                        .padding(.bottom, 40)
                     }
                     .padding(.horizontal, AppTheme.pagePadding)
                 }
@@ -619,13 +670,15 @@ struct EditProfileView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button { dismiss() } label: {
-                        HStack(spacing: 4) { Image(systemName: "chevron.left"); Text("Back") }
-                            .foregroundColor(AppTheme.accentBright)
+                        HStack(spacing: 4) {
+                            Image(systemName: "chevron.left")
+                            Text("Back")
+                        }
+                        .foregroundColor(AppTheme.accentBright)
                     }
                 }
             }
             .toolbarColorScheme(.dark, for: .navigationBar)
-            // ✅ Sheet الـ Goals
             .sheet(isPresented: $showGoalPicker) {
                 GoalPickerSheet(selectedGoal: $selectedGoal)
             }
@@ -647,21 +700,32 @@ struct EditProfileView: View {
         VStack(alignment: .leading, spacing: 6) {
             SectionLabel(text: label)
             TextField(placeholder, text: text)
-                .font(.system(size: 16)).foregroundColor(.white).tint(AppTheme.accentBright)
-                .padding(.horizontal, 14).frame(height: 48)
+                .font(.system(size: 16))
+                .foregroundColor(.white)
+                .tint(AppTheme.accentBright)
+                .padding(.horizontal, 14)
+                .frame(height: 48)
                 .background(AppTheme.cardBackground)
                 .clipShape(RoundedRectangle(cornerRadius: AppTheme.buttonRadius))
         }
     }
 
-    private func save() {
+    private func save() async {
+        guard !fullName.isEmpty, let goal = selectedGoal else {
+            Alerts.show(title: nil, body: "Please fill all fields", theme: .warning)
+            return
+        }
+        
+        await viewModel.updateProfile(fullName: fullName, goal: goal)
+        
+        // تحديث الـ local store بشكل صحيح
         let parts = fullName.split(separator: " ")
-        let first = parts.first.map(String.init) ?? ""
-        let last  = parts.dropFirst().joined(separator: " ")
-        if !first.isEmpty { store.profile.firstName = first }
-        if !last.isEmpty  { store.profile.lastName  = last }
-        if let goal = selectedGoal { store.profile.sleepGoal = goal }
+        store.profile.firstName = parts.first.map(String.init) ?? ""
+        store.profile.lastName  = parts.dropFirst().joined(separator: " ")
+        store.profile.sleepGoal = goal
         store.save()
+        
+        Alerts.show(title: nil, body: "Profile updated successfully", theme: .success)
         dismiss()
     }
 }
