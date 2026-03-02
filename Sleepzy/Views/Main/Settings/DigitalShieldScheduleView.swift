@@ -23,81 +23,82 @@ struct DigitalShieldScheduleView: View {
     @State private var repeatDays: RepeatDay = .weekdays
 
     var body: some View {
-        ZStack {
-            AppTheme.background.ignoresSafeArea()
-
-            VStack(spacing: 0) {
-
-                // Custom nav bar (matches Image 2 style)
-                HStack {
-                    Button { dismiss() } label: {
-                        Image(systemName: "arrow.left")
-                            .font(.system(size: 18, weight: .medium))
-                            .foregroundColor(.white)
-                    }
-                    Spacer()
+        VStack(spacing: 0) {
+            
+            // Custom nav bar (matches Image 2 style)
+            HStack {
+                Button { dismiss() } label: {
+                    Image(systemName: "arrow.left")
+                        .font(.system(size: 18, weight: .medium))
+                        .foregroundColor(.white)
                 }
-                .padding(.horizontal, AppTheme.pagePadding)
-                .padding(.top, 16)
-                .padding(.bottom, 8)
-
-                ScrollView(showsIndicators: false) {
-                    VStack(alignment: .leading, spacing: 28) {
-
-                        // Title block
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text("Digital Shield Schedule")
-                                .font(.system(size: 28, weight: .bold))
-                                .foregroundColor(.white)
-                            Text("Choose when distracting apps are blocked to\nhelp you sleep better.")
-                                .font(.system(size: 14))
-                                .foregroundColor(AppTheme.textSecondary)
-                                .lineSpacing(4)
-                                .fixedSize(horizontal: false, vertical: true)
-                        }
-
-                        // FROM picker
-                        timeSection(label: "FROM", hour: $fromHour, minute: $fromMinute, period: $fromPeriod)
-
-                        // TO picker
-                        timeSection(label: "TO", hour: $toHour, minute: $toMinute, period: $toPeriod)
-
-                        // Repeat days
-                        VStack(alignment: .leading, spacing: 12) {
-                            SectionLabel(text: "REPEAT ON")
-                            HStack(spacing: 8) {
-                                ForEach(RepeatDay.allCases, id: \.0.rawValue) { day, label in
-                                    DayToggleButton(
-                                        label: label,
-                                        isSelected: repeatDays.contains(day)
-                                    ) {
-                                        if repeatDays.contains(day) { repeatDays.remove(day) }
-                                        else { repeatDays.insert(day) }
-                                    }
-                                    .frame(maxWidth: .infinity)
+                Spacer()
+            }
+            .padding(.horizontal, AppTheme.pagePadding)
+            .padding(.top, 16)
+            .padding(.bottom, 8)
+            
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .leading, spacing: 28) {
+                    
+                    // Title block
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("Digital Shield Schedule")
+                            .font(.system(size: 28, weight: .bold))
+                            .foregroundColor(.white)
+                        Text("Choose when distracting apps are blocked to\nhelp you sleep better.")
+                            .font(.system(size: 14))
+                            .foregroundColor(AppTheme.textSecondary)
+                            .lineSpacing(4)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    
+                    // FROM picker
+                    timeSection(label: "FROM", hour: $fromHour, minute: $fromMinute, period: $fromPeriod)
+                    
+                    // TO picker
+                    timeSection(label: "TO", hour: $toHour, minute: $toMinute, period: $toPeriod)
+                    
+                    // Repeat days
+                    VStack(alignment: .leading, spacing: 12) {
+                        SectionLabel(text: "REPEAT ON")
+                        HStack(spacing: 8) {
+                            ForEach(RepeatDay.allCases, id: \.0.rawValue) { day, label in
+                                DayToggleButton(
+                                    label: label,
+                                    isSelected: repeatDays.contains(day)
+                                ) {
+                                    if repeatDays.contains(day) { repeatDays.remove(day) }
+                                    else { repeatDays.insert(day) }
                                 }
+                                .frame(maxWidth: .infinity)
                             }
                         }
-
-                        Spacer(minLength: 32)
-
-                        // Save button — matches Image 2 white pill style
-                        Button(action: save) {
-                            Text("Save")
-                                .font(.system(size: 17, weight: .semibold))
-                                .foregroundColor(Color(hex: "0A0E2A"))
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 56)
-                                .background(Color.white)
-                                .clipShape(Capsule())
-                        }
-                        .padding(.bottom, 40)
                     }
-                    .padding(.horizontal, AppTheme.pagePadding)
-                    .padding(.top, 8)
+                    
+                    Spacer(minLength: 32)
+                    
+                    // Save button — matches Image 2 white pill style
+                    Button(action: save) {
+                        Text("Save")
+                            .font(.system(size: 17, weight: .semibold))
+                            .foregroundColor(Color(hex: "0A0E2A"))
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 56)
+                            .background(Color.white)
+                            .clipShape(Capsule())
+                    }
+                    .padding(.bottom, 40)
                 }
+                .padding(.horizontal, AppTheme.pagePadding)
+                .padding(.top, 8)
             }
         }
+        .background(
+            MyImage(source: .asset(.bgSounds))
+                .scaledToFill()
+                .ignoresSafeArea()
+        )
         .onAppear { populate() }
     }
 

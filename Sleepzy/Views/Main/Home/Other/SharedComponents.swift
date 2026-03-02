@@ -177,10 +177,11 @@ struct DayToggleButton: View {
         Button(action: action) {
             Text(label)
                 .font(.system(size: 13, weight: .semibold))
-                .frame(width: 36, height: 36)
+                .frame(width: 38, height: 38)
                 .foregroundColor(isSelected ? .white : AppTheme.textSecondary)
                 .background(isSelected ? AppTheme.accent : AppTheme.tagBackground)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .clipShape(RoundedRectangle(cornerRadius: 7))
+                .overlay(RoundedCorner(radius: 8, corners: .allCorners).stroke(Color(hex: isSelected ? "988AE1" : "FFFFFF").opacity(0.4), lineWidth: 0.5))
         }
     }
 }

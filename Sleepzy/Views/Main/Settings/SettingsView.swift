@@ -527,10 +527,10 @@ struct SettingsView: View {
     ) -> some View {
         Button(action: action) {
             HStack(spacing: 5) {
-                Image(systemName: icon)
-                    .font(.system(size: 15))
-                    .foregroundColor(iconColor)
-                    .frame(width: 28)
+//                Image(systemName: icon)
+//                    .font(.system(size: 15))
+//                    .foregroundColor(iconColor)
+//                    .frame(width: 28)
 
                 Text(title)
                     .font(.system(size: 15))
