@@ -346,14 +346,18 @@ struct AlarmFormView: View {
             isAM: isAM,
             repeatDays: selectedDays,
             ringtone: ringtone,
-            ringtoneURL: ringtoneURL,        // ← save Freesound URL
+            ringtoneURL: ringtoneURL,
             snoozeEnabled: snoozeEnabled,
             snoozeDuration: snoozeDuration
         )
-        
+
         if let existing = editingAlarm {
-            alarm.id = existing.id
-            alarm.isEnabled = existing.isEnabled
+            alarm.id              = existing.id
+            alarm.isEnabled       = existing.isEnabled
+            // ✅ احتفظ بالملف المحمّل إذا كان نفس الـ URL
+            if ringtoneURL == existing.ringtoneURL {
+                alarm.localSoundFile = existing.localSoundFile
+            }
             manager.updateAlarm(alarm)
         } else {
             manager.addAlarm(alarm)

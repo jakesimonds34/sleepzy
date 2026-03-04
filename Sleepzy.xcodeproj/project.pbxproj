@@ -22,6 +22,7 @@
 		522691952F523A2C00CB4F22 /* EditBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522691942F523A2C00CB4F22 /* EditBlockView.swift */; };
 		522691982F523B1300CB4F22 /* BrakePickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522691972F523B1300CB4F22 /* BrakePickerSheet.swift */; };
 		5226919A2F523B9200CB4F22 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522691992F523B9200CB4F22 /* AuthorizationManager.swift */; };
+		5229CDFD2F58D25F003E2F26 /* AlarmSoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5229CDFC2F58D25E003E2F26 /* AlarmSoundManager.swift */; };
 		524961CD2F37BBF200D057F0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961CC2F37BBF200D057F0 /* HomeView.swift */; };
 		524961CF2F37BC0800D057F0 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961CE2F37BC0700D057F0 /* HomeViewModel.swift */; };
 		524961D22F37BCA900D057F0 /* SleepSoundsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961D12F37BCA900D057F0 /* SleepSoundsView.swift */; };
@@ -120,6 +121,7 @@
 		522691942F523A2C00CB4F22 /* EditBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBlockView.swift; sourceTree = "<group>"; };
 		522691972F523B1300CB4F22 /* BrakePickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrakePickerSheet.swift; sourceTree = "<group>"; };
 		522691992F523B9200CB4F22 /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
+		5229CDFC2F58D25E003E2F26 /* AlarmSoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSoundManager.swift; sourceTree = "<group>"; };
 		524961CC2F37BBF200D057F0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		524961CE2F37BC0700D057F0 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		524961D12F37BCA900D057F0 /* SleepSoundsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepSoundsView.swift; sourceTree = "<group>"; };
@@ -407,6 +409,7 @@
 			isa = PBXGroup;
 			children = (
 				5296871A2F52C21800F71099 /* AlarmManager.swift */,
+				5229CDFC2F58D25E003E2F26 /* AlarmSoundManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -855,6 +858,7 @@
 				5296871B2F52C21800F71099 /* AlarmManager.swift in Sources */,
 				52A6672A2F52F939005B66C4 /* UserProfile.swift in Sources */,
 				522691952F523A2C00CB4F22 /* EditBlockView.swift in Sources */,
+				5229CDFD2F58D25F003E2F26 /* AlarmSoundManager.swift in Sources */,
 				52FFE17F2F5842FC00FE8769 /* HealthKitManager.swift in Sources */,
 				52FFE1802F5842FC00FE8769 /* SleepAnalyticsView.swift in Sources */,
 				529E04072F35318B0000CFEA /* Language.swift in Sources */,
