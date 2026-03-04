@@ -15,7 +15,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         Appearance.configure()
         
         UNUserNotificationCenter.current().delegate = AlarmManager.shared
-        AlarmManager.shared.setupNotificationCategories(snoozeMinutes: 5)
+        AlarmManager.shared.setupNotificationCategories()
         AlarmManager.shared.requestNotificationPermission()
         
         return true

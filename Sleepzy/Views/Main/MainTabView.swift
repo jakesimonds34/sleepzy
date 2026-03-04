@@ -64,6 +64,7 @@ struct MainTabView: View {
             .tag(Taps.settings)
         }
         .accentColor(.white)
+        .alarmRingingOverlay()
         .id(appEnv.rootViewId)
         .background(Color.white.ignoresSafeArea())
         .safeTabBarMinimize()
