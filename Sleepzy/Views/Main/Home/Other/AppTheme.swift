@@ -23,7 +23,7 @@ enum AppTheme {
     )
     
     // MARK: Corner Radii
-    static let cardRadius:   CGFloat = 20
+    static let cardRadius:   CGFloat = 8
     static let fieldRadius:   CGFloat = 8
     static let buttonRadius: CGFloat = 14
     static let pillRadius:   CGFloat = 20

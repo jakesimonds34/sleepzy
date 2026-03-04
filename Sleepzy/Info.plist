@@ -22,5 +22,7 @@
 		<string>CircularStd-Book.ttf</string>
 		<string>CircularStd-Medium.ttf</string>
 	</array>
+    <key>NSHealthShareUsageDescription</key>
+    <string>TimeScreen reads your sleep data to show analytics and improve your sleep quality.</string>
 </dict>
 </plist>

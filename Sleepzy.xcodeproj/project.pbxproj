@@ -99,6 +99,10 @@
 		52EB50A02F3625BC0031FE9D /* AEOTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50912F3625BC0031FE9D /* AEOTPTextField.swift */; };
 		52EB50A12F3625BC0031FE9D /* AEOTPTextFieldImplementationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB50952F3625BC0031FE9D /* AEOTPTextFieldImplementationProtocol.swift */; };
 		52EB50A22F3625BC0031FE9D /* AEOTPViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB508A2F3625BC0031FE9D /* AEOTPViewRepresentable.swift */; };
+		52FFE17C2F5842F000FE8769 /* SleepModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FFE17B2F5842EF00FE8769 /* SleepModels.swift */; };
+		52FFE17F2F5842FC00FE8769 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FFE17D2F5842FC00FE8769 /* HealthKitManager.swift */; };
+		52FFE1802F5842FC00FE8769 /* SleepAnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FFE17E2F5842FC00FE8769 /* SleepAnalyticsView.swift */; };
+		52FFE1822F58495400FE8769 /* SleepStageChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FFE1812F58495200FE8769 /* SleepStageChart.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -192,6 +196,10 @@
 		52EB50932F3625BC0031FE9D /* AEOTPTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AEOTPTextFieldDelegate.swift; sourceTree = "<group>"; };
 		52EB50942F3625BC0031FE9D /* AEOTPTextFieldImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AEOTPTextFieldImplementation.swift; sourceTree = "<group>"; };
 		52EB50952F3625BC0031FE9D /* AEOTPTextFieldImplementationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AEOTPTextFieldImplementationProtocol.swift; sourceTree = "<group>"; };
+		52FFE17B2F5842EF00FE8769 /* SleepModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepModels.swift; sourceTree = "<group>"; };
+		52FFE17D2F5842FC00FE8769 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
+		52FFE17E2F5842FC00FE8769 /* SleepAnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepAnalyticsView.swift; sourceTree = "<group>"; };
+		52FFE1812F58495200FE8769 /* SleepStageChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepStageChart.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -264,9 +272,13 @@
 		524961D52F37BD0D00D057F0 /* SleepLog */ = {
 			isa = PBXGroup;
 			children = (
-				524961D62F37BD2200D057F0 /* SleepLogView.swift */,
 				52263DC22F38E38E003AE6D4 /* SleepLogDetailView.swift */,
 				524961D82F37BD4100D057F0 /* SleepLogViewModel.swift */,
+				524961D62F37BD2200D057F0 /* SleepLogView.swift */,
+				52FFE17B2F5842EF00FE8769 /* SleepModels.swift */,
+				52FFE17D2F5842FC00FE8769 /* HealthKitManager.swift */,
+				52FFE17E2F5842FC00FE8769 /* SleepAnalyticsView.swift */,
+				52FFE1812F58495200FE8769 /* SleepStageChart.swift */,
 			);
 			path = SleepLog;
 			sourceTree = "<group>";
@@ -804,6 +816,7 @@
 				524961E52F37C5EA00D057F0 /* IfAvailableiOS26.swift in Sources */,
 				526C3C472F3BC492004F1768 /* RepeatDaysPicker.swift in Sources */,
 				527BC1A82F3A42B100287638 /* ProfileRepository.swift in Sources */,
+				52FFE1822F58495400FE8769 /* SleepStageChart.swift in Sources */,
 				52EB509A2F3625BC0031FE9D /* ChangeObserverModifier.swift in Sources */,
 				52D5E1B52F3CB08C009B20A8 /* LocalData.swift in Sources */,
 				5263E2312F51033800BB27A1 /* Settings.swift in Sources */,
@@ -817,6 +830,7 @@
 				52EB509E2F3625BC0031FE9D /* AEOTPTextFieldSwiftUI.swift in Sources */,
 				522628F12F36415100C79B73 /* SplashViewModel.swift in Sources */,
 				52D5E1C32F3CBFD4009B20A8 /* DeviceActivityName.swift in Sources */,
+				52FFE17C2F5842F000FE8769 /* SleepModels.swift in Sources */,
 				52EB509F2F3625BC0031FE9D /* AEOTPView.swift in Sources */,
 				5226919A2F523B9200CB4F22 /* AuthorizationManager.swift in Sources */,
 				52EB50A02F3625BC0031FE9D /* AEOTPTextField.swift in Sources */,
@@ -833,6 +847,8 @@
 				5296871B2F52C21800F71099 /* AlarmManager.swift in Sources */,
 				52A6672A2F52F939005B66C4 /* UserProfile.swift in Sources */,
 				522691952F523A2C00CB4F22 /* EditBlockView.swift in Sources */,
+				52FFE17F2F5842FC00FE8769 /* HealthKitManager.swift in Sources */,
+				52FFE1802F5842FC00FE8769 /* SleepAnalyticsView.swift in Sources */,
 				529E04072F35318B0000CFEA /* Language.swift in Sources */,
 				52EB507C2F3621760031FE9D /* ForgotPasswordView.swift in Sources */,
 				528169BB2F35B173007AE539 /* MyImage.swift in Sources */,

@@ -22,6 +22,7 @@ struct SleepzyApp: App {
                         // ✅ أضف هذا فقط
                         Task { @MainActor in
                             BlockStore.shared.evaluateAllBlocks()
+                            await HealthKitManager.shared.requestAuthorization()
                         }
                     case .inactive:
                         print("Inactive")
