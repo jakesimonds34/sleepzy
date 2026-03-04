@@ -14,8 +14,9 @@ struct AlarmFormView: View {
     // Repeat days: 1=Mon...7=Sun
     @State private var selectedDays: Set<Int> = [1, 2, 3, 4, 5]
     
-    // Ringtone
+    // Ringtone — now supports Freesound URL
     @State private var ringtone: String = "Brown Calm"
+    @State private var ringtoneURL: String = ""          // ← Freesound preview URL
     @State private var showRingtones = false
     
     // Snooze
@@ -23,7 +24,6 @@ struct AlarmFormView: View {
     @State private var snoozeDuration: Int = 5
     @State private var showSnoozePicker = false
     
-    let availableRingtones = ["Brown Calm", "Gentle Bell", "Morning Light", "Soft Chime", "Ocean Wave"]
     let snoozeDurations = [1, 2, 5, 10, 15, 20, 30]
     let days = ["M", "T", "W", "T", "F", "S", "S"]
     let dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
@@ -73,13 +73,25 @@ struct AlarmFormView: View {
                         // REPEAT
                         repeatSection
                         
-                        // RINGTONE
+                        // RINGTONE — opens Freesound Sleep Sounds picker
                         settingRow(label: "RINGTONE") {
                             Button(action: { showRingtones = true }) {
                                 HStack {
-                                    Text(ringtone)
-                                        .font(.system(size: 16))
-                                        .foregroundColor(.white)
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text(ringtone)
+                                            .font(.system(size: 16))
+                                            .foregroundColor(.white)
+                                        // Show badge if a Freesound track is selected
+                                        if !ringtoneURL.isEmpty {
+                                            HStack(spacing: 4) {
+                                                Image(systemName: "checkmark.circle.fill")
+                                                    .font(.system(size: 10))
+                                                Text("From Freesound")
+                                                    .font(.system(size: 11))
+                                            }
+                                            .foregroundColor(Color(hex: "#5BCC8A"))
+                                        }
+                                    }
                                     Spacer()
                                     Image(systemName: "chevron.right")
                                         .font(.system(size: 13, weight: .medium))
@@ -162,8 +174,12 @@ struct AlarmFormView: View {
                 }
             }
         }
+        // ← Freesound Sleep Sounds picker sheet
         .sheet(isPresented: $showRingtones) {
-            RingtonePicker(selected: $ringtone, options: availableRingtones)
+            SleepSoundsPickerSheet(
+                selectedName: $ringtone,
+                selectedURL: $ringtoneURL
+            )
         }
         .sheet(isPresented: $showSnoozePicker) {
             SnoozeDurationPicker(selected: $snoozeDuration, options: snoozeDurations)
@@ -318,6 +334,7 @@ struct AlarmFormView: View {
         isAM = alarm.isAM
         selectedDays = alarm.repeatDays
         ringtone = alarm.ringtone
+        ringtoneURL = alarm.ringtoneURL      // ← load saved Freesound URL
         snoozeEnabled = alarm.snoozeEnabled
         snoozeDuration = alarm.snoozeDuration
     }
@@ -329,6 +346,7 @@ struct AlarmFormView: View {
             isAM: isAM,
             repeatDays: selectedDays,
             ringtone: ringtone,
+            ringtoneURL: ringtoneURL,        // ← save Freesound URL
             snoozeEnabled: snoozeEnabled,
             snoozeDuration: snoozeDuration
         )
@@ -341,6 +359,53 @@ struct AlarmFormView: View {
             manager.addAlarm(alarm)
         }
         dismiss()
+    }
+}
+
+// MARK: - Sleep Sounds Picker Sheet (embedded inside alarm form)
+struct SleepSoundsPickerSheet: View {
+    @Binding var selectedName: String
+    @Binding var selectedURL: String
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        ZStack {
+            Color(red: 0.04, green: 0.04, blue: 0.16).ignoresSafeArea()
+
+            VStack(spacing: 0) {
+                // Simple header — keeps consistent style with rest of form
+                HStack {
+                    Button(action: { dismiss() }) {
+                        Image(systemName: "chevron.down")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.white.opacity(0.6))
+                    }
+                    Spacer()
+                    Text("Choose Ringtone")
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundColor(.white)
+                    Spacer()
+                    Button("Done") { dismiss() }
+                        .font(.system(size: 17, weight: .medium))
+                        .foregroundColor(Color(hex: "#7A6AE0"))
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 16)
+
+                // Reuse the full Sleep Sounds screen in alarm-selection mode
+                SleepSoundsView(
+                    selection: .constant(.sounds),
+                    alarmSelectionMode: true,
+                    onSoundSelected: { sound in
+                        selectedName = sound.name
+                        selectedURL  = sound.previewURL
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            dismiss()
+                        }
+                    }
+                )
+            }
+        }
     }
 }
 
@@ -376,54 +441,6 @@ struct TimeDigitPicker: View {
                     .font(.system(size: 11, weight: .semibold))
                     .foregroundColor(.white.opacity(0.35))
                     .frame(height: 22)
-            }
-        }
-    }
-}
-
-// MARK: - Ringtone Picker Sheet
-struct RingtonePicker: View {
-    @Binding var selected: String
-    let options: [String]
-    @Environment(\.dismiss) private var dismiss
-    
-    var body: some View {
-        ZStack {
-            Color(red: 0.07, green: 0.07, blue: 0.22).ignoresSafeArea()
-            
-            VStack(spacing: 0) {
-                HStack {
-                    Text("Ringtone")
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundColor(.white)
-                    Spacer()
-                    Button("Done") { dismiss() }
-                        .foregroundColor(Color(red: 0.5, green: 0.4, blue: 0.9))
-                        .font(.system(size: 17, weight: .medium))
-                }
-                .padding(.horizontal, 24)
-                .padding(.vertical, 20)
-                
-                ForEach(options, id: \.self) { option in
-                    Button(action: { selected = option }) {
-                        HStack {
-                            Text(option)
-                                .font(.system(size: 17))
-                                .foregroundColor(.white)
-                            Spacer()
-                            if selected == option {
-                                Image(systemName: "checkmark")
-                                    .foregroundColor(Color(red: 0.5, green: 0.4, blue: 0.9))
-                                    .font(.system(size: 15, weight: .semibold))
-                            }
-                        }
-                        .padding(.horizontal, 24)
-                        .padding(.vertical, 16)
-                        .background(selected == option ? Color.white.opacity(0.06) : Color.clear)
-                    }
-                    Divider().background(Color.white.opacity(0.08))
-                }
-                Spacer()
             }
         }
     }

@@ -32,7 +32,7 @@ struct MainTabView: View {
             .tag(Taps.home)
 
             NavigationStack {
-                SoundsView(selection: $selection)
+                SleepSoundsView(selection: $selection)
             }
             .tabItem {
                 tabItem(for: .sounds)

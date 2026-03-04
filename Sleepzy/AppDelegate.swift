@@ -14,6 +14,16 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         // MARK: - Appearance
         Appearance.configure()
         
+        UNUserNotificationCenter.current().delegate = AlarmManager.shared
+        AlarmManager.shared.setupNotificationCategories(snoozeMinutes: 5)
+        AlarmManager.shared.requestNotificationPermission()
+        
         return true
+    }
+    
+    func application(_ application: UIApplication,
+                     didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        completionHandler(.newData)
     }
 }

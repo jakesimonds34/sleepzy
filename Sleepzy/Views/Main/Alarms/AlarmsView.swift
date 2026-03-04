@@ -1,10 +1,3 @@
-//
-//  AlarmsView.swift
-//  Sleepzy
-//
-//  Created by Saadi Dalloul on 07/02/2026.
-//
-
 import SwiftUI
 
 struct AlarmsView: View {
@@ -44,41 +37,6 @@ struct AlarmsView: View {
             }
         }
     }
-    
-//    @ViewBuilder
-//    private func alarmsView() -> some View {
-//        VStack(alignment: .leading, spacing: 30) {
-//            // MARK: - Alarm Remaining Time
-//            Text("Alarm in 10 hours and 30 minutes")
-//                .font(.appRegular(size: 24))
-//                .foregroundColor(.white.opacity(0.8))
-//            
-//            ScrollView {
-//                HStack {
-//                    VStack(alignment: .leading, spacing: 4) {
-//                        // MARK: - Time
-//                        Text("10:30")
-//                            .font(.system(size: 48, weight: .bold))
-//                            .foregroundColor(.white)
-//                        
-//                        // MARK: - Days
-//                        Text("Monday to Friday")
-//                            .font(.subheadline)
-//                            .foregroundColor(.white.opacity(0.8))
-//                    }
-//                    Spacer()
-//                    // MARK: - Toggle
-//                    Toggle("", isOn: $isOn)
-//                        .labelsHidden()
-//                        .tint(Color(hex: "5939A8"))
-//                }
-//                .padding()
-//                .background(.white.opacity(0.05))
-//                .cornerRadius(8)
-//            }
-//        }
-//        .padding(.horizontal)
-//    }
 }
 
 // MARK: - Empty State

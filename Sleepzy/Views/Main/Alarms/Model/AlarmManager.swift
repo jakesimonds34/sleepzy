@@ -11,6 +11,7 @@ struct Alarm: Identifiable, Codable {
     var isAM: Bool
     var repeatDays: Set<Int> // 1=Monday, 2=Tuesday, ..., 7=Sunday
     var ringtone: String
+    var ringtoneURL: String  // Freesound preview URL (empty = use system sound)
     var snoozeEnabled: Bool
     var snoozeDuration: Int // minutes
     var isEnabled: Bool = true
@@ -67,8 +68,11 @@ class AlarmManager: NSObject, ObservableObject, UNUserNotificationCenterDelegate
     
     @Published var alarms: [Alarm] = []
     @Published var authorizationStatus: UNAuthorizationStatus = .notDetermined
-    
+    @Published var ringingAlarm: Alarm? = nil   // ← الشاشة تراقب هذا لتظهر/تختفي
+
     var audioPlayer: AVAudioPlayer?
+    var streamPlayer: AVPlayer?
+    var streamLoopObserver: Any?
     
     private let userDefaultsKey = "SavedAlarms"
     
@@ -218,61 +222,133 @@ class AlarmManager: NSObject, ObservableObject, UNUserNotificationCenterDelegate
     }
     
     // MARK: - In-App Audio (when app is open)
-    func playAlarmSound(ringtone: String) {
-        guard let url = Bundle.main.url(forResource: ringtone, withExtension: "mp3") ?? Bundle.main.url(forResource: "alarm_default", withExtension: "mp3") else {
-            // Fallback: play system sound
-            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+    func playAlarmSound(ringtone: String, ringtoneURL: String = "") {
+        stopAlarmSound()
+
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch { print("AudioSession error: \(error)") }
+
+        // أولوية: Freesound URL (HTTP) → ملف Bundle → اهتزاز
+        if !ringtoneURL.isEmpty, let url = URL(string: ringtoneURL) {
+            // AVPlayer يدعم HTTP streaming — نحتفظ بـ reference قوية في streamPlayer
+            let item = AVPlayerItem(url: url)
+            streamPlayer = AVPlayer(playerItem: item)
+            streamPlayer?.volume = 1.0
+            streamPlayer?.automaticallyWaitsToMinimizeStalling = true
+            streamPlayer?.play()
+
+            // تكرار الصوت عند الانتهاء
+            streamLoopObserver = NotificationCenter.default.addObserver(
+                forName: .AVPlayerItemDidPlayToEndTime,
+                object: item,
+                queue: .main
+            ) { [weak self] _ in
+                self?.streamPlayer?.seek(to: .zero)
+                self?.streamPlayer?.play()
+            }
             return
         }
-        
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-            try AVAudioSession.sharedInstance().setActive(true)
-            audioPlayer = try AVAudioPlayer(contentsOf: url)
-            audioPlayer?.numberOfLoops = -1
-            audioPlayer?.play()
-        } catch {
-            print("Audio error: \(error)")
+
+        // ملف محلي في Bundle
+        if let url = Bundle.main.url(forResource: ringtone, withExtension: "mp3") ??
+                     Bundle.main.url(forResource: "alarm_default", withExtension: "mp3") {
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: url)
+                audioPlayer?.numberOfLoops = -1
+                audioPlayer?.volume = 1.0
+                audioPlayer?.play()
+            } catch { print("AVAudioPlayer error: \(error)") }
+            return
         }
+
+        // fallback: اهتزاز
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
     }
-    
+
     func stopAlarmSound() {
+        // إيقاف stream player
+        if let obs = streamLoopObserver {
+            NotificationCenter.default.removeObserver(obs)
+            streamLoopObserver = nil
+        }
+        streamPlayer?.pause()
+        streamPlayer = nil
+
+        // إيقاف local player
         audioPlayer?.stop()
         audioPlayer = nil
-        try? AVAudioSession.sharedInstance().setActive(false)
+
+        try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
     }
     
     // MARK: - UNUserNotificationCenterDelegate
-    // Called when notification arrives while app is in FOREGROUND
+
+    /// يُستدعى عندما يصل الإشعار والتطبيق مفتوح في المقدمة
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                  willPresent notification: UNNotification,
                                  withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        // Show banner + play sound even when app is open
         let alarmId = notification.request.content.userInfo["alarmId"] as? String ?? ""
-        if let alarm = alarms.first(where: { $0.id.uuidString == alarmId }) {
-            playAlarmSound(ringtone: alarm.ringtone)
+
+        // استخرج الـ alarmId الأصلي (بدون suffix اليوم أو _snooze)
+        let baseId = alarmId
+            .replacingOccurrences(of: "_snooze", with: "")
+            .components(separatedBy: "_").first ?? alarmId
+
+        if let alarm = alarms.first(where: { $0.id.uuidString == baseId }) {
+            // شغّل الصوت
+            playAlarmSound(ringtone: alarm.ringtone, ringtoneURL: alarm.ringtoneURL)
+            // أظهر شاشة الرنين
+            DispatchQueue.main.async { self.ringingAlarm = alarm }
         }
-        completionHandler([.banner, .sound, .badge])
+        // لا نعرض Banner لأن شاشة الرنين ستظهر
+        completionHandler([.badge])
     }
-    
-    // Called when user taps notification or action button
+
+    /// يُستدعى عند الضغط على الإشعار أو أزرار الـ action (التطبيق في الخلفية)
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                  didReceive response: UNNotificationResponse,
                                  withCompletionHandler completionHandler: @escaping () -> Void) {
         let alarmId = response.notification.request.content.userInfo["alarmId"] as? String ?? ""
-        
+        let baseId = alarmId
+            .replacingOccurrences(of: "_snooze", with: "")
+            .components(separatedBy: "_").first ?? alarmId
+
         switch response.actionIdentifier {
         case "SNOOZE_ACTION":
-            // Schedule snooze
-            if let alarm = alarms.first(where: { $0.id.uuidString == alarmId }) {
+            if let alarm = alarms.first(where: { $0.id.uuidString == baseId }) {
                 scheduleSnooze(for: alarm)
             }
-        case "DISMISS_ACTION", UNNotificationDefaultActionIdentifier:
+            DispatchQueue.main.async { self.ringingAlarm = nil }
             stopAlarmSound()
+
+        case "DISMISS_ACTION":
+            stopAlarmSound()
+            DispatchQueue.main.async { self.ringingAlarm = nil }
+
         default:
-            stopAlarmSound()
+            // المستخدم فتح التطبيق بالضغط على الإشعار → أظهر شاشة الرنين
+            if let alarm = alarms.first(where: { $0.id.uuidString == baseId }) {
+                playAlarmSound(ringtone: alarm.ringtone, ringtoneURL: alarm.ringtoneURL)
+                DispatchQueue.main.async { self.ringingAlarm = alarm }
+            }
         }
         completionHandler()
+    }
+
+    // MARK: - Dismiss & Snooze (من شاشة الرنين)
+
+    func dismissRingingAlarm() {
+        stopAlarmSound()
+        ringingAlarm = nil
+    }
+
+    func snoozeRingingAlarm() {
+        guard let alarm = ringingAlarm else { return }
+        stopAlarmSound()
+        ringingAlarm = nil
+        scheduleSnooze(for: alarm)
     }
     
     func scheduleSnooze(for alarm: Alarm) {

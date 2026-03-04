@@ -24,7 +24,7 @@
 		5226919A2F523B9200CB4F22 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522691992F523B9200CB4F22 /* AuthorizationManager.swift */; };
 		524961CD2F37BBF200D057F0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961CC2F37BBF200D057F0 /* HomeView.swift */; };
 		524961CF2F37BC0800D057F0 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961CE2F37BC0700D057F0 /* HomeViewModel.swift */; };
-		524961D22F37BCA900D057F0 /* SoundsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961D12F37BCA900D057F0 /* SoundsView.swift */; };
+		524961D22F37BCA900D057F0 /* SleepSoundsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961D12F37BCA900D057F0 /* SleepSoundsView.swift */; };
 		524961D42F37BCB200D057F0 /* SoundsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961D32F37BCAE00D057F0 /* SoundsViewModel.swift */; };
 		524961D72F37BD2200D057F0 /* SleepLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961D62F37BD2200D057F0 /* SleepLogView.swift */; };
 		524961D92F37BD4400D057F0 /* SleepLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961D82F37BD4100D057F0 /* SleepLogViewModel.swift */; };
@@ -103,6 +103,8 @@
 		52FFE17F2F5842FC00FE8769 /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FFE17D2F5842FC00FE8769 /* HealthKitManager.swift */; };
 		52FFE1802F5842FC00FE8769 /* SleepAnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FFE17E2F5842FC00FE8769 /* SleepAnalyticsView.swift */; };
 		52FFE1822F58495400FE8769 /* SleepStageChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FFE1812F58495200FE8769 /* SleepStageChart.swift */; };
+		52FFE1842F587A0700FE8769 /* FreesoundAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FFE1832F587A0700FE8769 /* FreesoundAPIManager.swift */; };
+		52FFE1862F5897B300FE8769 /* AlarmRingingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FFE1852F5897B300FE8769 /* AlarmRingingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,7 +122,7 @@
 		522691992F523B9200CB4F22 /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
 		524961CC2F37BBF200D057F0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		524961CE2F37BC0700D057F0 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		524961D12F37BCA900D057F0 /* SoundsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsView.swift; sourceTree = "<group>"; };
+		524961D12F37BCA900D057F0 /* SleepSoundsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepSoundsView.swift; sourceTree = "<group>"; };
 		524961D32F37BCAE00D057F0 /* SoundsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsViewModel.swift; sourceTree = "<group>"; };
 		524961D62F37BD2200D057F0 /* SleepLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepLogView.swift; sourceTree = "<group>"; };
 		524961D82F37BD4100D057F0 /* SleepLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepLogViewModel.swift; sourceTree = "<group>"; };
@@ -200,6 +202,8 @@
 		52FFE17D2F5842FC00FE8769 /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		52FFE17E2F5842FC00FE8769 /* SleepAnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepAnalyticsView.swift; sourceTree = "<group>"; };
 		52FFE1812F58495200FE8769 /* SleepStageChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepStageChart.swift; sourceTree = "<group>"; };
+		52FFE1832F587A0700FE8769 /* FreesoundAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreesoundAPIManager.swift; sourceTree = "<group>"; };
+		52FFE1852F5897B300FE8769 /* AlarmRingingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmRingingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,8 +267,9 @@
 		524961D02F37BC9600D057F0 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				524961D12F37BCA900D057F0 /* SoundsView.swift */,
+				524961D12F37BCA900D057F0 /* SleepSoundsView.swift */,
 				524961D32F37BCAE00D057F0 /* SoundsViewModel.swift */,
+				52FFE1832F587A0700FE8769 /* FreesoundAPIManager.swift */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -289,6 +294,7 @@
 				524961DB2F37BD8B00D057F0 /* AlarmsView.swift */,
 				524961DD2F37BD9600D057F0 /* AlarmsViewModel.swift */,
 				5296871C2F52C2C400F71099 /* AlarmFormView.swift */,
+				52FFE1852F5897B300FE8769 /* AlarmRingingView.swift */,
 				529687192F52C21100F71099 /* Model */,
 			);
 			path = Alarms;
@@ -781,7 +787,7 @@
 				529E03FE2F35318B0000CFEA /* LocalizedExtensions.swift in Sources */,
 				529618B22F3604FE001E7C7C /* TextFieldFormView.swift in Sources */,
 				522691862F52365800CB4F22 /* BlockStore.swift in Sources */,
-				524961D22F37BCA900D057F0 /* SoundsView.swift in Sources */,
+				524961D22F37BCA900D057F0 /* SleepSoundsView.swift in Sources */,
 				522691902F5239D200CB4F22 /* NewBlockViewModel.swift in Sources */,
 				52C6C1862F35375A0070850E /* SplashView.swift in Sources */,
 				52263DC32F38E38E003AE6D4 /* SleepLogDetailView.swift in Sources */,
@@ -818,6 +824,7 @@
 				527BC1A82F3A42B100287638 /* ProfileRepository.swift in Sources */,
 				52FFE1822F58495400FE8769 /* SleepStageChart.swift in Sources */,
 				52EB509A2F3625BC0031FE9D /* ChangeObserverModifier.swift in Sources */,
+				52FFE1842F587A0700FE8769 /* FreesoundAPIManager.swift in Sources */,
 				52D5E1B52F3CB08C009B20A8 /* LocalData.swift in Sources */,
 				5263E2312F51033800BB27A1 /* Settings.swift in Sources */,
 				52EB509B2F3625BC0031FE9D /* AEOTPTextFieldDelegate.swift in Sources */,
@@ -835,6 +842,7 @@
 				5226919A2F523B9200CB4F22 /* AuthorizationManager.swift in Sources */,
 				52EB50A02F3625BC0031FE9D /* AEOTPTextField.swift in Sources */,
 				526C3C412F3BB2E2004F1768 /* DistractingAppsView.swift in Sources */,
+				52FFE1862F5897B300FE8769 /* AlarmRingingView.swift in Sources */,
 				52EB50A12F3625BC0031FE9D /* AEOTPTextFieldImplementationProtocol.swift in Sources */,
 				524961E32F37BDED00D057F0 /* SettingsViewModel.swift in Sources */,
 				52EB50A22F3625BC0031FE9D /* AEOTPViewRepresentable.swift in Sources */,
