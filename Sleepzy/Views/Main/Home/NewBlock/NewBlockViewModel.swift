@@ -8,6 +8,7 @@ final class NewBlockViewModel: ObservableObject {
     // MARK: - Shared
     @Published var blockMode:    BlockMode               = .schedule
     @Published var name:         String                  = ""
+    @Published var blockEmoji:   String                  = "🧩"
     @Published var appSelection: FamilyActivitySelection = FamilyActivitySelection()
     @Published var brakeLevel:   BrakeLevel              = .easy
 
@@ -53,7 +54,7 @@ final class NewBlockViewModel: ObservableObject {
 
     func saveScheduleBlock(to store: BlockStore) {
         let block = ScheduleBlock(
-            name: name,
+            name: blockEmoji + " " + name,
             fromTime: DateComponents(hour: to24(fromHour, period: fromPeriod),
                                      minute: fromMinute),
             toTime:   DateComponents(hour: to24(toHour, period: toPeriod),
@@ -67,7 +68,7 @@ final class NewBlockViewModel: ObservableObject {
 
     func saveTimerBlock(to store: BlockStore) {
         let block = TimerBlock(
-            name:            name,
+            name:            blockEmoji + " " + name,
             durationMinutes: durationMinutes,
             appSelection:    appSelection,
             brakeLevel:      brakeLevel

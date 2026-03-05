@@ -7,6 +7,8 @@ struct NewBlockView: View {
     @StateObject private var store = BlockStore.shared
     @Environment(\.dismiss) private var dismiss
 
+    @State private var showEmojiPicker = false  // ✅
+
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
@@ -63,6 +65,10 @@ struct NewBlockView: View {
             DurationPickerSheet(isPresented:     $vm.showDurationPicker,
                                 durationMinutes: $vm.durationMinutes)
         }
+        // ✅
+        .sheet(isPresented: $showEmojiPicker) {
+            EmojiPickerSheet(selectedEmoji: $vm.blockEmoji)
+        }
     }
 
     // MARK: - Mode Picker
@@ -107,11 +113,21 @@ struct NewBlockView: View {
                     .tint(AppTheme.accentBright)
                     .colorScheme(.dark)
                 
-                MyImage(source: .asset(.puzzleIcon))
-                    .frame(width: 24, height: 24)
+                // ✅ Emoji button بدلاً من الأيقونة الثابتة
+                Button { showEmojiPicker = true } label: {
+                    Text(vm.blockEmoji)
+                        .font(.system(size: 22))
+                        .frame(width: 40, height: 40)
+                        .background(AppTheme.pillBackground)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(AppTheme.separatorColor, lineWidth: 1)
+                        )
+                }
             }
             .padding(.horizontal, 14)
-            .frame(height: 48)
+            .frame(height: 52)
             .background(AppTheme.cardBackground)
             .clipShape(RoundedRectangle(cornerRadius: AppTheme.buttonRadius))
         }
@@ -122,7 +138,6 @@ struct NewBlockView: View {
     private var scheduleBody: some View {
         VStack(alignment: .leading, spacing: 12) {
 
-            // FROM picker
             VStack(alignment: .leading, spacing: 0) {
                 TimePickerField(label: "FROM",
                                 hour:   $vm.fromHour,
@@ -133,7 +148,6 @@ struct NewBlockView: View {
             .background(AppTheme.cardBackground)
             .clipShape(RoundedRectangle(cornerRadius: AppTheme.cardRadius))
 
-            // TO picker
             VStack(alignment: .leading, spacing: 0) {
                 TimePickerField(label: "TO",
                                 hour:   $vm.toHour,

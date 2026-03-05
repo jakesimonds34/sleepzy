@@ -170,6 +170,7 @@ class AuthViewModel: ObservableObject {
     func signOut() async {
         do {
             try await authRepo.signOut()
+            Settings.shared.resetUserSettings()
             user = nil
             profile = nil
         } catch {

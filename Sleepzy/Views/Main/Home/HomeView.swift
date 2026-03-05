@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 import FamilyControls
 
 struct HomeView: View {
@@ -17,6 +18,9 @@ struct HomeView: View {
     @State private var editingSchedule: ScheduleBlock? = nil
     @State private var editingTimer:    TimerBlock?    = nil
     @State private var showShieldAppPicker = false
+    @State private var showDisableConfirm   = false
+    @State private var pendingDisableAction: (() -> Void)? = nil
+    @State private var ticker = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     var body: some View {
         Group {
@@ -56,6 +60,11 @@ struct HomeView: View {
         .navigationBarHidden(true)
         .task {
             await authManager.requestAuthorization()
+        }
+        .sheet(isPresented: $showDisableConfirm) {
+            if let action = pendingDisableAction {
+                DisableConfirmationSheet(onConfirm: action)
+            }
         }
     }
     
@@ -271,7 +280,14 @@ struct HomeView: View {
 
             Toggle("", isOn: Binding(
                 get: { block.isEnabled },
-                set: { _ in store.toggleScheduleBlock(id: block.id) }
+                set: { newValue in
+                    if !newValue {
+                        pendingDisableAction = { store.toggleScheduleBlock(id: block.id) }
+                        DispatchQueue.main.async { showDisableConfirm = true }
+                    } else {
+                        store.toggleScheduleBlock(id: block.id)
+                    }
+                }
             ))
             .toggleStyle(SwitchToggleStyle(tint: AppTheme.toggleOnTint))
             .labelsHidden()
@@ -311,14 +327,20 @@ struct HomeView: View {
                 Text(block.isRunning ? "Running – \(formatted(block))" : "\(block.durationMinutes) min")
                     .font(.system(size: 12))
                     .foregroundColor(block.isRunning ? .orange : AppTheme.textSecondary)
+                    .onReceive(ticker) { _ in
+                        if block.isRunning { store.objectWillChange.send() }
+                    }
             }
 
             Spacer()
 
             Button {
-                block.isRunning
-                    ? store.stopTimerBlock(id: block.id)
-                    : store.startTimerBlock(id: block.id)
+                if block.isRunning {
+                    pendingDisableAction = { store.stopTimerBlock(id: block.id) }
+                    DispatchQueue.main.async { showDisableConfirm = true }
+                } else {
+                    store.startTimerBlock(id: block.id)
+                }
             } label: {
                 Image(systemName: block.isRunning ? "stop.circle.fill" : "play.circle.fill")
                     .font(.system(size: 28))

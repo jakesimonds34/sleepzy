@@ -10,6 +10,8 @@
 		520B7B472F3A122300F04F56 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 520B7B462F3A122300F04F56 /* Auth */; };
 		520B7B492F3A122300F04F56 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 520B7B482F3A122300F04F56 /* Supabase */; };
 		52219F992F5981FB00DBB792 /* SafariSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52219F982F5981FA00DBB792 /* SafariSheet.swift */; };
+		52219F9B2F59895300DBB792 /* EmojiPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52219F9A2F59895300DBB792 /* EmojiPickerSheet.swift */; };
+		52219F9D2F598CBC00DBB792 /* DisableConfirmationSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52219F9C2F598CBC00DBB792 /* DisableConfirmationSheet.swift */; };
 		522628EF2F363A5100C79B73 /* SleepScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522628EE2F363A5100C79B73 /* SleepScheduleView.swift */; };
 		522628F12F36415100C79B73 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522628F02F36414E00C79B73 /* SplashViewModel.swift */; };
 		522628F42F3645B200C79B73 /* IQKeyboardToolbarManager in Frameworks */ = {isa = PBXBuildFile; productRef = 522628F32F3645B200C79B73 /* IQKeyboardToolbarManager */; };
@@ -113,6 +115,8 @@
 
 /* Begin PBXFileReference section */
 		52219F982F5981FA00DBB792 /* SafariSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariSheet.swift; sourceTree = "<group>"; };
+		52219F9A2F59895300DBB792 /* EmojiPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiPickerSheet.swift; sourceTree = "<group>"; };
+		52219F9C2F598CBC00DBB792 /* DisableConfirmationSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisableConfirmationSheet.swift; sourceTree = "<group>"; };
 		522628EE2F363A5100C79B73 /* SleepScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepScheduleView.swift; sourceTree = "<group>"; };
 		522628F02F36414E00C79B73 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		52263DC22F38E38E003AE6D4 /* SleepLogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepLogDetailView.swift; sourceTree = "<group>"; };
@@ -235,6 +239,7 @@
 			children = (
 				5226918D2F5239C100CB4F22 /* NewBlockView.swift */,
 				5226918F2F5239D200CB4F22 /* NewBlockViewModel.swift */,
+				52219F9A2F59895300DBB792 /* EmojiPickerSheet.swift */,
 			);
 			path = NewBlock;
 			sourceTree = "<group>";
@@ -246,6 +251,7 @@
 				522691872F52368000CB4F22 /* AppBlock.swift */,
 				522691892F52373300CB4F22 /* AppTheme.swift */,
 				5226918B2F52375700CB4F22 /* SharedComponents.swift */,
+				52219F9C2F598CBC00DBB792 /* DisableConfirmationSheet.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -824,6 +830,7 @@
 				524961D42F37BCB200D057F0 /* SoundsViewModel.swift in Sources */,
 				528169C12F35B544007AE539 /* SwiftUI+Modifiers.swift in Sources */,
 				524961DC2F37BD8B00D057F0 /* AlarmsView.swift in Sources */,
+				52219F9B2F59895300DBB792 /* EmojiPickerSheet.swift in Sources */,
 				524961D92F37BD4400D057F0 /* SleepLogViewModel.swift in Sources */,
 				52D5E1B92F3CBE00009B20A8 /* ScreenTimeAuthorizationManager.swift in Sources */,
 				52C9FDE72F594D6C00536F2A /* DigitalShieldNotificationManager.swift in Sources */,
@@ -833,6 +840,7 @@
 				526C3C452F3BC36D004F1768 /* TimePickerView.swift in Sources */,
 				529618AA2F35F28C001E7C7C /* OnboardingView.swift in Sources */,
 				524961E52F37C5EA00D057F0 /* IfAvailableiOS26.swift in Sources */,
+				52219F9D2F598CBC00DBB792 /* DisableConfirmationSheet.swift in Sources */,
 				526C3C472F3BC492004F1768 /* RepeatDaysPicker.swift in Sources */,
 				527BC1A82F3A42B100287638 /* ProfileRepository.swift in Sources */,
 				52FFE1822F58495400FE8769 /* SleepStageChart.swift in Sources */,

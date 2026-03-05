@@ -38,15 +38,19 @@ struct ContentView: View {
     // MARK: - View Components
     @ViewBuilder
     private var content: some View {
-        switch appEnv.appStatus {
-        case .loading:
-            SplashView()
-        case .resetPassword:
-            NewPasswordView()
-        case .onboarding:
-            OnboardingView()
-        case .home:
+        if Settings.shared.isLoggedIn {
             MainTabView()
+        } else {
+            switch appEnv.appStatus {
+            case .loading:
+                SplashView()
+            case .resetPassword:
+                NewPasswordView()
+            case .onboarding:
+                OnboardingView()
+            case .home:
+                MainTabView()
+            }
         }
     }
 }
