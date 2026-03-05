@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		520B7B472F3A122300F04F56 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 520B7B462F3A122300F04F56 /* Auth */; };
 		520B7B492F3A122300F04F56 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 520B7B482F3A122300F04F56 /* Supabase */; };
+		52219F992F5981FB00DBB792 /* SafariSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52219F982F5981FA00DBB792 /* SafariSheet.swift */; };
 		522628EF2F363A5100C79B73 /* SleepScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522628EE2F363A5100C79B73 /* SleepScheduleView.swift */; };
 		522628F12F36415100C79B73 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522628F02F36414E00C79B73 /* SplashViewModel.swift */; };
 		522628F42F3645B200C79B73 /* IQKeyboardToolbarManager in Frameworks */ = {isa = PBXBuildFile; productRef = 522628F32F3645B200C79B73 /* IQKeyboardToolbarManager */; };
@@ -111,6 +112,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		52219F982F5981FA00DBB792 /* SafariSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariSheet.swift; sourceTree = "<group>"; };
 		522628EE2F363A5100C79B73 /* SleepScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepScheduleView.swift; sourceTree = "<group>"; };
 		522628F02F36414E00C79B73 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		52263DC22F38E38E003AE6D4 /* SleepLogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepLogDetailView.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 				522628EE2F363A5100C79B73 /* SleepScheduleView.swift */,
 				52C9FDE42F593CB600536F2A /* WindDownManager.swift */,
 				52C9FDE62F594D6C00536F2A /* DigitalShieldNotificationManager.swift */,
+				52219F982F5981FA00DBB792 /* SafariSheet.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -867,6 +870,7 @@
 				52A6672A2F52F939005B66C4 /* UserProfile.swift in Sources */,
 				522691952F523A2C00CB4F22 /* EditBlockView.swift in Sources */,
 				5229CDFD2F58D25F003E2F26 /* AlarmSoundManager.swift in Sources */,
+				52219F992F5981FB00DBB792 /* SafariSheet.swift in Sources */,
 				52FFE17F2F5842FC00FE8769 /* HealthKitManager.swift in Sources */,
 				52FFE1802F5842FC00FE8769 /* SleepAnalyticsView.swift in Sources */,
 				529E04072F35318B0000CFEA /* Language.swift in Sources */,

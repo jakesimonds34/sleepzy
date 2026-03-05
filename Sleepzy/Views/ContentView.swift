@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  Spleepzy
+//  Sleepzy
 //
 //  Created by Saadi Dalloul on 05/02/2026.
 //
@@ -38,16 +38,15 @@ struct ContentView: View {
     // MARK: - View Components
     @ViewBuilder
     private var content: some View {
-        if Settings.shared.isLoggedIn {
+        switch appEnv.appStatus {
+        case .loading:
+            SplashView()
+        case .resetPassword:
+            NewPasswordView()
+        case .onboarding:
+            OnboardingView()
+        case .home:
             MainTabView()
-        } else {
-            if appEnv.appStatus == .loading {
-                SplashView()
-            } else if appEnv.appStatus == .resetPassword {
-                NewPasswordView()
-            } else {
-                MainTabView()
-            }
         }
     }
 }

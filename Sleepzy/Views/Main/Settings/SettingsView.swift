@@ -18,6 +18,9 @@ struct SettingsView: View {
     @State private var showShieldAppPicker      = false
     @State private var showShieldSchedule       = false
     @State private var showSleepSchedule        = false
+    @State private var showHelpSupport          = false
+    @State private var showPrivacyPolicy        = false
+    @State private var showLogoutConfirm        = false
     
     @Binding var selection: Taps
 
@@ -165,12 +168,12 @@ struct SettingsView: View {
                 
                 // ── Bottom links ──────────────────────────────
                 VStack(spacing: 16) {
-                    Button("Help and Support") {}
+                    Button("Help and Support") { showHelpSupport = true }
                         .font(.system(size: 14))
                         .foregroundColor(AppTheme.textSecondary)
                         .underline()
-                    
-                    Button("Privacy Policy") {}
+
+                    Button("Privacy Policy") { showPrivacyPolicy = true }
                         .font(.system(size: 14))
                         .foregroundColor(AppTheme.textSecondary)
                         .underline()
@@ -213,6 +216,23 @@ struct SettingsView: View {
         }
         .sheet(isPresented: $showSleepSchedule) {
             SleepScheduleSheet(viewModel: viewModel)
+        }
+        .sheet(isPresented: $showHelpSupport) {
+            SafariSheet(url: URL(string: "https://app.termly.io/policy-viewer/policy.html?policyUUID=b18add3c-759c-4bc3-b343-b67ee81153cc")!)
+        }
+        .sheet(isPresented: $showPrivacyPolicy) {
+            SafariSheet(url: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
+        }
+        .confirmationDialog("Log out", isPresented: $showLogoutConfirm, titleVisibility: .visible) {
+            Button("Log out", role: .destructive) {
+                Task {
+                    await AuthViewModel().signOut()
+                    AppEnvironment.shared.appStatus = .loading
+                }
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Are you sure you want to log out?")
         }
     }
 
@@ -304,7 +324,7 @@ struct SettingsView: View {
 
     private var logoutButton: some View {
         Button {
-            AppEnvironment.shared.appStatus = .loading
+            showLogoutConfirm = true
         } label: {
             HStack(spacing: 10) {
                 MyImage(source: .asset(.logOutIcon))

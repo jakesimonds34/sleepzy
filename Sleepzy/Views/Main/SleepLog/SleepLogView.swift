@@ -96,7 +96,9 @@ struct SleepLogView: View {
                 periodNavigator
                 avgStatsCard
 
-                if displayedSessions.isEmpty {
+                if hk.isLoading {
+                    loadingState
+                } else if displayedSessions.isEmpty {
                     emptyState
                 } else {
                     ForEach(displayedSessions) { session in
@@ -119,7 +121,7 @@ struct SleepLogView: View {
             SleepAnalyticsView(session: session)
         }
         .task {
-            // لا تجلب إذا كان Apple Health sync معطّلاً
+            // ✅ لا تجلب إذا كان Apple Health sync معطّلاً
             guard UserProfileStore.shared.profile.appleHealthSync else {
                 hk.clearSessions()
                 return
@@ -129,6 +131,8 @@ struct SleepLogView: View {
         }
         .onChange(of: period) { _, p in
             offset = 0
+            // ✅ لا تجلب إذا كان Apple Health sync معطّلاً
+            guard UserProfileStore.shared.profile.appleHealthSync else { return }
             Task { await hk.fetchSleepData(for: p) }
         }
     }
@@ -268,7 +272,6 @@ struct SleepLogView: View {
 
                     Spacer()
 
-                    // ✅ border فقط (stroke) مع لون الحالة الصحيح
                     HStack(spacing: 6) {
                         Circle()
                             .stroke(qualityColor(s.qualityLabel), lineWidth: 1.5)
@@ -286,14 +289,13 @@ struct SleepLogView: View {
         .buttonStyle(.plain)
     }
 
-    // MARK: - Empty State
+    // MARK: - Loading State
 
-    private var emptyState: some View {
+    private var loadingState: some View {
         VStack(spacing: 12) {
-            Image(systemName: "moon.zzz")
-                .font(.system(size: 36))
-                .foregroundColor(.white.opacity(0.4))
-            Text("No sleep data for this period")
+            ProgressView()
+                .tint(.white)
+            Text("Loading sleep data...")
                 .font(.appRegular16)
                 .foregroundColor(.white.opacity(0.4))
         }
@@ -301,14 +303,40 @@ struct SleepLogView: View {
         .padding(.vertical, 48)
     }
 
+    // MARK: - Empty State
+
+    private var emptyState: some View {
+        VStack(spacing: 12) {
+            Image(systemName: "moon.zzz")
+                .font(.system(size: 36))
+                .foregroundColor(.white.opacity(0.4))
+
+            // ✅ رسالة مختلفة إذا كان Apple Health معطّلاً
+            if !UserProfileStore.shared.profile.appleHealthSync {
+                Text("Apple Health sync is disabled")
+                    .font(.appRegular16)
+                    .foregroundColor(.white.opacity(0.4))
+                Text("Enable it in Settings to see your sleep data")
+                    .font(.appRegular14)
+                    .foregroundColor(.white.opacity(0.3))
+                    .multilineTextAlignment(.center)
+            } else {
+                Text("No sleep data for this period")
+                    .font(.appRegular16)
+                    .foregroundColor(.white.opacity(0.4))
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 48)
+    }
+
     // MARK: - Helpers
 
-    // نفس ألوان SleepAnalyticsView
     private func qualityColor(_ label: String) -> Color {
         switch label {
-        case "Good": return Color(hex: "17B26A")   // أخضر — Normal
-        case "Fair": return Color(hex: "F79009")   // برتقالي — Low
-        default:     return Color(hex: "F04438")   // أحمر — High/Poor
+        case "Good": return Color(hex: "17B26A")
+        case "Fair": return Color(hex: "F79009")
+        default:     return Color(hex: "F04438")
         }
     }
 }
