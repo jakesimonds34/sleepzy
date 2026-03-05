@@ -89,7 +89,7 @@ struct HomeView: View {
         .padding(.horizontal, AppTheme.pagePadding)
     }
     
-    // MARK: - Not Authoried
+    // MARK: - Not Authorized
     private var notAuthorized: some View {
         VStack(spacing: 32) {
             Spacer()
@@ -160,8 +160,10 @@ struct HomeView: View {
                         Text(shield.name)
                             .font(.system(size: 16, weight: .semibold))
                             .foregroundColor(.white)
+                        
+                        // ✅ عرض الساعات والدقائق
                         if shield.minutesUntilStart > 0 {
-                            Text("Starting in \(shield.minutesUntilStart) min")
+                            Text("Starting in \(shield.timeUntilStartFormatted)")
                                 .font(.system(size: 12))
                                 .padding(.horizontal, 8).padding(.vertical, 3)
                                 .background(AppTheme.pillBackground)
@@ -261,14 +263,12 @@ struct HomeView: View {
 
             Spacer()
 
-            // ✏️ Edit button
             Button { editingSchedule = block } label: {
                 Image(systemName: "pencil.circle.fill")
                     .font(.system(size: 22))
                     .foregroundColor(AppTheme.textSecondary)
             }
 
-            // Toggle on/off
             Toggle("", isOn: Binding(
                 get: { block.isEnabled },
                 set: { _ in store.toggleScheduleBlock(id: block.id) }
@@ -325,7 +325,6 @@ struct HomeView: View {
                     .foregroundColor(block.isRunning ? .red : AppTheme.accentBright)
             }
 
-            // ✏️ Edit button
             Button { editingTimer = block } label: {
                 Image(systemName: "pencil.circle.fill")
                     .font(.system(size: 22))

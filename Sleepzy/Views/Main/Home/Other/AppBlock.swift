@@ -233,7 +233,20 @@ struct DigitalShield: Identifiable, Codable {
         let now = Calendar.current.dateComponents([.hour, .minute], from: Date())
         let nowMins   = (now.hour ?? 0) * 60 + (now.minute ?? 0)
         let startMins = (startTime.hour ?? 0) * 60 + (startTime.minute ?? 0)
-        return max(0, startMins - nowMins)
+        let diff = startMins - nowMins
+        // إذا وقت البداية في اليوم التالي (مثلاً 10 PM والآن 11 PM)
+        return diff >= 0 ? diff : diff + 24 * 60
+    }
+
+    // يعرض "Xh Ym" إذا أكثر من ساعة، وإلا "Xm"
+    var timeUntilStartFormatted: String {
+        let total = minutesUntilStart
+        if total == 0 { return "" }
+        let h = total / 60
+        let m = total % 60
+        if h > 0 && m > 0 { return "\(h)h \(m)m" }
+        if h > 0           { return "\(h)h" }
+        return "\(m)m"
     }
     
     var displayStartTime: String { formatTime(startTime) }
