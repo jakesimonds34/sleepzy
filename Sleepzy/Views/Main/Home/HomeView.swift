@@ -179,7 +179,21 @@ struct HomeView: View {
                     Spacer()
                     Toggle("", isOn: Binding(
                         get: { shield.isEnabled },
-                        set: { _ in vm.toggleShield() }
+                        set: { enabled in
+                            vm.toggleShield()
+                            if UserProfileStore.shared.profile.shieldNotification {
+                                Task {
+                                    let granted = await DigitalShieldNotificationManager.shared.requestPermission()
+                                    if granted {
+                                        if enabled, let startTime = BlockStore.shared.digitalShield?.startTime {
+                                            await DigitalShieldNotificationManager.shared.scheduleAll(startTime: startTime)
+                                        } else {
+                                            DigitalShieldNotificationManager.shared.cancel()
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     ))
                     .toggleStyle(SwitchToggleStyle(tint: AppTheme.toggleOnTint))
                     .labelsHidden()

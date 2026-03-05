@@ -2,8 +2,6 @@
 //  AuthViewModel.swift
 //  Sleepzy
 //
-//  Created by Saadi Dalloul on 09/02/2026.
-//
 
 import Combine
 import Supabase
@@ -53,17 +51,53 @@ class AuthViewModel: ObservableObject {
         self.profileRepo = profileRepo
     }
     
-    //MARK: Load session
+    // MARK: - Load Session
     func loadSession() async {
         user = await authRepo.getCurrentUser()
         
         if let user = user {
             do {
-                profile = try await profileRepo.getProfile(by: user.id)
+                let fetchedProfile = try await profileRepo.getProfile(by: user.id)
+                profile = fetchedProfile
+                Settings.shared.currentUser = fetchedProfile
+
+                // ✅ مزامنة UserProfileStore مع بيانات Supabase
+                syncProfileStore(from: fetchedProfile)
+
+                // ✅ إعادة جدولة Wind Down إذا كان مفعّلاً
+                if UserProfileStore.shared.profile.windDownNotification {
+                    await WindDownManager.shared.scheduleFromProfile()
+                }
             } catch {
-                print("No profile found")
+                print("No profile found: \(error)")
             }
         }
+    }
+
+    // MARK: - Sync UserProfileStore from Supabase Profile
+    // يُستدعى عند loadSession وعند signIn
+    // يضمن أن UserProfileStore دائماً محدّث بأحدث بيانات من الـ backend
+    private func syncProfileStore(from profile: Profile) {
+        let store = UserProfileStore.shared
+
+        // الاسم
+        let parts = profile.fullName.split(separator: " ")
+        store.profile.firstName = parts.first.map(String.init) ?? profile.fullName
+        store.profile.lastName  = parts.dropFirst().joined(separator: " ")
+
+        // الهدف
+        store.profile.sleepGoal = profile.goal ?? "Better Sleep"
+
+        // ✅ وقت النوم — المصدر الأساسي الحقيقي
+        if let bed = profile.bedHour {
+            store.profile.bedHour = bed
+            WindDownManager.shared.saveBedHour(bed)
+        }
+        if let wake = profile.wakeHour {
+            store.profile.wakeHour = wake
+        }
+
+        store.save()
     }
     
     //MARK: Signup
@@ -93,7 +127,6 @@ class AuthViewModel: ObservableObject {
             self.profile = profile
             
             Settings.shared.currentUser = profile
-//            self.showOnboarding.toggle()
             AppEnvironment.shared.appStatus = .home
         } catch {
             errorMessage = error.localizedDescription
@@ -111,9 +144,19 @@ class AuthViewModel: ObservableObject {
         do {
             let loggedUser = try await authRepo.signIn(email: email, password: password)
             self.user = loggedUser
-            self.profile = try await profileRepo.getProfile(by: loggedUser.id)
-            
-            Settings.shared.currentUser = profile
+            let fetchedProfile = try await profileRepo.getProfile(by: loggedUser.id)
+            self.profile = fetchedProfile
+
+            Settings.shared.currentUser = fetchedProfile
+
+            // ✅ مزامنة UserProfileStore عند تسجيل الدخول
+            syncProfileStore(from: fetchedProfile)
+
+            // ✅ إعادة جدولة Wind Down إذا كان مفعّلاً
+            if UserProfileStore.shared.profile.windDownNotification {
+                await WindDownManager.shared.scheduleFromProfile()
+            }
+
             AppEnvironment.shared.appStatus = .home
         } catch {
             errorMessage = error.localizedDescription
@@ -159,7 +202,6 @@ class AuthViewModel: ObservableObject {
             try await authRepo.updatePassword(newPassword: newPassword)
             successMessage = "Password has been successfully updated."
             Alerts.show(title: nil, body: successMessage ?? "", theme: .success)
-            
         } catch {
             errorMessage = error.localizedDescription
             Alerts.show(title: nil, body: error.localizedDescription, theme: .error)
@@ -177,17 +219,19 @@ class AuthViewModel: ObservableObject {
         isLoading = true
         
         do {
-            try await profileRepo.updateProfile(
-                id: userId,
-                fullName: fullName,
-                goal: goal
-            )
+            try await profileRepo.updateProfile(id: userId, fullName: fullName, goal: goal)
             
-            // تحديث الـ local state
             profile?.fullName = fullName
             profile?.goal = goal
             Settings.shared.currentUser?.fullName = fullName
             Settings.shared.currentUser?.goal = goal
+            
+            let store = UserProfileStore.shared
+            let parts = fullName.split(separator: " ")
+            store.profile.firstName = parts.first.map(String.init) ?? fullName
+            store.profile.lastName  = parts.dropFirst().joined(separator: " ")
+            store.profile.sleepGoal = goal
+            store.save()
             
         } catch {
             Alerts.show(title: nil, body: error.localizedDescription, theme: .error)
@@ -204,12 +248,17 @@ class AuthViewModel: ObservableObject {
         do {
             try await profileRepo.updateSleepSchedule(id: userId, bedHour: bedHour, wakeHour: wakeHour)
             
-            // تحديث الـ local state
+            // تحديث جميع المصادر
+            profile?.bedHour = bedHour
+            profile?.wakeHour = wakeHour
             Settings.shared.currentUser?.bedHour = bedHour
             Settings.shared.currentUser?.wakeHour = wakeHour
             UserProfileStore.shared.profile.bedHour = bedHour
             UserProfileStore.shared.profile.wakeHour = wakeHour
             UserProfileStore.shared.save()
+
+            // ✅ احفظ في WindDownManager أيضاً
+            WindDownManager.shared.saveBedHour(bedHour)
             
         } catch {
             Alerts.show(title: nil, body: error.localizedDescription, theme: .error)
@@ -218,25 +267,16 @@ class AuthViewModel: ObservableObject {
         isLoading = false
     }
     
-    ///__________________________________________________________________________________
-    ///__________________________________________________________________________________
-    ///__________________________________________________________________________________
-    
     // MARK: - Signup Validation
     var isSignUpValidated: Bool {
-        validateFullName() &&
-        validateEmail() &&
-        validatePassword() &&
-        validatePasswordMatch()
+        validateFullName() && validateEmail() && validatePassword() && validatePasswordMatch()
     }
     
     // MARK: - Login Validation
     var isSignInValidated: Bool {
-        validateEmail() &&
-        validatePassword()
+        validateEmail() && validatePassword()
     }
     
-    // MARK: - Single Field Validations
     func validateFullName() -> Bool {
         guard !fullName.isEmpty else {
             Alerts.show(title: nil, body: "Full name is required", theme: .warning)
@@ -268,5 +308,4 @@ class AuthViewModel: ObservableObject {
         }
         return true
     }
-
 }

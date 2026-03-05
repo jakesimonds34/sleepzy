@@ -313,6 +313,17 @@ struct SleepScheduleSheet: View {
                         bedHour: bedHour,
                         wakeHour: wakeHour
                     )
+
+                    // ✅ احفظ في UserProfileStore
+                    store.profile.bedHour  = bedHour
+                    store.profile.wakeHour = wakeHour
+                    store.save()
+
+                    // ✅ مرر bedHour مباشرة — لا تعتمد على قراءة Store
+                    if store.profile.windDownNotification {
+                        await WindDownManager.shared.scheduleFromBedHour(bedHour)
+                    }
+
                     dismiss()
                 }
             } label: {

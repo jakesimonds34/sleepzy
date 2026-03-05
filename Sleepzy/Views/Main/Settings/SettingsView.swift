@@ -5,197 +5,6 @@
 //  Created by Saadi Dalloul on 07/02/2026.
 //
 
-/*
-import SwiftUI
-
-struct SettingsView: View {
-    // MARK: - Properties
-    @StateObject private var viewModel = SettingsViewModel()
-    @Binding var selection: Taps
-    
-    @State private var notificationEnabled: Bool = true
-    @State private var digitalShieldEnabled: Bool = true
-    
-    // MARK: - Body
-    var body: some View {
-        content
-            .background(
-                MyImage(source: .asset(.bgSounds))
-                    .scaledToFill()
-                    .ignoresSafeArea()
-            )
-    }
-    
-    // MARK: - View Components
-    @ViewBuilder
-    private var content: some View {
-        VStack {
-            AppHeaderView(title: "Settings", subTitle: "", paddingTop: 0)
-            
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: 20) {
-                    //MARK: User Info
-                    VStack(spacing: 11) {
-                        VStack(spacing: 16) {
-                            Circle()
-                                .fill(.white.opacity(0.2))
-                                .frame(width: 80)
-                                .overlay {
-                                    Text("JS")
-                                        .font(.appBold32)
-                                }
-                            
-                            Text("Jake Simonds")
-                                .font(.appMedium24)
-                            
-                            HStack {
-                                Text("Sleep Goal: ")
-                                    .font(.appRegular16)
-                                Text("Better Sleep")
-                                    .font(.appMedium24)
-                            }
-                        }
-                        
-                        Button {
-                            
-                        } label: {
-                            Text("View Profile")
-                                .underline()
-                                .foregroundStyle(.white)
-                                .font(.appMedium16)
-                        }
-                    }
-                    .padding(20)
-                    .frame(maxWidth: .infinity)
-                    .background(.white.opacity(0.05))
-                    .cornerRadius(16)
-                    
-                    //MARK: Digital Shield
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text("DiGITAL SHIELD")
-                            .font(.appRegular14)
-                        
-                        Button {
-                            
-                        } label: {
-                            HStack {
-                                Text("13 Apps Blocked")
-                                
-                                Spacer()
-                                MyImage(source: .system("chevron.right", renderingMode: .template))
-                                    .frame(width: 6)
-                            }
-                            .roundedView()
-                        }
-                    }
-                    .foregroundColor(.white)
-                    
-                    //MARK: Schedule
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text("SCHEDULE")
-                            .font(.appRegular14)
-                        
-                        Button {
-                            
-                        } label: {
-                            HStack {
-                                Text("10:00 PM to 08:00 AM")
-                                
-                                Spacer()
-                                MyImage(source: .system("chevron.right", renderingMode: .template))
-                                    .frame(width: 6)
-                            }
-                            .roundedView()
-                        }
-                    }
-                    .foregroundColor(.white)
-                    
-                    //MARK: Schedule
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text("NOTIFICATION")
-                            .font(.appRegular14)
-                        
-                        Toggle("Wind Down", isOn: $notificationEnabled)
-                            .roundedView()
-                        
-                        Toggle("Digital Shield", isOn: $digitalShieldEnabled)
-                            .roundedView()
-                    }
-                    .foregroundColor(.white)
-                    
-                    //MARK: DATA SYNC
-                    VStack(alignment: .leading, spacing: 0) {
-                        Text("DATA SYNC")
-                            .font(.appRegular14)
-                        
-                        Toggle("Apple Health", isOn: $notificationEnabled)
-                            .roundedView()
-                    }
-                    .foregroundColor(.white)
-                    
-                    //MARK: Log Out
-                    Button {
-                        AppEnvironment.shared.appStatus = .loading
-                    } label: {
-                        HStack {
-                            MyImage(source: .asset(.logOutIcon))
-                                .scaledToFit()
-                                .frame(width: 24)
-                            
-                            Text("Log out")
-                                .font(.appMedium18)
-                                .foregroundStyle(.white)
-                            
-                            Spacer()
-                        }
-                        .frame(height: 54)
-                        .padding(.horizontal)
-                        .background(
-                            LinearGradient(
-                                colors: [
-                                    Color(hex: "#FF7694").opacity(0.4),
-                                    Color(hex: "#FF7694").opacity(0.3)
-                                ],
-                                startPoint: .leading,
-                                endPoint: .trailing)
-                        )
-                        .cornerRadius(8)
-                    }
-                    
-                    VStack(spacing: 16) {
-                        //MARK: Help and Support
-                        Button {
-                            
-                        } label: {
-                            Text("Help and Support")
-                                .font(.appMedium16)
-                                .underline()
-                                .foregroundStyle(.white)
-                        }
-                        
-                        //MARK: Help and Support
-                        Button {
-                            
-                        } label: {
-                            Text("Privacy Policy")
-                                .font(.appMedium16)
-                                .underline()
-                                .foregroundStyle(.white)
-                        }
-                    }
-                }
-            }
-        }
-        .padding(.horizontal)
-    }
-}
-
-#Preview {
-    @Previewable @State var selection: Taps = .home
-    SettingsView(selection: $selection)
-}
-*/
-
 import SwiftUI
 import FamilyControls
 import SwiftMessages
@@ -226,8 +35,6 @@ struct SettingsView: View {
                 
                 // ── DIGITAL SHIELD section ────────────────────
                 settingsSection(title: "DIGITAL SHIELD") {
-                    
-                    // Row 1: Apps Blocked
                     settingsRow(
                         icon: "app.badge.fill",
                         iconColor: AppTheme.accentBright,
@@ -242,8 +49,6 @@ struct SettingsView: View {
                 
                 // ── DIGITAL SHIELD SCHEDULE section ──────────
                 settingsSection(title: "DIGITAL SHIELD SCHEDULE") {
-                    
-                    // Single row: time range + repeat days badge
                     shieldScheduleRow
                 }
                 
@@ -264,14 +69,34 @@ struct SettingsView: View {
                 
                 // ── NOTIFICATION section ──────────────────────
                 settingsSection(title: "NOTIFICATION") {
-                    
+
+                    // ✅ Wind Down — مربوط بـ WindDownManager
                     toggleRow(
                         icon: "wind",
                         iconColor: Color(hex: "7B8FF7"),
                         title: "Wind down",
                         isOn: Binding(
                             get: { profileStore.profile.windDownNotification },
-                            set: { profileStore.profile.windDownNotification = $0; profileStore.save() }
+                            set: { enabled in
+                                profileStore.profile.windDownNotification = enabled
+                                profileStore.save()
+                                Task {
+                                    if enabled {
+                                        let granted = await WindDownManager.shared.requestPermission()
+                                        if granted {
+                                            // اقرأ من WindDownManager UserDefaults مباشرة
+                                            // يُحدَّث عند Save في SleepScheduleSheet
+                                            let saved = UserDefaults.standard.double(forKey: "winddown.bedHour")
+                                            let bed   = saved > 0 ? saved : (Settings.shared.currentUser?.bedHour ?? profileStore.profile.bedHour)
+                                            print("🛏 winddown.bedHour (UserDefaults) = \(saved)")
+                                            print("🛏 final bed = \(bed)")
+                                            await WindDownManager.shared.scheduleFromBedHour(bed)
+                                        }
+                                    } else {
+                                        WindDownManager.shared.cancel()
+                                    }
+                                }
+                            }
                         )
                     )
                     
@@ -283,7 +108,21 @@ struct SettingsView: View {
                         title: "Digital Shield",
                         isOn: Binding(
                             get: { profileStore.profile.shieldNotification },
-                            set: { profileStore.profile.shieldNotification = $0; profileStore.save() }
+                            set: { enabled in
+                                profileStore.profile.shieldNotification = enabled
+                                profileStore.save()
+                                Task {
+                                    if enabled {
+                                        let granted = await DigitalShieldNotificationManager.shared.requestPermission()
+                                        if granted,
+                                           let startTime = BlockStore.shared.digitalShield?.startTime {
+                                            await DigitalShieldNotificationManager.shared.scheduleAll(startTime: startTime)
+                                        }
+                                    } else {
+                                        DigitalShieldNotificationManager.shared.cancel()
+                                    }
+                                }
+                            }
                         )
                     )
                 }
@@ -292,7 +131,6 @@ struct SettingsView: View {
                 
                 // ── DATA SYNC section ─────────────────────────
                 settingsSection(title: "DATA SYNC") {
-                    
                     toggleRow(
                         icon: "heart.fill",
                         iconColor: Color.red,
@@ -332,7 +170,15 @@ struct SettingsView: View {
                 .ignoresSafeArea()
         )
         .navigationBarHidden(true)
-        // Shield App Picker
+        // ✅ إعادة جدولة Wind Down عند فتح الشاشة إذا كان مفعّلاً
+        .task {
+            if profileStore.profile.windDownNotification {
+                let granted = await WindDownManager.shared.requestPermission()
+                if granted {
+                    await WindDownManager.shared.scheduleFromBedHour(profileStore.profile.bedHour)
+                }
+            }
+        }
         .sheet(isPresented: $showShieldAppPicker) {
             if var shield = blockStore.digitalShield {
                 FamilyPickerSheet(
@@ -344,11 +190,9 @@ struct SettingsView: View {
                 )
             }
         }
-        // Shield Schedule editor
         .sheet(isPresented: $showShieldSchedule) {
             DigitalShieldScheduleView()
         }
-        // Edit Profile
         .sheet(isPresented: $showEditProfile) {
             EditProfileView()
         }
@@ -361,8 +205,6 @@ struct SettingsView: View {
 
     private var profileCard: some View {
         VStack(spacing: 12) {
-
-            // Avatar circle
             ZStack {
                 Circle()
                     .fill(AppTheme.pillBackground)
@@ -371,13 +213,9 @@ struct SettingsView: View {
                     .font(.system(size: 33, weight: .bold))
                     .foregroundColor(.white)
             }
-
-            // Name
             Text(profileStore.profile.fullName)
                 .font(.system(size: 22, weight: .bold))
                 .foregroundColor(.white)
-
-            // Sleep goal
             HStack(spacing: 4) {
                 Text("Sleep Goal:")
                     .font(.system(size: 16))
@@ -386,8 +224,6 @@ struct SettingsView: View {
                     .font(.system(size: 22, weight: .bold))
                     .foregroundColor(.white)
             }
-
-            // View Profile button
             Button { showEditProfile = true } label: {
                 Text("View Profile")
                     .font(.system(size: 16, weight: .medium))
@@ -405,20 +241,16 @@ struct SettingsView: View {
         )
     }
 
-    // MARK: - Shield Schedule Row (custom — shows time + days)
+    // MARK: - Shield Schedule Row
 
     private var shieldScheduleRow: some View {
         Button { showShieldSchedule = true } label: {
             HStack(spacing: 12) {
                 VStack(alignment: .leading, spacing: 16) {
-
-                    // Time range
                     if let shield = blockStore.digitalShield {
                         Text("\(shield.displayStartTime) - \(shield.displayEndTime)")
                             .font(.system(size: 15, weight: .semibold))
                             .foregroundColor(.white)
-
-                        // Repeat days pills
                         HStack(spacing: 6) {
                             ForEach(RepeatDay.allCases, id: \.0.rawValue) { day, label in
                                 let active = shield.repeatDays.contains(day)
@@ -437,9 +269,7 @@ struct SettingsView: View {
                             .foregroundColor(AppTheme.textSecondary)
                     }
                 }
-
                 Spacer()
-
                 Image(systemName: "chevron.right")
                     .font(.system(size: 13, weight: .medium))
                     .foregroundColor(AppTheme.textSecondary)
@@ -449,7 +279,7 @@ struct SettingsView: View {
         }
     }
 
-    // MARK: - Apps blocked title helper
+    // MARK: - Helpers
 
     private var appsBlockedTitle: String {
         guard let shield = blockStore.digitalShield else { return "No apps selected" }
@@ -457,21 +287,20 @@ struct SettingsView: View {
         return count == 0 ? "Select apps to block" : "\(count) App\(count == 1 ? "" : "s") Blocked"
     }
 
-    // MARK: - Log Out Button
-
     private var logoutButton: some View {
         Button {
-            // handle logout
+            AppEnvironment.shared.appStatus = .loading
         } label: {
             HStack(spacing: 10) {
-                Image(systemName: "rectangle.portrait.and.arrow.right")
-                    .font(.system(size: 16))
+                MyImage(source: .asset(.logOutIcon))
+                    .scaledToFit()
+                    .frame(width: 24)
                 Text("Log out")
                     .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(.white)
                 Spacer()
             }
             .padding(.horizontal, AppTheme.cardPadding)
-            .foregroundStyle(.white)
             .frame(maxWidth: .infinity)
             .frame(height: 54)
             .background(Color(hex: "FF7694").opacity(0.4))
@@ -483,9 +312,8 @@ struct SettingsView: View {
         }
     }
 
-    // MARK: - Reusable sub-components
-
     private var spacer24: some View { Color.clear.frame(height: 24) }
+
     private var settingsDivider: some View {
         Divider()
             .background(AppTheme.separatorColor)
@@ -503,7 +331,6 @@ struct SettingsView: View {
                 .foregroundColor(AppTheme.textSecondary)
                 .kerning(2.2)
                 .padding(.horizontal, AppTheme.pagePadding)
-
             VStack(spacing: 0) {
                 content()
             }
@@ -527,17 +354,10 @@ struct SettingsView: View {
     ) -> some View {
         Button(action: action) {
             HStack(spacing: 5) {
-//                Image(systemName: icon)
-//                    .font(.system(size: 15))
-//                    .foregroundColor(iconColor)
-//                    .frame(width: 28)
-
                 Text(title)
                     .font(.system(size: 15))
                     .foregroundColor(.white)
-
                 Spacer()
-
                 if hasChevron {
                     Image(systemName: "chevron.right")
                         .font(.system(size: 13, weight: .medium))
@@ -560,9 +380,7 @@ struct SettingsView: View {
             Text(title)
                 .font(.system(size: 15))
                 .foregroundColor(.white)
-
             Spacer()
-
             Toggle("", isOn: isOn)
                 .toggleStyle(SwitchToggleStyle(tint: AppTheme.toggleOnTint))
                 .labelsHidden()
@@ -570,14 +388,13 @@ struct SettingsView: View {
         .padding(.horizontal, AppTheme.cardPadding)
         .frame(height: 52)
     }
-    
-    // عنوان يعرض الوقت الحالي
+
     private var sleepScheduleTitle: String {
         let bed  = formatHour(profileStore.profile.bedHour)
         let wake = formatHour(profileStore.profile.wakeHour)
         return "\(bed)  →  \(wake)"
     }
-    
+
     private func formatHour(_ hour: Double) -> String {
         let h = Int(hour) % 24
         let suffix = h >= 12 ? "PM" : "AM"
@@ -585,6 +402,8 @@ struct SettingsView: View {
         return "\(display):00 \(suffix)"
     }
 }
+
+// MARK: - EditProfileView
 
 struct EditProfileView: View {
     @StateObject private var viewModel = AuthViewModel()
@@ -599,11 +418,8 @@ struct EditProfileView: View {
         NavigationStack {
             ZStack {
                 AppTheme.background.ignoresSafeArea()
-                
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .leading, spacing: 20) {
-
-                        // Avatar
                         HStack {
                             Spacer()
                             ZStack {
@@ -618,10 +434,8 @@ struct EditProfileView: View {
                         }
                         .padding(.vertical, 8)
 
-                        // Full Name
                         fieldSection(label: "FIRST NAME", placeholder: "Full name", text: $fullName)
 
-                        // Sleep Goal
                         VStack(alignment: .leading, spacing: 6) {
                             SectionLabel(text: "SLEEP GOAL")
                             Button { showGoalPicker = true } label: {
@@ -641,14 +455,12 @@ struct EditProfileView: View {
                             }
                         }
 
-                        // Save Button
                         Button {
                             guard !viewModel.isLoading, !fullName.isEmpty, selectedGoal != nil else { return }
                             Task { await save() }
                         } label: {
                             if viewModel.isLoading {
-                                ProgressView()
-                                    .tint(.black)
+                                ProgressView().tint(.black)
                             } else {
                                 Text("Save Profile")
                             }
@@ -656,11 +468,6 @@ struct EditProfileView: View {
                         .style(.primary)
                         .padding(.top, 8)
                         .padding(.bottom, 40)
-//                        PrimaryButton(title: "Save Profile", action: {
-//                            Task { await save() }
-//                        })
-//                        .padding(.top, 8)
-//                        .padding(.bottom, 40)
                     }
                     .padding(.horizontal, AppTheme.pagePadding)
                 }
@@ -715,22 +522,19 @@ struct EditProfileView: View {
             Alerts.show(title: nil, body: "Please fill all fields", theme: .warning)
             return
         }
-        
         await viewModel.updateProfile(fullName: fullName, goal: goal)
-        
-        // تحديث الـ local store بشكل صحيح
         let parts = fullName.split(separator: " ")
         store.profile.firstName = parts.first.map(String.init) ?? ""
         store.profile.lastName  = parts.dropFirst().joined(separator: " ")
         store.profile.sleepGoal = goal
         store.save()
-        
         Alerts.show(title: nil, body: "Profile updated successfully", theme: .success)
         dismiss()
     }
 }
 
-// MARK: - Goal Picker Sheet
+// MARK: - GoalPickerSheet
+
 struct GoalPickerSheet: View {
     @Binding var selectedGoal: String?
     @Environment(\.dismiss) private var dismiss
@@ -763,3 +567,20 @@ struct GoalPickerSheet: View {
 #Preview {
     SettingsView(selection: .constant(.settings))
 }
+
+// MARK: - SleepScheduleSheet + WindDown auto-reschedule
+// ملاحظة: أضف هذا الكود داخل save button action في SleepScheduleSheet الموجود عندك:
+//
+//    Button {
+//        guard !viewModel.isLoading else { return }
+//        Task {
+//            await viewModel.updateSleepSchedule(bedHour: bedHour, wakeHour: wakeHour)
+//
+//            // ✅ أعد جدولة Wind Down إذا كان مفعّلاً
+//            if UserProfileStore.shared.profile.windDownNotification {
+//                await WindDownManager.shared.scheduleFromProfile()
+//            }
+//
+//            dismiss()
+//        }
+//    }

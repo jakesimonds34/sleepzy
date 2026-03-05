@@ -83,6 +83,8 @@
 		52C6C1822F3534420070850E /* SwiftMessages in Frameworks */ = {isa = PBXBuildFile; productRef = 52C6C1812F3534420070850E /* SwiftMessages */; };
 		52C6C1862F35375A0070850E /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6C1852F35375A0070850E /* SplashView.swift */; };
 		52C6C18E2F35380B0070850E /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C6C18D2F35380A0070850E /* MainTabView.swift */; };
+		52C9FDE52F593CB700536F2A /* WindDownManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C9FDE42F593CB600536F2A /* WindDownManager.swift */; };
+		52C9FDE72F594D6C00536F2A /* DigitalShieldNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C9FDE62F594D6C00536F2A /* DigitalShieldNotificationManager.swift */; };
 		52D5E1B52F3CB08C009B20A8 /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5E1B42F3CB08B009B20A8 /* LocalData.swift */; };
 		52D5E1B92F3CBE00009B20A8 /* ScreenTimeAuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5E1B82F3CBDFE009B20A8 /* ScreenTimeAuthorizationManager.swift */; };
 		52D5E1BD2F3CBEFB009B20A8 /* BlockingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5E1BC2F3CBEF9009B20A8 /* BlockingManager.swift */; };
@@ -182,6 +184,8 @@
 		52C6C1832F3534520070850E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		52C6C1852F35375A0070850E /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		52C6C18D2F35380A0070850E /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		52C9FDE42F593CB600536F2A /* WindDownManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindDownManager.swift; sourceTree = "<group>"; };
+		52C9FDE62F594D6C00536F2A /* DigitalShieldNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DigitalShieldNotificationManager.swift; sourceTree = "<group>"; };
 		52D5E1B42F3CB08B009B20A8 /* LocalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalData.swift; sourceTree = "<group>"; };
 		52D5E1B62F3CBC97009B20A8 /* Sleepzy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sleepzy.entitlements; sourceTree = "<group>"; };
 		52D5E1B82F3CBDFE009B20A8 /* ScreenTimeAuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTimeAuthorizationManager.swift; sourceTree = "<group>"; };
@@ -310,6 +314,8 @@
 				52A667252F52F8F9005B66C4 /* DigitalShieldScheduleView.swift */,
 				52A667292F52F938005B66C4 /* UserProfile.swift */,
 				522628EE2F363A5100C79B73 /* SleepScheduleView.swift */,
+				52C9FDE42F593CB600536F2A /* WindDownManager.swift */,
+				52C9FDE62F594D6C00536F2A /* DigitalShieldNotificationManager.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -817,6 +823,7 @@
 				524961DC2F37BD8B00D057F0 /* AlarmsView.swift in Sources */,
 				524961D92F37BD4400D057F0 /* SleepLogViewModel.swift in Sources */,
 				52D5E1B92F3CBE00009B20A8 /* ScreenTimeAuthorizationManager.swift in Sources */,
+				52C9FDE72F594D6C00536F2A /* DigitalShieldNotificationManager.swift in Sources */,
 				522628EF2F363A5100C79B73 /* SleepScheduleView.swift in Sources */,
 				52C6C18E2F35380B0070850E /* MainTabView.swift in Sources */,
 				529E04052F35318B0000CFEA /* CornerRadius.swift in Sources */,
@@ -841,6 +848,7 @@
 				522628F12F36415100C79B73 /* SplashViewModel.swift in Sources */,
 				52D5E1C32F3CBFD4009B20A8 /* DeviceActivityName.swift in Sources */,
 				52FFE17C2F5842F000FE8769 /* SleepModels.swift in Sources */,
+				52C9FDE52F593CB700536F2A /* WindDownManager.swift in Sources */,
 				52EB509F2F3625BC0031FE9D /* AEOTPView.swift in Sources */,
 				5226919A2F523B9200CB4F22 /* AuthorizationManager.swift in Sources */,
 				52EB50A02F3625BC0031FE9D /* AEOTPTextField.swift in Sources */,
