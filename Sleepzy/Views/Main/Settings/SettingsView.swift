@@ -137,7 +137,22 @@ struct SettingsView: View {
                         title: "Apple Health",
                         isOn: Binding(
                             get: { profileStore.profile.appleHealthSync },
-                            set: { profileStore.profile.appleHealthSync = $0; profileStore.save() }
+                            set: { enabled in
+                                profileStore.profile.appleHealthSync = enabled
+                                profileStore.save()
+                                Task {
+                                    if enabled {
+                                        // طلب صلاحية HealthKit + جلب البيانات
+                                        await HealthKitManager.shared.requestAuthorization()
+                                        if HealthKitManager.shared.isAuthorized {
+                                            await HealthKitManager.shared.fetchSleepData(for: .weekly)
+                                        }
+                                    } else {
+                                        // مسح البيانات المحلية عند الإيقاف
+                                        HealthKitManager.shared.clearSessions()
+                                    }
+                                }
+                            }
                         )
                     )
                 }

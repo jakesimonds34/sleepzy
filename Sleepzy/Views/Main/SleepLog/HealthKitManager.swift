@@ -153,6 +153,11 @@ final class HealthKitManager: ObservableObject {
         }
     }
 
+    // MARK: - Clear Sessions (عند إيقاف Apple Health sync)
+    func clearSessions() {
+        sessions = []
+    }
+
     // MARK: - Demo Data (shown when no HealthKit data available)
 
     static func demoSessions() -> [SleepSession] {

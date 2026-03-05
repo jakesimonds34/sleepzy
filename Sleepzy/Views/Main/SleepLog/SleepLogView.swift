@@ -119,6 +119,11 @@ struct SleepLogView: View {
             SleepAnalyticsView(session: session)
         }
         .task {
+            // لا تجلب إذا كان Apple Health sync معطّلاً
+            guard UserProfileStore.shared.profile.appleHealthSync else {
+                hk.clearSessions()
+                return
+            }
             if !hk.isAuthorized { await hk.requestAuthorization() }
             else { await hk.fetchSleepData(for: period) }
         }
@@ -232,13 +237,7 @@ struct SleepLogView: View {
         }
         .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(
-            LinearGradient(
-                colors: [AppTheme.accent, AppTheme.accent.opacity(0.5)],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-        )
+        .background(Color.white.opacity(0.08))
         .cornerRadius(16)
     }
 
