@@ -120,22 +120,23 @@ class AlarmManager: NSObject, ObservableObject, UNUserNotificationCenterDelegate
         saveAlarms()
         guard alarm.isEnabled else { return }
 
-        // حمّل الصوت أولاً إذا كان هناك URL، ثم جدول
-        if !alarm.ringtoneURL.isEmpty {
-            AlarmSoundManager.shared.downloadAndPrepare(
-                url: alarm.ringtoneURL,
-                alarmId: alarm.id.uuidString
-            ) { [weak self] fileName in
-                guard let self else { return }
-                // حدّث الـ alarm بـ localSoundFile
-                if let i = self.alarms.firstIndex(where: { $0.id == alarm.id }) {
-                    self.alarms[i].localSoundFile = fileName
-                    self.saveAlarms()
-                    self.scheduleNotification(for: self.alarms[i])
-                }
-            }
-        } else {
+        // إذا كان الصوت محمّلاً مسبقاً (من onSelected في AlarmFormView) → جدول مباشرة
+        if alarm.localSoundFile != nil || alarm.ringtoneURL.isEmpty {
             scheduleNotification(for: alarm)
+            return
+        }
+
+        // لم يُحمَّل بعد → حمّل ثم جدول
+        AlarmSoundManager.shared.downloadAndPrepare(
+            url: alarm.ringtoneURL,
+            alarmId: alarm.id.uuidString
+        ) { [weak self] fileName in
+            guard let self else { return }
+            if let i = self.alarms.firstIndex(where: { $0.id == alarm.id }) {
+                self.alarms[i].localSoundFile = fileName
+                self.saveAlarms()
+                self.scheduleNotification(for: self.alarms[i])
+            }
         }
     }
 
@@ -188,8 +189,10 @@ class AlarmManager: NSObject, ObservableObject, UNUserNotificationCenterDelegate
         let content = UNMutableNotificationContent()
         content.title = "⏰ Alarm"
         content.body  = "Time to wake up!"
-        content.sound = buildNotificationSound(for: alarm)
         content.categoryIdentifier = alarm.snoozeEnabled ? "ALARM_WITH_SNOOZE" : "ALARM_NO_SNOOZE"
+        if #available(iOS 15.0, *) {
+            content.interruptionLevel = .timeSensitive
+        }
         content.userInfo = [
             "alarmId":        alarm.id.uuidString,
             "ringtoneURL":    alarm.ringtoneURL,
@@ -197,6 +200,8 @@ class AlarmManager: NSObject, ObservableObject, UNUserNotificationCenterDelegate
             "snoozeDuration": alarm.snoozeDuration,
             "snoozeEnabled":  alarm.snoozeEnabled
         ]
+        content.sound = buildNotificationSound(for: alarm)
+        print("🔔 Sound set: \(alarm.localSoundFile ?? "default")")
 
         if alarm.repeatDays.isEmpty {
             var dc = DateComponents()
@@ -241,11 +246,45 @@ class AlarmManager: NSObject, ObservableObject, UNUserNotificationCenterDelegate
 
     private func dayToWeekday(_ d: Int) -> Int { [2,3,4,5,6,7,1][d-1] }
 
+    // ✅ الحل الصحيح: نسخ الملف إلى Library/Sounds
+    // iOS يقرأ الأصوات من هذا المجلد داخل الـ sandbox
     private func buildNotificationSound(for alarm: Alarm) -> UNNotificationSound {
-        // iOS لا يسمح بتشغيل ملفات runtime في الإشعارات
-        // الصوت المخصص يعمل فقط عندما يكون التطبيق مفتوحاً (عبر AVPlayer)
-        // عندما التطبيق مغلق → نستخدم الصوت الافتراضي بأعلى مستوى
-        return .defaultCriticalSound(withAudioVolume: 1.0)
+        guard let fileName = alarm.localSoundFile,
+              let srcURL   = AlarmSoundManager.shared.localMP3URL(fileName: fileName)
+        else {
+            return .defaultCriticalSound(withAudioVolume: 1.0)
+        }
+
+        // مجلد Library/Sounds
+        let libSounds = FileManager.default
+            .urls(for: .libraryDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("Sounds", isDirectory: true)
+
+        do {
+            try FileManager.default.createDirectory(
+                at: libSounds, withIntermediateDirectories: true)
+
+            let destURL  = libSounds.appendingPathComponent("\(fileName).mp3")
+
+            // انسخ إذا لم يكن موجوداً أو إذا تغيّر الحجم
+            let srcSize  = (try? FileManager.default.attributesOfItem(atPath: srcURL.path)[.size] as? Int) ?? 0
+            let destSize = (try? FileManager.default.attributesOfItem(atPath: destURL.path)[.size] as? Int) ?? 0
+
+            if !FileManager.default.fileExists(atPath: destURL.path) || srcSize != destSize {
+                if FileManager.default.fileExists(atPath: destURL.path) {
+                    try FileManager.default.removeItem(at: destURL)
+                }
+                try FileManager.default.copyItem(at: srcURL, to: destURL)
+                print("✅ Copied to Library/Sounds: \(fileName).mp3")
+            }
+
+            return UNNotificationSound(
+                named: UNNotificationSoundName(rawValue: "\(fileName).mp3")
+            )
+        } catch {
+            print("❌ Library/Sounds error: \(error)")
+            return .defaultCriticalSound(withAudioVolume: 1.0)
+        }
     }
 
     // MARK: - In-App Audio
@@ -322,8 +361,8 @@ class AlarmManager: NSObject, ObservableObject, UNUserNotificationCenterDelegate
         let content = UNMutableNotificationContent()
         content.title = "⏰ Alarm (Snoozed)"
         content.body  = "Snooze is over. Time to wake up!"
-        content.sound = buildNotificationSound(for: alarm)
         content.categoryIdentifier = alarm.snoozeEnabled ? "ALARM_WITH_SNOOZE" : "ALARM_NO_SNOOZE"
+        if #available(iOS 15.0, *) { content.interruptionLevel = .timeSensitive }
         content.userInfo = [
             "alarmId":        alarm.id.uuidString,
             "ringtoneURL":    alarm.ringtoneURL,
@@ -331,6 +370,7 @@ class AlarmManager: NSObject, ObservableObject, UNUserNotificationCenterDelegate
             "snoozeDuration": alarm.snoozeDuration,
             "snoozeEnabled":  alarm.snoozeEnabled
         ]
+        content.sound = buildNotificationSound(for: alarm)
         let trigger = UNTimeIntervalNotificationTrigger(
             timeInterval: Double(alarm.snoozeDuration * 60), repeats: false
         )

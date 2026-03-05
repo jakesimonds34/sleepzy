@@ -16,7 +16,9 @@ struct AlarmFormView: View {
     
     // Ringtone — now supports Freesound URL
     @State private var ringtone: String = "Brown Calm"
-    @State private var ringtoneURL: String = ""          // ← Freesound preview URL
+    @State private var ringtoneURL: String = ""
+    @State private var localSoundFile: String? = nil   // ← الملف المحمّل مسبقاً
+    @State private var isDownloadingSound = false
     @State private var showRingtones = false
     
     // Snooze
@@ -81,12 +83,24 @@ struct AlarmFormView: View {
                                         Text(ringtone)
                                             .font(.system(size: 16))
                                             .foregroundColor(.white)
-                                        // Show badge if a Freesound track is selected
-                                        if !ringtoneURL.isEmpty {
+                                        if isDownloadingSound {
+                                            HStack(spacing: 5) {
+                                                ProgressView()
+                                                    .scaleEffect(0.7)
+                                                    .tint(Color(hex: "#5BCC8A"))
+                                                Text("Preparing sound...")
+                                                    .font(.system(size: 11))
+                                                    .foregroundColor(Color(hex: "#5BCC8A"))
+                                            }
+                                        } else if !ringtoneURL.isEmpty {
                                             HStack(spacing: 4) {
-                                                Image(systemName: "checkmark.circle.fill")
+                                                Image(systemName: localSoundFile != nil
+                                                      ? "checkmark.circle.fill"
+                                                      : "clock.fill")
                                                     .font(.system(size: 10))
-                                                Text("From Freesound")
+                                                Text(localSoundFile != nil
+                                                     ? "Ready ✓"
+                                                     : "From Freesound")
                                                     .font(.system(size: 11))
                                             }
                                             .foregroundColor(Color(hex: "#5BCC8A"))
@@ -175,10 +189,26 @@ struct AlarmFormView: View {
             }
         }
         // ← Freesound Sleep Sounds picker sheet
-        .sheet(isPresented: $showRingtones) {
+        .sheet(isPresented: $showRingtones, onDismiss: {
+            SleepSoundPlayer.shared.stop()
+        }) {
             SleepSoundsPickerSheet(
                 selectedName: $ringtone,
-                selectedURL: $ringtoneURL
+                selectedURL: $ringtoneURL,
+                onSelected: { name, url in
+                    ringtone = name
+                    ringtoneURL = url
+                    // ✅ ابدأ التحميل فوراً عند الاختيار
+                    localSoundFile = nil
+                    isDownloadingSound = true
+                    AlarmSoundManager.shared.downloadAndPrepare(
+                        url: url,
+                        alarmId: editingAlarm?.id.uuidString ?? UUID().uuidString
+                    ) { fileName in
+                        localSoundFile = fileName
+                        isDownloadingSound = false
+                    }
+                }
             )
         }
         .sheet(isPresented: $showSnoozePicker) {
@@ -328,15 +358,38 @@ struct AlarmFormView: View {
     
     // MARK: - Actions
     func loadEditingData() {
-        guard let alarm = editingAlarm else { return }
-        hour = alarm.hour
-        minute = alarm.minute
-        isAM = alarm.isAM
-        selectedDays = alarm.repeatDays
-        ringtone = alarm.ringtone
-        ringtoneURL = alarm.ringtoneURL      // ← load saved Freesound URL
-        snoozeEnabled = alarm.snoozeEnabled
+        guard let alarm = editingAlarm else {
+            // منبه جديد — امسح أي اختيار سابق
+            SleepSoundPlayer.shared.selectedAlarmSoundId = nil
+            return
+        }
+        hour           = alarm.hour
+        minute         = alarm.minute
+        isAM           = alarm.isAM
+        selectedDays   = alarm.repeatDays
+        ringtone       = alarm.ringtone
+        ringtoneURL    = alarm.ringtoneURL
+        localSoundFile = alarm.localSoundFile  // ← الملف المحمّل مسبقاً
+        snoozeEnabled  = alarm.snoozeEnabled
         snoozeDuration = alarm.snoozeDuration
+
+        // ✅ عيّن الـ selectedAlarmSoundId للصوت الحالي للمنبه
+        // حتى تظهر الأيقونة الخضراء على الصوت المختار مسبقاً
+        if !alarm.ringtoneURL.isEmpty {
+            let api = FreesoundAPIManager.shared
+            // اجمع كل الأصوات من جميع الـ categories
+            let allLoaded: [SleepSound] = [
+                api.stateAll, api.stateNature, api.stateWhiteNoise, api.stateSpace
+            ].compactMap { $0.sounds }.flatMap { $0 }
+
+            if let match = allLoaded.first(where: { $0.previewURL == alarm.ringtoneURL }) {
+                SleepSoundPlayer.shared.selectedAlarmSoundId = match.id
+            } else {
+                SleepSoundPlayer.shared.selectedAlarmSoundId = nil
+            }
+        } else {
+            SleepSoundPlayer.shared.selectedAlarmSoundId = nil
+        }
     }
     
     func saveAlarm() {
@@ -352,16 +405,24 @@ struct AlarmFormView: View {
         )
 
         if let existing = editingAlarm {
-            alarm.id              = existing.id
-            alarm.isEnabled       = existing.isEnabled
-            // ✅ احتفظ بالملف المحمّل إذا كان نفس الـ URL
+            alarm.id        = existing.id
+            alarm.isEnabled = existing.isEnabled
             if ringtoneURL == existing.ringtoneURL {
-                alarm.localSoundFile = existing.localSoundFile
+                // نفس الصوت — استخدم الملف المحمّل (من State أو من existing)
+                alarm.localSoundFile = localSoundFile ?? existing.localSoundFile
+            } else {
+                // صوت جديد — استخدم الملف الذي حُمِّل عند الاختيار
+                AlarmSoundManager.shared.deleteSound(fileName: existing.localSoundFile)
+                alarm.localSoundFile = localSoundFile
             }
             manager.updateAlarm(alarm)
         } else {
+            // منبه جديد — الملف جاهز من onSelected
+            alarm.localSoundFile = localSoundFile
             manager.addAlarm(alarm)
         }
+        SleepSoundPlayer.shared.stop()
+        SleepSoundPlayer.shared.selectedAlarmSoundId = nil
         dismiss()
     }
 }
@@ -370,6 +431,7 @@ struct AlarmFormView: View {
 struct SleepSoundsPickerSheet: View {
     @Binding var selectedName: String
     @Binding var selectedURL: String
+    var onSelected: ((String, String) -> Void)? = nil
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -377,7 +439,6 @@ struct SleepSoundsPickerSheet: View {
             Color(red: 0.04, green: 0.04, blue: 0.16).ignoresSafeArea()
 
             VStack(spacing: 0) {
-                // Simple header — keeps consistent style with rest of form
                 HStack {
                     Button(action: { dismiss() }) {
                         Image(systemName: "chevron.down")
@@ -396,14 +457,15 @@ struct SleepSoundsPickerSheet: View {
                 .padding(.horizontal, 20)
                 .padding(.vertical, 16)
 
-                // Reuse the full Sleep Sounds screen in alarm-selection mode
                 SleepSoundsView(
                     selection: .constant(.sounds),
                     alarmSelectionMode: true,
                     onSoundSelected: { sound in
                         selectedName = sound.name
                         selectedURL  = sound.previewURL
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        // ✅ أبلغ الـ Form فوراً لبدء التحميل
+                        onSelected?(sound.name, sound.previewURL)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                             dismiss()
                         }
                     }

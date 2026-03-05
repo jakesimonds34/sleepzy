@@ -17,31 +17,13 @@ struct SleepSoundsView: View {
     var currentState: CategoryLoadState { api.state(for: selectedCategory) }
 
     var body: some View {
-        ZStack {
-            LinearGradient(
-                colors: [
-                    Color(red: 0.04, green: 0.04, blue: 0.16),
-                    Color(red: 0.07, green: 0.07, blue: 0.24),
-                    Color(red: 0.09, green: 0.05, blue: 0.30)
-                ],
-                startPoint: .top, endPoint: .bottom
-            )
-            .ignoresSafeArea()
-
-            StarsBackgroundView().ignoresSafeArea()
-
-            VStack(alignment: .leading, spacing: 0) {
-                Text("Sleep Sounds")
-                    .font(.system(size: 34, weight: .bold))
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 20)
-                    .padding(.top, 20)
-                    .padding(.bottom, 20)
-
-                categoryChips.padding(.bottom, 16)
-
-                contentForState(currentState)
-            }
+        VStack(alignment: .leading, spacing: 0) {
+            AppHeaderView(title: "Sleep Sounds", subTitle: "", paddingTop: 0)
+                .padding(.horizontal)
+            
+            categoryChips.padding(.bottom, 16)
+            
+            contentForState(currentState)
         }
         .safeAreaInset(edge: .bottom, spacing: 0) {
             if player.currentSound != nil {
@@ -51,10 +33,15 @@ struct SleepSoundsView: View {
                                value: player.currentSound != nil)
             }
         }
+        .background(
+            MyImage(source: .asset(.bgSounds))
+                .scaledToFill()
+                .ignoresSafeArea()
+        )
         .onAppear {
             api.loadIfNeeded(for: selectedCategory)
         }
-        .onChange(of: selectedCategory) { newCat in
+        .onChange(of: selectedCategory) { (newCat, _) in
             api.loadIfNeeded(for: newCat)
         }
     }
@@ -101,14 +88,12 @@ struct SleepSoundsView: View {
                 .padding(.vertical, 8)
                 .background(
                     Capsule()
-                        .fill(isSelected
-                              ? Color(red: 0.35, green: 0.25, blue: 0.75).opacity(0.7)
-                              : Color.white.opacity(0.08))
+                        .fill(isSelected ? AppTheme.accent.opacity(0.1) : .white.opacity(0.05))
                         .overlay(
                             Capsule().strokeBorder(
                                 isSelected
-                                ? Color(red: 0.5, green: 0.4, blue: 0.9).opacity(0.5)
-                                : Color.white.opacity(0.12),
+                                ? Color(hex: "988AE1").opacity(0.4)
+                                : Color.white.opacity(0.2),
                                 lineWidth: 1
                             )
                         )
@@ -386,14 +371,14 @@ struct SoundRowView: View {
         .background(
             RoundedRectangle(cornerRadius: 14)
                 .fill(isCurrentlyPlaying
-                      ? Color(red: 0.2, green: 0.15, blue: 0.5).opacity(0.7)
-                      : Color.white.opacity(0.05))
+                      ? AppTheme.accent.opacity(0.1)
+                      : .white.opacity(0.05))
                 .overlay(
                     RoundedRectangle(cornerRadius: 14)
                         .strokeBorder(
                             isCurrentlyPlaying
-                            ? Color(red: 0.5, green: 0.4, blue: 0.9).opacity(0.5)
-                            : Color.white.opacity(0.07),
+                            ? Color(hex: "988AE1").opacity(0.8)
+                            : .clear,
                             lineWidth: 1
                         )
                 )
