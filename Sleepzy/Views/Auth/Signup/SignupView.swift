@@ -9,11 +9,12 @@ import SwiftUI
 
 struct SignupView: View {
     // MARK: - Properties
-    @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel = AuthViewModel()
-    
-    var profile: Profile
-    
+    @Binding var path: NavigationPath
+
+    // ✅ nil = جاء من Login | Profile = جاء من Onboarding وعنده بيانات
+    var profile: Profile?
+
     // MARK: - Body
     var body: some View {
         content
@@ -23,11 +24,8 @@ struct SignupView: View {
             )
             .navigationBarHidden(true)
             .ignoresSafeArea()
-            .navigationDestination(isPresented: $viewModel.showOnboarding) {
-                OnboardingView()
-            }
     }
-    
+
     // MARK: - View Components
     @ViewBuilder
     private var content: some View {
@@ -36,7 +34,7 @@ struct SignupView: View {
                           subTitle: "Create an account with your details.",
                           isBack: true)
             .padding(.bottom, 14)
-            
+
             TextFieldFormView(
                 title: "FULL NAME",
                 placeholder: "Your full name",
@@ -45,7 +43,7 @@ struct SignupView: View {
                 isMandatory: true,
                 type: .text
             )
-            
+
             TextFieldFormView(
                 title: "EMAIL ADDRESS",
                 placeholder: "Your email address",
@@ -54,7 +52,7 @@ struct SignupView: View {
                 isMandatory: true,
                 type: .email
             )
-            
+
             TextFieldFormView(
                 title: "PASSWORD",
                 placeholder: "*******",
@@ -62,7 +60,7 @@ struct SignupView: View {
                 isMandatory: true,
                 type: .password
             )
-            
+
             TextFieldFormView(
                 title: "CONFIRM PASSWORD",
                 placeholder: "*******",
@@ -70,19 +68,32 @@ struct SignupView: View {
                 isMandatory: true,
                 type: .password
             )
-            
+
             Spacer()
-            
+
             VStack(spacing: 22) {
                 Button {
                     guard !viewModel.isLoading, viewModel.isSignUpValidated else { return }
-                    Task {
-                        await viewModel.signUp(
+
+                    if let existingProfile = profile {
+                        // ✅ جاء من Onboarding — عنده profile كامل، سجّل مباشرة
+                        Task {
+                            await viewModel.signUp(
+                                fullName: viewModel.fullName,
+                                email: viewModel.email,
+                                password: viewModel.password,
+                                profile: existingProfile
+                            )
+                        }
+                    } else {
+                        // ✅ جاء من Login — ليس عنده بيانات Onboarding
+                        // احفظ بياناته المؤقتة وخذه للـ Onboarding أولاً
+                        let pending = PendingSignup(
                             fullName: viewModel.fullName,
                             email: viewModel.email,
-                            password: viewModel.password,
-                            profile: profile
+                            password: viewModel.password
                         )
+                        path.append(AppRoute.onboardingForSignup(pending: pending))
                     }
                 } label: {
                     if viewModel.isLoading {
@@ -93,13 +104,19 @@ struct SignupView: View {
                     }
                 }
                 .style(.primary)
-                
+
                 HStack(spacing: 0) {
                     Text("Already have an account? - ")
                         .font(.appRegular16)
-                    
+
                     Button {
-                        dismiss()
+                        // ✅ بدون loop — امسح الـ stack وافتح Login نظيف
+                        if path.count >= 2 {
+                            path = NavigationPath()
+                            path.append(AppRoute.login)
+                        } else {
+                            path.removeLast()
+                        }
                     } label: {
                         Text("Login")
                             .font(.appMedium16)
@@ -115,6 +132,5 @@ struct SignupView: View {
 }
 
 #Preview {
-    var profile: Profile = Profile(id: UUID(), fullName: "")
-    SignupView(profile: profile)
+    SignupView(path: .constant(NavigationPath()), profile: nil)
 }

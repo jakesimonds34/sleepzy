@@ -10,7 +10,8 @@ import SwiftUI
 struct LoginView: View {
     // MARK: - Properties
     @StateObject var viewModel = AuthViewModel()
-    
+    @Binding var path: NavigationPath
+
     // MARK: - Body
     var body: some View {
         content
@@ -20,14 +21,8 @@ struct LoginView: View {
             )
             .ignoresSafeArea()
             .navigationBarHidden(true)
-            .navigationDestination(isPresented: $viewModel.showSignup) {
-                SignupView(profile: Profile(id: UUID(), fullName: ""))
-            }
-            .navigationDestination(isPresented: $viewModel.showForgotPassword) {
-                ForgotPasswordView()
-            }
     }
-    
+
     // MARK: - View Components
     @ViewBuilder
     private var content: some View {
@@ -36,7 +31,7 @@ struct LoginView: View {
                           subTitle: "Welcome back. Please login",
                           isBack: true)
             .padding(.bottom, 14)
-            
+
             TextFieldFormView(
                 title: "EMAIL ADDRESS",
                 placeholder: "Your email address",
@@ -45,7 +40,7 @@ struct LoginView: View {
                 isMandatory: true,
                 type: .email
             )
-            
+
             VStack(spacing: 16) {
                 TextFieldFormView(
                     title: "PASSWORD",
@@ -54,22 +49,21 @@ struct LoginView: View {
                     isMandatory: true,
                     type: .password
                 )
-                
+
                 HStack {
                     Button {
-                        viewModel.showForgotPassword.toggle()
+                        path.append(AppRoute.forgotPassword)
                     } label: {
                         Text("Forget Password")
                             .underline()
                             .foregroundStyle(.white)
                     }
-                    
                     Spacer()
                 }
             }
-            
+
             Spacer()
-            
+
             VStack(spacing: 22) {
                 Button {
                     guard !viewModel.isLoading, viewModel.isSignInValidated else { return }
@@ -88,13 +82,13 @@ struct LoginView: View {
                     }
                 }
                 .style(.primary)
-                
+
                 HStack(spacing: 0) {
-                    Text("Don’t have an account? - ")
+                    Text("Don't have an account? - ")
                         .font(.appRegular16)
-                    
+
                     Button {
-                        viewModel.showSignup.toggle()
+                        path.append(AppRoute.signup(profile: nil))
                     } label: {
                         Text("Signup")
                             .font(.appMedium16)
@@ -110,5 +104,5 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView()
+    LoginView(path: .constant(NavigationPath()))
 }

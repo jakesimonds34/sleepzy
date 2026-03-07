@@ -43,11 +43,13 @@ struct ContentView: View {
         } else {
             switch appEnv.appStatus {
             case .loading:
+                // ✅ SplashView هو نقطة البداية الوحيدة — يملك NavigationPath ويتحكم في كل التنقل
                 SplashView()
             case .resetPassword:
                 NewPasswordView()
             case .onboarding:
-                OnboardingView()
+                // ✅ لا نستدعي OnboardingView مباشرة — نعود لـ SplashView ليدير الـ navigation
+                SplashView()
             case .home:
                 MainTabView()
             }

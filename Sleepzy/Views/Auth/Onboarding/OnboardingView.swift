@@ -10,32 +10,35 @@ import FamilyControls
 
 // MARK: - OnboardingView
 struct OnboardingView: View {
-    @StateObject var viewModel = AuthViewModel()
-    @Environment(\.dismiss) var dismiss
-    
+    @Binding var path: NavigationPath
+
+    // ✅ إذا كان موجوداً، معناه أن المستخدم جاء من Signup وعنده بيانات جاهزة
+    var pendingSignup: PendingSignup?
+
+    @StateObject private var viewModel = AuthViewModel()
+
     @State private var currentStepIndex: Int = 0
-    @State private var direction: Int = 1  // 1 = forward, -1 = backward
+    @State private var direction: Int = 1
     @State private var selections: [OnboardingStep: String] = [:]
-    
+
     private let steps = OnboardingStep.allCases
-    
+
     private var currentStep: OnboardingStep {
         steps[currentStepIndex]
     }
-    
+
     private var isStepValid: Bool {
         (currentStep == .sleepScore || currentStep == .potentialScore) ? true : selections[currentStep] != nil
     }
-    
+
     var body: some View {
         VStack {
-            if (currentStep == .sleepScore) || (currentStep == .potentialScore) {
+            if currentStep == .sleepScore || currentStep == .potentialScore {
                 backButtonOnly
             } else {
                 progressBarView
             }
-            
-            // ✅ Animation عند الانتقال
+
             ZStack {
                 stepView(for: currentStep)
                     .id(currentStepIndex)
@@ -49,15 +52,19 @@ struct OnboardingView: View {
                     )
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
+
             Button {
                 goToNext()
             } label: {
-                Text((currentStep == .sleepScore) || (currentStep == .potentialScore) ? "Continue" : "Next")
+                if viewModel.isLoading {
+                    ProgressView().tint(.black)
+                } else {
+                    Text(currentStep == .sleepScore || currentStep == .potentialScore ? "Continue" : "Next")
+                }
             }
             .style(.primary)
             .padding(.horizontal, 52)
-            .disabled(!isStepValid)
+            .disabled(!isStepValid || viewModel.isLoading)
             .opacity(isStepValid ? 1 : 0.5)
         }
         .padding(.vertical, 90)
@@ -66,11 +73,8 @@ struct OnboardingView: View {
         )
         .ignoresSafeArea()
         .navigationBarHidden(true)
-        .navigationDestination(isPresented: $viewModel.showSignup) {
-            SignupView(profile: viewModel.profile ?? Profile(id: UUID(), fullName: ""))
-        }
     }
-    
+
     // MARK: - Step View Builder
     @ViewBuilder
     private func stepView(for step: OnboardingStep) -> some View {
@@ -100,7 +104,7 @@ struct OnboardingView: View {
             }
         }
     }
-    
+
     // MARK: - Navigation
     private func goToNext() {
         if currentStepIndex < steps.count - 1 {
@@ -109,10 +113,11 @@ struct OnboardingView: View {
                 currentStepIndex += 1
             }
         } else {
+            // بناء الـ profile من اختيارات الـ Onboarding
             let profile = Profile(
                 id: UUID(),
-                fullName: viewModel.fullName,
-                email: viewModel.email,
+                fullName: pendingSignup?.fullName ?? "",
+                email: pendingSignup?.email ?? "",
                 createdAt: Date(),
                 goal: selections[.goal],
                 biggestDistraction: selections[.distraction],
@@ -122,11 +127,24 @@ struct OnboardingView: View {
                 earlyWakeupRating: selections[.earlyWakeup],
                 dailyFunctionInterference: selections[.dailyFunction]
             )
-            viewModel.profile = profile
-            viewModel.showSignup.toggle()
+
+            if let pending = pendingSignup {
+                // ✅ جاء من Signup — سجّل الحساب مباشرة بدون رجوع لـ Signup
+                Task {
+                    await viewModel.signUp(
+                        fullName: pending.fullName,
+                        email: pending.email,
+                        password: pending.password,
+                        profile: profile
+                    )
+                }
+            } else {
+                // ✅ جاء من Splash — انتقل لـ Signup عادي
+                path.append(AppRoute.signup(profile: profile))
+            }
         }
     }
-    
+
     private func goBack() {
         guard currentStepIndex > 0 else { return }
         direction = -1
@@ -137,9 +155,9 @@ struct OnboardingView: View {
 
     // MARK: - Progress Bar
     private var progressBarView: some View {
-        let normalSteps = steps.filter { ($0 != .sleepScore) || ($0 != .potentialScore) }
+        let normalSteps = steps.filter { $0 != .sleepScore && $0 != .potentialScore }
         let normalIndex = normalSteps.firstIndex(of: currentStep) ?? 0
-        
+
         return HStack {
             if currentStepIndex > 0 {
                 Button { goBack() } label: {
@@ -149,22 +167,22 @@ struct OnboardingView: View {
                         .foregroundStyle(.white)
                 }
             }
-            
+
             ProgressView(
                 value: Double(normalIndex + 1),
-                total: Double(normalSteps.count - 2)
+                total: Double(normalSteps.count)
             )
             .progressViewStyle(LinearProgressViewStyle(tint: Color(hex: "#5939A8")))
             .frame(height: 6)
             .animation(.easeInOut(duration: 0.4), value: normalIndex)
-            
-            Text("\(normalIndex + 1)/\(normalSteps.count - 2)")
-                .foregroundStyle(.white.opacity(0.75))
-                .font(.appRegular(size: 17))
+
+//            Text("\(normalIndex + 1)/\(normalSteps.count)")
+//                .foregroundStyle(.white.opacity(0.75))
+//                .font(.appRegular(size: 17))
         }
         .padding(.horizontal)
     }
-    
+
     // MARK: - Back Button Only
     private var backButtonOnly: some View {
         HStack {
@@ -178,8 +196,4 @@ struct OnboardingView: View {
         }
         .padding(.horizontal)
     }
-}
-
-#Preview {
-    OnboardingView()
 }
