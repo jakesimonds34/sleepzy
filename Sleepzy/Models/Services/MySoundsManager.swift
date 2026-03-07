@@ -62,6 +62,12 @@ class MySoundsManager: ObservableObject {
     // MARK: - استخراج الصوت من فيديو
 
     /// يقبل URL لفيديو محلي (من Camera Roll أو Files) ويستخرج الصوت منه
+    // هل الملف صوت مباشر؟
+    private func isAudioFile(_ url: URL) -> Bool {
+        let audioExtensions = ["mp3", "m4a", "wav", "aiff", "aac", "flac"]
+        return audioExtensions.contains(url.pathExtension.lowercased())
+    }
+
     func extractAudio(from videoURL: URL, name: String) async {
         await MainActor.run {
             isExtracting = true
@@ -69,20 +75,54 @@ class MySoundsManager: ObservableObject {
             extractionError = nil
         }
 
-        let soundId   = UUID().uuidString
-        let fileName  = "\(soundId).m4a"
-        let destURL   = soundsDir.appendingPathComponent(fileName)
+        let soundId = UUID().uuidString
+
+        // ✅ إذا كان الملف صوتاً مباشراً — احتفظ بالامتداد الأصلي
+        if isAudioFile(videoURL) {
+            let ext      = videoURL.pathExtension.lowercased()
+            let fileName = "\(soundId).\(ext)"
+            let destURL  = soundsDir.appendingPathComponent(fileName)
+
+            do {
+                try? FileManager.default.removeItem(at: destURL)
+                try FileManager.default.copyItem(at: videoURL, to: destURL)
+
+                var seconds: Double = 0
+                if let audioPlayer = try? AVAudioPlayer(contentsOf: destURL) {
+                    seconds = audioPlayer.duration
+                }
+
+                let sound = MySound(
+                    id: soundId, name: name.isEmpty ? "My Sound" : name,
+                    fileName: fileName, duration: seconds, createdAt: Date()
+                )
+                await MainActor.run {
+                    self.sounds.append(sound)
+                    self.saveMetadata()
+                    self.isExtracting       = false
+                    self.extractionProgress = 1.0
+                }
+                print("✅ Audio copied: \(fileName) (\(Int(seconds))s)")
+            } catch {
+                await MainActor.run {
+                    self.extractionError = error.localizedDescription
+                    self.isExtracting    = false
+                }
+            }
+            return
+        }
+
+        // ✅ فيديو — استخرج الصوت وحفظه كـ m4a
+        let fileName = "\(soundId).m4a"
+        let destURL  = soundsDir.appendingPathComponent(fileName)
 
         do {
-            let asset  = AVURLAsset(url: videoURL)
-
-            // احسب المدة
+            let asset    = AVURLAsset(url: videoURL)
             let duration = try await asset.load(.duration)
             let seconds  = CMTimeGetSeconds(duration)
 
             guard let exporter = AVAssetExportSession(
-                asset: asset,
-                presetName: AVAssetExportPresetAppleM4A
+                asset: asset, presetName: AVAssetExportPresetAppleM4A
             ) else {
                 throw NSError(domain: "MySounds", code: 1,
                               userInfo: [NSLocalizedDescriptionKey: "Cannot create exporter"])
@@ -92,12 +132,9 @@ class MySoundsManager: ObservableObject {
             exporter.outputFileType = .m4a
             exporter.audioTimePitchAlgorithm = .spectral
 
-            // مراقبة التقدم
             let progressTask = Task {
                 while !Task.isCancelled {
-                    await MainActor.run {
-                        self.extractionProgress = Double(exporter.progress)
-                    }
+                    await MainActor.run { self.extractionProgress = Double(exporter.progress) }
                     try? await Task.sleep(nanoseconds: 200_000_000)
                 }
             }
@@ -107,10 +144,9 @@ class MySoundsManager: ObservableObject {
 
             if exporter.status == .completed {
                 let sound = MySound(
-                    id:        soundId,
-                    name:      name.isEmpty ? "My Sound" : name,
-                    fileName:  fileName,
-                    duration:  seconds.isFinite ? seconds : 0,
+                    id: soundId, name: name.isEmpty ? "My Sound" : name,
+                    fileName: fileName,
+                    duration: seconds.isFinite ? seconds : 0,
                     createdAt: Date()
                 )
                 await MainActor.run {
@@ -146,6 +182,10 @@ class MySoundsManager: ObservableObject {
     // MARK: - حذف
 
     func delete(_ sound: MySound) {
+        // أوقف التشغيل إذا كان هذا الصوت يعزف الآن
+        if SleepSoundPlayer.shared.currentSound?.id == sound.id {
+            SleepSoundPlayer.shared.stop()
+        }
         try? FileManager.default.removeItem(at: localURL(for: sound))
         sounds.removeAll { $0.id == sound.id }
         saveMetadata()

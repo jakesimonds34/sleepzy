@@ -528,13 +528,11 @@ struct SoundRowView: View {
 struct AddMySoundView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var mySounds = MySoundsManager.shared
-    @StateObject private var player   = SleepSoundPlayer.shared
 
-    @State private var soundName      = ""
-    @State private var showVideoPicker = false
+    @State private var soundName        = ""
+    @State private var showVideoPicker  = false
     @State private var videoSource: VideoSource = .photoLibrary
     @State private var selectedVideoURL: URL? = nil
-    @State private var showSourcePicker = false
 
     enum VideoSource { case photoLibrary, files }
 
@@ -543,7 +541,8 @@ struct AddMySoundView: View {
             Color(red: 0.05, green: 0.04, blue: 0.18).ignoresSafeArea()
 
             VStack(spacing: 0) {
-                // Header
+
+                // ── Header ثابت في الأعلى ──
                 HStack {
                     Button(action: { dismiss() }) {
                         Image(systemName: "xmark")
@@ -554,15 +553,22 @@ struct AddMySoundView: View {
                             .clipShape(Circle())
                     }
                     Spacer()
-                    Text("Add Sound from Video")
-                        .font(.system(size: 17, weight: .semibold)).foregroundColor(.white)
+                    Text("Add Sound")
+                        .font(.system(size: 17, weight: .semibold))
+                        .foregroundColor(.white)
                     Spacer()
                     Color.clear.frame(width: 32)
                 }
-                .padding(.horizontal, 20).padding(.vertical, 18)
+                .padding(.horizontal, 20)
+                .padding(.top, 16)
+                .padding(.bottom, 12)
+                .frame(height: 70)
 
-                ScrollView {
-                    VStack(spacing: 24) {
+                Divider().background(Color.white.opacity(0.08))
+
+                // ── المحتوى ──
+                ScrollView(showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: 20) {
 
                         // اسم الصوت
                         VStack(alignment: .leading, spacing: 8) {
@@ -577,32 +583,22 @@ struct AddMySoundView: View {
                                 .tint(Color(red: 0.5, green: 0.4, blue: 0.9))
                         }
 
-                        // اختيار الفيديو
+                        // اختيار مصدر الملف
                         VStack(alignment: .leading, spacing: 8) {
-                            Text("SELECT VIDEO")
+                            Text("SELECT FILE")
                                 .font(.system(size: 12, weight: .semibold))
                                 .foregroundColor(.white.opacity(0.45)).tracking(1)
-
                             HStack(spacing: 12) {
-                                // Camera Roll
-                                videoSourceButton(
-                                    title: "Camera Roll",
-                                    icon: "photo.on.rectangle",
-                                    action: {
-                                        videoSource = .photoLibrary
-                                        showVideoPicker = true
-                                    }
-                                )
-                                // Files
-                                videoSourceButton(
-                                    title: "Files",
-                                    icon: "folder.fill",
-                                    action: {
-                                        videoSource = .files
-                                        showVideoPicker = true
-                                    }
-                                )
+                                videoSourceButton(title: "Camera Roll", icon: "photo.on.rectangle") {
+                                    videoSource = .photoLibrary; showVideoPicker = true
+                                }
+                                videoSourceButton(title: "Files", icon: "folder.fill") {
+                                    videoSource = .files; showVideoPicker = true
+                                }
                             }
+                            Text("Supports video and audio files (mp3, m4a, wav…)")
+                                .font(.system(size: 11))
+                                .foregroundColor(.white.opacity(0.35))
                         }
 
                         // الفيديو المختار
@@ -617,9 +613,16 @@ struct AddMySoundView: View {
 
                         // خطأ
                         if let err = mySounds.extractionError {
-                            Text("❌ \(err)")
-                                .font(.system(size: 13)).foregroundColor(.red.opacity(0.8))
-                                .multilineTextAlignment(.center)
+                            HStack(spacing: 8) {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .foregroundColor(.red.opacity(0.8))
+                                Text(err)
+                                    .font(.system(size: 13))
+                                    .foregroundColor(.red.opacity(0.8))
+                            }
+                            .padding(14)
+                            .background(Color.red.opacity(0.08))
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
                         }
 
                         // زر الاستخراج
@@ -627,27 +630,28 @@ struct AddMySoundView: View {
                             Button(action: startExtraction) {
                                 HStack(spacing: 10) {
                                     Image(systemName: "waveform.badge.plus").font(.system(size: 17))
-                                    Text("Extract Audio")
-                                        .font(.system(size: 17, weight: .bold))
+                                    Text("Extract Audio").font(.system(size: 17, weight: .bold))
                                 }
                                 .foregroundColor(.white)
-                                .frame(maxWidth: .infinity, minHeight: 56)
+                                .frame(maxWidth: .infinity, minHeight: 54)
                                 .background(
                                     LinearGradient(
-                                        colors: [Color(red:0.48,green:0.36,blue:0.91),
-                                                 Color(red:0.29,green:0.20,blue:0.69)],
+                                        colors: [Color(red: 0.48, green: 0.36, blue: 0.91),
+                                                 Color(red: 0.29, green: 0.20, blue: 0.69)],
                                         startPoint: .leading, endPoint: .trailing
                                     ).clipShape(RoundedRectangle(cornerRadius: 16))
                                 )
-                                .shadow(color: Color(red:0.42,green:0.31,blue:0.85).opacity(0.5), radius: 12, y: 4)
+                                .shadow(color: Color(red: 0.42, green: 0.31, blue: 0.85).opacity(0.45),
+                                        radius: 12, y: 4)
                             }
                         }
                     }
-                    .padding(.horizontal, 20).padding(.bottom, 40)
+                    .padding(.horizontal, 20)
+                    .padding(.top, 16)
+                    .padding(.bottom, 40)
                 }
             }
         }
-        // Camera Roll picker
         .sheet(isPresented: $showVideoPicker) {
             if videoSource == .photoLibrary {
                 VideoPicker(selectedURL: $selectedVideoURL)
@@ -672,19 +676,28 @@ struct AddMySoundView: View {
         }
     }
 
+    // هل الملف المختار صوت مباشر (بدون حاجة للاستخراج)؟
+    private func isAudioFile(_ url: URL) -> Bool {
+        let audioExtensions = ["mp3", "m4a", "wav", "aiff", "aac", "flac", "ogg"]
+        return audioExtensions.contains(url.pathExtension.lowercased())
+    }
+
     func selectedVideoCard(url: URL) -> some View {
-        HStack(spacing: 12) {
-            Image(systemName: "film.fill")
+        let isAudio = isAudioFile(url)
+        return HStack(spacing: 12) {
+            Image(systemName: isAudio ? "music.note" : "film.fill")
                 .font(.system(size: 20)).foregroundColor(.white.opacity(0.7))
                 .frame(width: 44, height: 44)
-                .background(Color(red:0.3,green:0.2,blue:0.6))
+                .background(isAudio
+                    ? Color(red: 0.2, green: 0.5, blue: 0.4)
+                    : Color(red: 0.3, green: 0.2, blue: 0.6))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
 
             VStack(alignment: .leading, spacing: 3) {
                 Text(url.lastPathComponent)
                     .font(.system(size: 14, weight: .medium)).foregroundColor(.white).lineLimit(1)
-                Text("Ready to extract audio")
-                    .font(.system(size: 12)).foregroundColor(Color(red:0.5,green:0.9,blue:0.6))
+                Text(isAudio ? "Audio file — ready to add" : "Video — audio will be extracted")
+                    .font(.system(size: 12)).foregroundColor(Color(red: 0.5, green: 0.9, blue: 0.6))
             }
             Spacer()
             Button(action: { selectedVideoURL = nil }) {
@@ -700,7 +713,8 @@ struct AddMySoundView: View {
     var extractionProgressView: some View {
         VStack(spacing: 10) {
             HStack {
-                Text("Extracting audio…").font(.system(size: 14)).foregroundColor(.white.opacity(0.7))
+                Text("Processing audio…")
+                    .font(.system(size: 14)).foregroundColor(.white.opacity(0.7))
                 Spacer()
                 Text("\(Int(mySounds.extractionProgress * 100))%")
                     .font(.system(size: 14, weight: .semibold)).foregroundColor(.white)
@@ -716,6 +730,8 @@ struct AddMySoundView: View {
     func startExtraction() {
         guard let url = selectedVideoURL else { return }
         Task {
+            // ✅ صوت مباشر → انسخه مباشرة بدون استخراج
+            // ✅ فيديو → استخرج الصوت منه
             await mySounds.extractAudio(from: url, name: soundName)
             if mySounds.extractionError == nil {
                 await MainActor.run { dismiss() }
@@ -758,15 +774,21 @@ struct VideoPicker: UIViewControllerRepresentable {
     }
 }
 
-// MARK: - DocumentVideoPicker (Files app)
+// MARK: - DocumentVideoPicker (Files app — video + audio)
 
 struct DocumentVideoPicker: UIViewControllerRepresentable {
     @Binding var selectedURL: URL?
 
     func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
-        let types: [UTType] = [.movie, .video, .mpeg4Movie, .quickTimeMovie]
+        // ✅ يقبل فيديو وصوت معاً
+        let types: [UTType] = [
+            .movie, .video, .mpeg4Movie, .quickTimeMovie,
+            .audio, .mp3, .wav, .aiff,
+            UTType("public.audio") ?? .audio,
+            UTType("com.apple.m4a-audio") ?? .audio
+        ]
         let picker = UIDocumentPickerViewController(forOpeningContentTypes: types)
-        picker.delegate         = context.coordinator
+        picker.delegate               = context.coordinator
         picker.allowsMultipleSelection = false
         return picker
     }

@@ -27,143 +27,137 @@ struct AlarmFormView: View {
     var isEditing: Bool { editingAlarm != nil }
     
     var body: some View {
-        ZStack {
-            LinearGradient(
-                colors: [
-                    Color(red: 0.05, green: 0.05, blue: 0.18),
-                    Color(red: 0.08, green: 0.07, blue: 0.25)
-                ],
-                startPoint: .top, endPoint: .bottom
-            )
-            .ignoresSafeArea()
-            
-            VStack(spacing: 0) {
-                // Header
-                HStack {
-                    AppHeaderView(
-                        title: isEditing ? "Edit Alarm" : "New Alarm",
-                        subTitle: "", paddingTop: 0
-                    )
-                    Spacer()
-                    Button(action: { dismiss() }) {
-                        Image(systemName: "xmark")
-                            .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(.white.opacity(0.6))
-                            .frame(width: 30, height: 30)
-                            .background(Color.white.opacity(0.1))
-                            .clipShape(Circle())
-                    }
+        VStack(spacing: 0) {
+            // Header
+            HStack {
+                AppHeaderView(
+                    title: isEditing ? "Edit Alarm" : "New Alarm",
+                    subTitle: "", paddingTop: 0
+                )
+                Spacer()
+                Button(action: { dismiss() }) {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(.white.opacity(0.6))
+                        .frame(width: 30, height: 30)
+                        .background(Color.white.opacity(0.1))
+                        .clipShape(Circle())
                 }
-                .padding(.horizontal, 24)
-                .padding(.top, 24)
-                .padding(.bottom, 24)
-                
-                ScrollView(showsIndicators: false) {
-                    VStack(spacing: 28) {
-                        timePickerSection
-                        repeatSection
-                        
-                        // RINGTONE
-                        settingRow(label: "RINGTONE") {
-                            Button(action: { showRingtones = true }) {
-                                HStack {
-                                    VStack(alignment: .leading, spacing: 2) {
-                                        Text(ringtone)
-                                            .font(.system(size: 16))
-                                            .foregroundColor(.white)
-                                        if isDownloadingSound {
-                                            HStack(spacing: 5) {
-                                                ProgressView()
-                                                    .scaleEffect(0.7)
-                                                    .tint(Color(hex: "#5BCC8A"))
-                                                Text("Preparing sound...")
-                                                    .font(.system(size: 11))
-                                                    .foregroundColor(Color(hex: "#5BCC8A"))
-                                            }
-                                        } else if !ringtoneURL.isEmpty {
-                                            HStack(spacing: 4) {
-                                                Image(systemName: localSoundFile != nil
-                                                      ? "checkmark.circle.fill" : "clock.fill")
-                                                    .font(.system(size: 10))
-                                                Text(localSoundFile != nil ? "Ready ✓" : "Queued")
-                                                    .font(.system(size: 11))
-                                            }
-                                            .foregroundColor(Color(hex: "#5BCC8A"))
+            }
+            .padding(.horizontal, 24)
+            .padding(.top, 24)
+            .padding(.bottom, 24)
+            
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 28) {
+                    timePickerSection
+                    repeatSection
+                    
+                    // RINGTONE
+                    settingRow(label: "RINGTONE") {
+                        Button(action: { showRingtones = true }) {
+                            HStack {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(ringtone)
+                                        .font(.system(size: 16))
+                                        .foregroundColor(.white)
+                                    if isDownloadingSound {
+                                        HStack(spacing: 5) {
+                                            ProgressView()
+                                                .scaleEffect(0.7)
+                                                .tint(Color(hex: "#5BCC8A"))
+                                            Text("Preparing sound...")
+                                                .font(.system(size: 11))
+                                                .foregroundColor(Color(hex: "#5BCC8A"))
                                         }
+                                    } else if !ringtoneURL.isEmpty {
+                                        HStack(spacing: 4) {
+                                            Image(systemName: localSoundFile != nil
+                                                  ? "checkmark.circle.fill" : "clock.fill")
+                                            .font(.system(size: 10))
+                                            Text(localSoundFile != nil ? "Ready ✓" : "Queued")
+                                                .font(.system(size: 11))
+                                        }
+                                        .foregroundColor(Color(hex: "#5BCC8A"))
                                     }
+                                }
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 13, weight: .medium))
+                                    .foregroundColor(.white.opacity(0.4))
+                            }
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 15)
+                            .background(Color.white.opacity(0.05))
+                            .cornerRadius(10)
+                        }
+                    }
+                    
+                    // SNOOZE
+                    settingRow(label: "SNOOZE") {
+                        HStack {
+                            Text("Snooze")
+                                .font(.system(size: 16)).foregroundColor(.white)
+                            Spacer()
+                            Toggle("", isOn: $snoozeEnabled)
+                                .labelsHidden()
+                                .tint(Color(red: 0.45, green: 0.3, blue: 0.9))
+                        }
+                        .padding(.horizontal, 16).padding(.vertical, 15)
+                        .background(Color.white.opacity(0.07))
+                        .cornerRadius(12)
+                    }
+                    
+                    if snoozeEnabled {
+                        settingRow(label: "SNOOZE DURATION") {
+                            Button(action: { showSnoozePicker = true }) {
+                                HStack {
+                                    Text("\(snoozeDuration) min")
+                                        .font(.system(size: 16)).foregroundColor(.white)
                                     Spacer()
                                     Image(systemName: "chevron.right")
                                         .font(.system(size: 13, weight: .medium))
                                         .foregroundColor(.white.opacity(0.4))
                                 }
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 15)
-                                .background(Color.white.opacity(0.05))
-                                .cornerRadius(10)
+                                .padding(.horizontal, 16).padding(.vertical, 15)
+                                .background(Color.white.opacity(0.07))
+                                .cornerRadius(12)
                             }
-                        }
-                        
-                        // SNOOZE
-                        settingRow(label: "SNOOZE") {
-                            HStack {
-                                Text("Snooze")
-                                    .font(.system(size: 16)).foregroundColor(.white)
-                                Spacer()
-                                Toggle("", isOn: $snoozeEnabled)
-                                    .labelsHidden()
-                                    .tint(Color(red: 0.45, green: 0.3, blue: 0.9))
-                            }
-                            .padding(.horizontal, 16).padding(.vertical, 15)
-                            .background(Color.white.opacity(0.07))
-                            .cornerRadius(12)
-                        }
-                        
-                        if snoozeEnabled {
-                            settingRow(label: "SNOOZE DURATION") {
-                                Button(action: { showSnoozePicker = true }) {
-                                    HStack {
-                                        Text("\(snoozeDuration) min")
-                                            .font(.system(size: 16)).foregroundColor(.white)
-                                        Spacer()
-                                        Image(systemName: "chevron.right")
-                                            .font(.system(size: 13, weight: .medium))
-                                            .foregroundColor(.white.opacity(0.4))
-                                    }
-                                    .padding(.horizontal, 16).padding(.vertical, 15)
-                                    .background(Color.white.opacity(0.07))
-                                    .cornerRadius(12)
-                                }
-                            }
-                        }
-                        
-                        Button(action: saveAlarm) { Text("Save Alarm") }
-                            .style(.primary)
-                            .padding(.top, 8)
-                            .padding(.horizontal, 24)
-                        
-                        if isEditing {
-                            Button(action: {
-                                if let alarm = editingAlarm {
-                                    manager.deleteAlarm(alarm)
-                                    dismiss()
-                                }
-                            }) {
-                                Text("Delete Alarm")
-                                    .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(Color(red: 1, green: 0.35, blue: 0.35))
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 20)
-                                    .background(Color(red: 1, green: 0.35, blue: 0.35).opacity(0.1))
-                                    .cornerRadius(30)
-                            }
-                            .padding(.horizontal, 24)
                         }
                     }
-                    .padding(.horizontal, 24)
-                    .padding(.bottom, 40)
+                    
+                    Button(action: saveAlarm) { Text("Save Alarm") }
+                        .style(.primary)
+                        .padding(.top, 8)
+                        .padding(.horizontal, 24)
+                    
+                    if isEditing {
+                        Button(action: {
+                            if let alarm = editingAlarm {
+                                manager.deleteAlarm(alarm)
+                                dismiss()
+                            }
+                        }) {
+                            Text("Delete Alarm")
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundColor(Color(red: 1, green: 0.35, blue: 0.35))
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 20)
+                                .background(Color(red: 1, green: 0.35, blue: 0.35).opacity(0.1))
+                                .cornerRadius(30)
+                        }
+                        .padding(.horizontal, 24)
+                    }
                 }
+                .padding(.horizontal, 24)
+                .padding(.bottom, 40)
             }
         }
+        .background(
+            MyImage(source: .asset(.bgSounds))
+                .scaledToFill()
+                .ignoresSafeArea()
+        )
         .sheet(isPresented: $showRingtones, onDismiss: {
             SleepSoundPlayer.shared.stop()
         }) {
