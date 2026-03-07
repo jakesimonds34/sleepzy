@@ -1,3 +1,4 @@
+/*
 import Foundation
 import AVFoundation
 import Combine
@@ -494,6 +495,215 @@ class SleepSoundPlayer: NSObject, ObservableObject {
         selectedAlarmSoundId   = sound.id
         selectedAlarmSoundName = sound.name
         selectedAlarmSoundURL  = sound.previewURL
+    }
+
+    @objc private func playerDidFinish() {
+        // Loop: رجوع للبداية
+        player?.seek(to: .zero)
+        player?.play()
+        currentTime = 0
+    }
+}
+*/
+
+import Foundation
+import AVFoundation
+import Combine
+
+// ============================================================
+// MARK: - SleepSoundPlayer
+// ملاحظة: SleepSound model موجود في SupabaseManager.swift
+// ============================================================
+
+class SleepSoundPlayer: NSObject, ObservableObject {
+
+    static let shared = SleepSoundPlayer()
+
+    @Published var currentSound: SleepSound?
+    @Published var isPlaying    = false
+    @Published var isBuffering  = false
+    @Published var volume: Float = 0.8
+
+    // Progress
+    @Published var currentTime: Double = 0   // seconds played
+    @Published var duration:    Double = 0   // total seconds
+
+    var progress: Double {
+        guard duration > 0 else { return 0 }
+        return currentTime / duration
+    }
+
+    private var player: AVPlayer?
+    private var playerItem: AVPlayerItem?
+    private var timeObserver: Any?
+    private var cancellables = Set<AnyCancellable>()
+
+    var selectedAlarmSoundId:   String?
+    var selectedAlarmSoundName: String = ""
+    var selectedAlarmSoundURL:  String = ""
+
+    func play(sound: SleepSound) {
+        guard !sound.previewURL.isEmpty else { return }
+        stop()
+
+        guard let url = URL(string: sound.previewURL) else { return }
+
+        currentSound = sound
+        isBuffering  = true
+        isPlaying    = true
+        currentTime  = 0
+        duration     = sound.duration > 0 ? sound.duration : 0
+
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch { print("Audio session: \(error)") }
+
+        // AVPlayerItem مباشرة من URL — الطريقة الأبسط والأكثر توافقاً مع Freesound
+        playerItem = AVPlayerItem(url: url)
+        player     = AVPlayer(playerItem: playerItem)
+        player?.volume = volume
+        player?.automaticallyWaitsToMinimizeStalling = true
+        player?.play()
+
+        // تحديث progress كل ربع ثانية
+        let interval = CMTime(seconds: 0.25, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+        timeObserver = player?.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
+            guard let self else { return }
+            let secs = CMTimeGetSeconds(time)
+            if secs.isFinite && secs >= 0 { self.currentTime = secs }
+        }
+
+        // مراقبة status
+        playerItem?.publisher(for: \.status)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                guard let self else { return }
+                if status == .readyToPlay {
+                    self.isBuffering = false
+                    if let d = self.playerItem?.duration, CMTimeGetSeconds(d).isFinite && CMTimeGetSeconds(d) > 0 {
+                        self.duration = CMTimeGetSeconds(d)
+                    }
+                } else if status == .failed {
+                    self.isBuffering = false
+                    self.isPlaying   = false
+                    print("AVPlayer error: \(self.playerItem?.error?.localizedDescription ?? "unknown")")
+                }
+            }
+            .store(in: &cancellables)
+
+        // مراقبة buffering
+        playerItem?.publisher(for: \.isPlaybackLikelyToKeepUp)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] ok in self?.isBuffering = !ok }
+            .store(in: &cancellables)
+
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(playerDidFinish),
+            name: .AVPlayerItemDidPlayToEndTime, object: playerItem
+        )
+    }
+
+    func pause() {
+        player?.pause()
+        isPlaying = false
+    }
+
+    func resume() {
+        player?.play()
+        isPlaying = true
+    }
+
+    func stop() {
+        // إزالة time observer أولاً
+        if let obs = timeObserver {
+            player?.removeTimeObserver(obs)
+            timeObserver = nil
+        }
+        player?.pause()
+        player     = nil
+        playerItem = nil
+        currentSound = nil
+        isPlaying    = false
+        isBuffering  = false
+        currentTime  = 0
+        duration     = 0
+        cancellables.removeAll()
+        NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: nil)
+    }
+
+    func toggle(sound: SleepSound) {
+        if currentSound?.id == sound.id {
+            if isPlaying { pause() } else { resume() }
+        } else {
+            play(sound: sound)
+        }
+    }
+
+    func seek(to progress: Double) {
+        guard duration > 0, let player else { return }
+        let targetSeconds = progress * duration
+        let time = CMTime(seconds: targetSeconds, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+        player.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
+        currentTime = targetSeconds
+    }
+
+    func setVolume(_ v: Float) {
+        volume = v
+        player?.volume = v
+    }
+
+    func selectForAlarm(_ sound: SleepSound) {
+        selectedAlarmSoundId   = sound.id
+        selectedAlarmSoundName = sound.name
+        selectedAlarmSoundURL  = sound.fileURL
+    }
+
+    // ✅ تشغيل ملف محلي (Supabase cache أو My Sounds)
+    func playLocalFile(url: URL, sound: SleepSound) {
+        stop()
+        currentSound = sound
+        isBuffering  = false
+        isPlaying    = true
+        currentTime  = 0
+        duration     = sound.duration > 0 ? sound.duration : 0
+
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch { print("AudioSession: \(error)") }
+
+        playerItem = AVPlayerItem(url: url)
+        player     = AVPlayer(playerItem: playerItem)
+        player?.volume = volume
+        player?.play()
+
+        let interval = CMTime(seconds: 0.25, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
+        timeObserver = player?.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
+            guard let self else { return }
+            let secs = CMTimeGetSeconds(time)
+            if secs.isFinite && secs >= 0 { self.currentTime = secs }
+        }
+
+        playerItem?.publisher(for: \.status)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                guard let self else { return }
+                if status == .readyToPlay {
+                    if let d = self.playerItem?.duration,
+                       CMTimeGetSeconds(d).isFinite && CMTimeGetSeconds(d) > 0 {
+                        self.duration = CMTimeGetSeconds(d)
+                    }
+                } else if status == .failed {
+                    self.isPlaying = false
+                }
+            }
+            .store(in: &cancellables)
+
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(playerDidFinish),
+            name: .AVPlayerItemDidPlayToEndTime, object: playerItem
+        )
     }
 
     @objc private func playerDidFinish() {

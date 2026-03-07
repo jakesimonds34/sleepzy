@@ -26,6 +26,8 @@
 		522691982F523B1300CB4F22 /* BrakePickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522691972F523B1300CB4F22 /* BrakePickerSheet.swift */; };
 		5226919A2F523B9200CB4F22 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522691992F523B9200CB4F22 /* AuthorizationManager.swift */; };
 		5229CDFD2F58D25F003E2F26 /* AlarmSoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5229CDFC2F58D25E003E2F26 /* AlarmSoundManager.swift */; };
+		52472AE52F5C1A1C00CEFBF1 /* SupabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52472AE42F5C1A1B00CEFBF1 /* SupabaseManager.swift */; };
+		52472AE72F5C1A4300CEFBF1 /* MySoundsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52472AE62F5C1A4300CEFBF1 /* MySoundsManager.swift */; };
 		524961CD2F37BBF200D057F0 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961CC2F37BBF200D057F0 /* HomeView.swift */; };
 		524961CF2F37BC0800D057F0 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961CE2F37BC0700D057F0 /* HomeViewModel.swift */; };
 		524961D22F37BCA900D057F0 /* SleepSoundsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 524961D12F37BCA900D057F0 /* SleepSoundsView.swift */; };
@@ -130,6 +132,8 @@
 		522691972F523B1300CB4F22 /* BrakePickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrakePickerSheet.swift; sourceTree = "<group>"; };
 		522691992F523B9200CB4F22 /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
 		5229CDFC2F58D25E003E2F26 /* AlarmSoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSoundManager.swift; sourceTree = "<group>"; };
+		52472AE42F5C1A1B00CEFBF1 /* SupabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupabaseManager.swift; sourceTree = "<group>"; };
+		52472AE62F5C1A4300CEFBF1 /* MySoundsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySoundsManager.swift; sourceTree = "<group>"; };
 		524961CC2F37BBF200D057F0 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		524961CE2F37BC0700D057F0 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		524961D12F37BCA900D057F0 /* SleepSoundsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepSoundsView.swift; sourceTree = "<group>"; };
@@ -350,6 +354,8 @@
 			isa = PBXGroup;
 			children = (
 				527BC1A42F3A423400287638 /* SupabaseService.swift */,
+				52472AE42F5C1A1B00CEFBF1 /* SupabaseManager.swift */,
+				52472AE62F5C1A4300CEFBF1 /* MySoundsManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -857,6 +863,7 @@
 				527BC1AA2F3A42BD00287638 /* AuthRepository.swift in Sources */,
 				52EB509E2F3625BC0031FE9D /* AEOTPTextFieldSwiftUI.swift in Sources */,
 				522628F12F36415100C79B73 /* SplashViewModel.swift in Sources */,
+				52472AE52F5C1A1C00CEFBF1 /* SupabaseManager.swift in Sources */,
 				52D5E1C32F3CBFD4009B20A8 /* DeviceActivityName.swift in Sources */,
 				52FFE17C2F5842F000FE8769 /* SleepModels.swift in Sources */,
 				52C9FDE52F593CB700536F2A /* WindDownManager.swift in Sources */,
@@ -873,6 +880,7 @@
 				5226918C2F52375700CB4F22 /* SharedComponents.swift in Sources */,
 				527BC1A52F3A423500287638 /* SupabaseService.swift in Sources */,
 				529618AD2F35F2C2001E7C7C /* LoginView.swift in Sources */,
+				52472AE72F5C1A4300CEFBF1 /* MySoundsManager.swift in Sources */,
 				529618B82F361752001E7C7C /* appHeaderView.swift in Sources */,
 				5296871B2F52C21800F71099 /* AlarmManager.swift in Sources */,
 				52A6672A2F52F939005B66C4 /* UserProfile.swift in Sources */,
@@ -1028,6 +1036,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sleepzy/Info.plist;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "TimeScreen reads your sleep data to show analytics and improve your sleep quality.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1067,6 +1076,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sleepzy/Info.plist;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "TimeScreen reads your sleep data to show analytics and improve your sleep quality.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

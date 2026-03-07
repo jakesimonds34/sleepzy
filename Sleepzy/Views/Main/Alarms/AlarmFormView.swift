@@ -6,29 +6,23 @@ struct AlarmFormView: View {
     
     var editingAlarm: Alarm?
     
-    // Time state
     @State private var hour: Int = 8
     @State private var minute: Int = 0
     @State private var isAM: Bool = true
-    
-    // Repeat days: 1=Mon...7=Sun
     @State private var selectedDays: Set<Int> = [1, 2, 3, 4, 5]
     
-    // Ringtone — now supports Freesound URL
-    @State private var ringtone: String = "Brown Calm"
+    @State private var ringtone: String = "Default"
     @State private var ringtoneURL: String = ""
-    @State private var localSoundFile: String? = nil   // ← الملف المحمّل مسبقاً
+    @State private var localSoundFile: String? = nil
     @State private var isDownloadingSound = false
     @State private var showRingtones = false
     
-    // Snooze
     @State private var snoozeEnabled: Bool = true
     @State private var snoozeDuration: Int = 5
     @State private var showSnoozePicker = false
     
     let snoozeDurations = [1, 2, 5, 10, 15, 20, 30]
     let days = ["M", "T", "W", "T", "F", "S", "S"]
-    let dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     
     var isEditing: Bool { editingAlarm != nil }
     
@@ -39,8 +33,7 @@ struct AlarmFormView: View {
                     Color(red: 0.05, green: 0.05, blue: 0.18),
                     Color(red: 0.08, green: 0.07, blue: 0.25)
                 ],
-                startPoint: .top,
-                endPoint: .bottom
+                startPoint: .top, endPoint: .bottom
             )
             .ignoresSafeArea()
             
@@ -49,10 +42,8 @@ struct AlarmFormView: View {
                 HStack {
                     AppHeaderView(
                         title: isEditing ? "Edit Alarm" : "New Alarm",
-                        subTitle: "",
-                        paddingTop: 0
+                        subTitle: "", paddingTop: 0
                     )
-                    
                     Spacer()
                     Button(action: { dismiss() }) {
                         Image(systemName: "xmark")
@@ -69,13 +60,10 @@ struct AlarmFormView: View {
                 
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 28) {
-                        // TIME PICKER
                         timePickerSection
-                        
-                        // REPEAT
                         repeatSection
                         
-                        // RINGTONE — opens Freesound Sleep Sounds picker
+                        // RINGTONE
                         settingRow(label: "RINGTONE") {
                             Button(action: { showRingtones = true }) {
                                 HStack {
@@ -95,12 +83,9 @@ struct AlarmFormView: View {
                                         } else if !ringtoneURL.isEmpty {
                                             HStack(spacing: 4) {
                                                 Image(systemName: localSoundFile != nil
-                                                      ? "checkmark.circle.fill"
-                                                      : "clock.fill")
+                                                      ? "checkmark.circle.fill" : "clock.fill")
                                                     .font(.system(size: 10))
-                                                Text(localSoundFile != nil
-                                                     ? "Ready ✓"
-                                                     : "From Freesound")
+                                                Text(localSoundFile != nil ? "Ready ✓" : "Queued")
                                                     .font(.system(size: 11))
                                             }
                                             .foregroundColor(Color(hex: "#5BCC8A"))
@@ -118,53 +103,44 @@ struct AlarmFormView: View {
                             }
                         }
                         
-                        // SNOOZE TOGGLE
+                        // SNOOZE
                         settingRow(label: "SNOOZE") {
                             HStack {
                                 Text("Snooze")
-                                    .font(.system(size: 16))
-                                    .foregroundColor(.white)
+                                    .font(.system(size: 16)).foregroundColor(.white)
                                 Spacer()
                                 Toggle("", isOn: $snoozeEnabled)
                                     .labelsHidden()
                                     .tint(Color(red: 0.45, green: 0.3, blue: 0.9))
                             }
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 15)
+                            .padding(.horizontal, 16).padding(.vertical, 15)
                             .background(Color.white.opacity(0.07))
                             .cornerRadius(12)
                         }
                         
-                        // SNOOZE DURATION
                         if snoozeEnabled {
                             settingRow(label: "SNOOZE DURATION") {
                                 Button(action: { showSnoozePicker = true }) {
                                     HStack {
                                         Text("\(snoozeDuration) min")
-                                            .font(.system(size: 16))
-                                            .foregroundColor(.white)
+                                            .font(.system(size: 16)).foregroundColor(.white)
                                         Spacer()
                                         Image(systemName: "chevron.right")
                                             .font(.system(size: 13, weight: .medium))
                                             .foregroundColor(.white.opacity(0.4))
                                     }
-                                    .padding(.horizontal, 16)
-                                    .padding(.vertical, 15)
+                                    .padding(.horizontal, 16).padding(.vertical, 15)
                                     .background(Color.white.opacity(0.07))
                                     .cornerRadius(12)
                                 }
                             }
                         }
                         
-                        // SAVE BUTTON
-                        Button(action: saveAlarm) {
-                            Text("Save Alarm")
-                        }
-                        .style(.primary)
-                        .padding(.top, 8)
-                        .padding(.horizontal, 24)
+                        Button(action: saveAlarm) { Text("Save Alarm") }
+                            .style(.primary)
+                            .padding(.top, 8)
+                            .padding(.horizontal, 24)
                         
-                        // Delete button when editing
                         if isEditing {
                             Button(action: {
                                 if let alarm = editingAlarm {
@@ -188,7 +164,6 @@ struct AlarmFormView: View {
                 }
             }
         }
-        // ← Freesound Sleep Sounds picker sheet
         .sheet(isPresented: $showRingtones, onDismiss: {
             SleepSoundPlayer.shared.stop()
         }) {
@@ -196,16 +171,16 @@ struct AlarmFormView: View {
                 selectedName: $ringtone,
                 selectedURL: $ringtoneURL,
                 onSelected: { name, url in
-                    ringtone = name
-                    ringtoneURL = url
-                    // ✅ ابدأ التحميل فوراً عند الاختيار
-                    localSoundFile = nil
+                    ringtone          = name
+                    ringtoneURL       = url
+                    localSoundFile    = nil
                     isDownloadingSound = true
+                    // ✅ حمّل الصوت فوراً من Supabase Cache
+                    let alarmId = editingAlarm?.id.uuidString ?? UUID().uuidString
                     AlarmSoundManager.shared.downloadAndPrepare(
-                        url: url,
-                        alarmId: editingAlarm?.id.uuidString ?? UUID().uuidString
+                        url: url, alarmId: alarmId
                     ) { fileName in
-                        localSoundFile = fileName
+                        localSoundFile     = fileName
                         isDownloadingSound = false
                     }
                 }
@@ -217,16 +192,14 @@ struct AlarmFormView: View {
         .onAppear { loadEditingData() }
     }
     
-    // MARK: - Time Picker Section
+    // MARK: - Time Picker
     var timePickerSection: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("TIME")
                 .font(.system(size: 12, weight: .semibold))
-                .foregroundColor(.white.opacity(0.45))
-                .tracking(1)
+                .foregroundColor(.white.opacity(0.45)).tracking(1)
             
             HStack(spacing: 6) {
-                // Hour tens
                 TimeDigitPicker(value: hour / 10, range: 0...1, onUp: {
                     let newVal = (hour / 10 + 1) % 2
                     hour = newVal * 10 + (hour % 10)
@@ -239,18 +212,15 @@ struct AlarmFormView: View {
                     if hour > 12 { hour = 12 }
                 })
                 
-                // Hour ones
                 TimeDigitPicker(value: hour % 10, range: 0...9, onUp: {
                     let ones = (hour % 10 + 1) % 10
-                    let tens = hour / 10
-                    var newHour = tens * 10 + ones
+                    var newHour = (hour / 10) * 10 + ones
                     if newHour == 0 { newHour = 10 }
                     if newHour > 12 { newHour = 1 }
                     hour = newHour
                 }, onDown: {
                     let ones = hour % 10 == 0 ? 9 : (hour % 10 - 1)
-                    let tens = hour / 10
-                    var newHour = tens * 10 + ones
+                    var newHour = (hour / 10) * 10 + ones
                     if newHour == 0 { newHour = 12 }
                     if newHour > 12 { newHour = 12 }
                     hour = newHour
@@ -261,16 +231,13 @@ struct AlarmFormView: View {
                     .foregroundColor(.white.opacity(0.5))
                     .frame(width: 16)
                 
-                // Minute tens
                 TimeDigitPicker(value: minute / 10, range: 0...5, onUp: {
-                    let tens = (minute / 10 + 1) % 6
-                    minute = tens * 10 + (minute % 10)
+                    minute = ((minute / 10 + 1) % 6) * 10 + (minute % 10)
                 }, onDown: {
                     let tens = minute / 10 == 0 ? 5 : (minute / 10 - 1)
                     minute = tens * 10 + (minute % 10)
                 })
                 
-                // Minute ones
                 TimeDigitPicker(value: minute % 10, range: 0...9, onUp: {
                     minute = (minute / 10) * 10 + (minute % 10 + 1) % 10
                 }, onDown: {
@@ -278,33 +245,24 @@ struct AlarmFormView: View {
                     minute = (minute / 10) * 10 + ones
                 })
                 
-                // AM/PM
                 VStack(spacing: 6) {
-                    Button("AM") {
-                        withAnimation(.easeInOut(duration: 0.2)) { isAM = true }
-                    }
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(isAM ? .white : .white.opacity(0.3))
-                    .frame(width: 52, height: 44)
-                    .background(isAM ? Color(hex: "#5939A8").opacity(0.2) : Color.white.opacity(0.03))
-                    .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .strokeBorder(Color(hex: "#988AE1").opacity(0.2), lineWidth: 1)
-                    )
+                    Button("AM") { withAnimation { isAM = true } }
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(isAM ? .white : .white.opacity(0.3))
+                        .frame(width: 52, height: 44)
+                        .background(isAM ? Color(hex: "#5939A8").opacity(0.2) : Color.white.opacity(0.03))
+                        .cornerRadius(10)
+                        .overlay(RoundedRectangle(cornerRadius: 10)
+                            .strokeBorder(Color(hex: "#988AE1").opacity(0.2), lineWidth: 1))
                     
-                    Button("PM") {
-                        withAnimation(.easeInOut(duration: 0.2)) { isAM = false }
-                    }
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(!isAM ? .white : .white.opacity(0.3))
-                    .frame(width: 52, height: 44)
-                    .background(!isAM ? Color(hex: "#5939A8").opacity(0.2) : Color.white.opacity(0.03))
-                    .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .strokeBorder(Color(hex: "#988AE1").opacity(0.2), lineWidth: 1)
-                    )
+                    Button("PM") { withAnimation { isAM = false } }
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(!isAM ? .white : .white.opacity(0.3))
+                        .frame(width: 52, height: 44)
+                        .background(!isAM ? Color(hex: "#5939A8").opacity(0.2) : Color.white.opacity(0.03))
+                        .cornerRadius(10)
+                        .overlay(RoundedRectangle(cornerRadius: 10)
+                            .strokeBorder(Color(hex: "#988AE1").opacity(0.2), lineWidth: 1))
                 }
             }
             .frame(maxWidth: .infinity)
@@ -316,9 +274,7 @@ struct AlarmFormView: View {
         VStack(alignment: .leading, spacing: 10) {
             Text("REPEAT ON")
                 .font(.system(size: 12, weight: .semibold))
-                .foregroundColor(.white.opacity(0.45))
-                .tracking(1)
-            
+                .foregroundColor(.white.opacity(0.45)).tracking(1)
             HStack(spacing: 8) {
                 ForEach(1...7, id: \.self) { day in
                     let isSelected = selectedDays.contains(day)
@@ -331,35 +287,30 @@ struct AlarmFormView: View {
                         Text(days[day - 1])
                             .font(.system(size: 13, weight: .semibold))
                             .foregroundColor(isSelected ? .white : .white.opacity(0.4))
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 42)
-                            .background(isSelected ? Color(hex: "#5939A8").opacity(0.2) : Color.white.opacity(0.03))
+                            .frame(maxWidth: .infinity).frame(height: 42)
+                            .background(isSelected
+                                ? Color(hex: "#5939A8").opacity(0.2) : Color.white.opacity(0.03))
                             .cornerRadius(10)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .strokeBorder(Color(hex: "#988AE1").opacity(0.2), lineWidth: 1)
-                            )
+                            .overlay(RoundedRectangle(cornerRadius: 10)
+                                .strokeBorder(Color(hex: "#988AE1").opacity(0.2), lineWidth: 1))
                     }
                 }
             }
         }
     }
     
-    // MARK: - Helper view builder
     func settingRow<Content: View>(label: String, @ViewBuilder content: () -> Content) -> some View {
         VStack(alignment: .leading, spacing: 10) {
             Text(label)
                 .font(.system(size: 12, weight: .semibold))
-                .foregroundColor(.white.opacity(0.45))
-                .tracking(1)
+                .foregroundColor(.white.opacity(0.45)).tracking(1)
             content()
         }
     }
     
-    // MARK: - Actions
+    // MARK: - Load Editing Data
     func loadEditingData() {
         guard let alarm = editingAlarm else {
-            // منبه جديد — امسح أي اختيار سابق
             SleepSoundPlayer.shared.selectedAlarmSoundId = nil
             return
         }
@@ -369,20 +320,15 @@ struct AlarmFormView: View {
         selectedDays   = alarm.repeatDays
         ringtone       = alarm.ringtone
         ringtoneURL    = alarm.ringtoneURL
-        localSoundFile = alarm.localSoundFile  // ← الملف المحمّل مسبقاً
+        localSoundFile = alarm.localSoundFile
         snoozeEnabled  = alarm.snoozeEnabled
         snoozeDuration = alarm.snoozeDuration
 
-        // ✅ عيّن الـ selectedAlarmSoundId للصوت الحالي للمنبه
-        // حتى تظهر الأيقونة الخضراء على الصوت المختار مسبقاً
+        // ✅ عيّن الصوت المختار بناءً على Supabase أو My Sounds
         if !alarm.ringtoneURL.isEmpty {
-            let api = FreesoundAPIManager.shared
-            // اجمع كل الأصوات من جميع الـ categories
-            let allLoaded: [SleepSound] = [
-                api.stateAll, api.stateNature, api.stateWhiteNoise, api.stateSpace
-            ].compactMap { $0.sounds }.flatMap { $0 }
-
-            if let match = allLoaded.first(where: { $0.previewURL == alarm.ringtoneURL }) {
+            let allSounds = SupabaseManager.shared.sounds +
+                MySoundsManager.shared.sounds.map { $0.asSleepSound }
+            if let match = allSounds.first(where: { $0.fileURL == alarm.ringtoneURL }) {
                 SleepSoundPlayer.shared.selectedAlarmSoundId = match.id
             } else {
                 SleepSoundPlayer.shared.selectedAlarmSoundId = nil
@@ -392,32 +338,25 @@ struct AlarmFormView: View {
         }
     }
     
+    // MARK: - Save
     func saveAlarm() {
         var alarm = Alarm(
-            hour: hour,
-            minute: minute,
-            isAM: isAM,
-            repeatDays: selectedDays,
-            ringtone: ringtone,
-            ringtoneURL: ringtoneURL,
-            snoozeEnabled: snoozeEnabled,
+            hour: hour, minute: minute, isAM: isAM,
+            repeatDays: selectedDays, ringtone: ringtone,
+            ringtoneURL: ringtoneURL, snoozeEnabled: snoozeEnabled,
             snoozeDuration: snoozeDuration
         )
-
         if let existing = editingAlarm {
             alarm.id        = existing.id
             alarm.isEnabled = existing.isEnabled
             if ringtoneURL == existing.ringtoneURL {
-                // نفس الصوت — استخدم الملف المحمّل (من State أو من existing)
                 alarm.localSoundFile = localSoundFile ?? existing.localSoundFile
             } else {
-                // صوت جديد — استخدم الملف الذي حُمِّل عند الاختيار
                 AlarmSoundManager.shared.deleteSound(fileName: existing.localSoundFile)
                 alarm.localSoundFile = localSoundFile
             }
             manager.updateAlarm(alarm)
         } else {
-            // منبه جديد — الملف جاهز من onSelected
             alarm.localSoundFile = localSoundFile
             manager.addAlarm(alarm)
         }
@@ -427,7 +366,7 @@ struct AlarmFormView: View {
     }
 }
 
-// MARK: - Sleep Sounds Picker Sheet (embedded inside alarm form)
+// MARK: - SleepSoundsPickerSheet
 struct SleepSoundsPickerSheet: View {
     @Binding var selectedName: String
     @Binding var selectedURL: String
@@ -437,7 +376,6 @@ struct SleepSoundsPickerSheet: View {
     var body: some View {
         ZStack {
             Color(red: 0.04, green: 0.04, blue: 0.16).ignoresSafeArea()
-
             VStack(spacing: 0) {
                 HStack {
                     Button(action: { dismiss() }) {
@@ -447,27 +385,22 @@ struct SleepSoundsPickerSheet: View {
                     }
                     Spacer()
                     Text("Choose Ringtone")
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundColor(.white)
+                        .font(.system(size: 17, weight: .semibold)).foregroundColor(.white)
                     Spacer()
                     Button("Done") { dismiss() }
                         .font(.system(size: 17, weight: .medium))
                         .foregroundColor(Color(hex: "#7A6AE0"))
                 }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 16)
+                .padding(.horizontal, 20).padding(.vertical, 16)
 
                 SleepSoundsView(
                     selection: .constant(.sounds),
                     alarmSelectionMode: true,
                     onSoundSelected: { sound in
                         selectedName = sound.name
-                        selectedURL  = sound.previewURL
-                        // ✅ أبلغ الـ Form فوراً لبدء التحميل
-                        onSelected?(sound.name, sound.previewURL)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                            dismiss()
-                        }
+                        selectedURL  = sound.fileURL
+                        onSelected?(sound.name, sound.fileURL)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { dismiss() }
                     }
                 )
             }
@@ -475,7 +408,7 @@ struct SleepSoundsPickerSheet: View {
     }
 }
 
-// MARK: - Time Digit Picker
+// MARK: - TimeDigitPicker
 struct TimeDigitPicker: View {
     let value: Int
     let range: ClosedRange<Int>
@@ -487,32 +420,26 @@ struct TimeDigitPicker: View {
             Button(action: onUp) {
                 Image(systemName: "chevron.up")
                     .font(.system(size: 11, weight: .semibold))
-                    .foregroundColor(.white.opacity(0.35))
-                    .frame(height: 22)
+                    .foregroundColor(.white.opacity(0.35)).frame(height: 22)
             }
-            
             Text("\(value)")
                 .font(.system(size: 24, weight: .medium, design: .rounded))
                 .foregroundColor(.white)
                 .frame(width: 52, height: 52)
                 .background(Color.white.opacity(0.03))
                 .cornerRadius(10)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .stroke(.white.opacity(0.2), lineWidth: 1)
-                )
-            
+                .overlay(RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .stroke(.white.opacity(0.2), lineWidth: 1))
             Button(action: onDown) {
                 Image(systemName: "chevron.down")
                     .font(.system(size: 11, weight: .semibold))
-                    .foregroundColor(.white.opacity(0.35))
-                    .frame(height: 22)
+                    .foregroundColor(.white.opacity(0.35)).frame(height: 22)
             }
         }
     }
 }
 
-// MARK: - Snooze Duration Picker Sheet
+// MARK: - SnoozeDurationPicker
 struct SnoozeDurationPicker: View {
     @Binding var selected: Int
     let options: [Int]
@@ -521,26 +448,22 @@ struct SnoozeDurationPicker: View {
     var body: some View {
         ZStack {
             Color(red: 0.07, green: 0.07, blue: 0.22).ignoresSafeArea()
-            
             VStack(spacing: 0) {
                 HStack {
                     Text("Snooze Duration")
-                        .font(.system(size: 20, weight: .semibold))
-                        .foregroundColor(.white)
+                        .font(.system(size: 20, weight: .semibold)).foregroundColor(.white)
                     Spacer()
                     Button("Done") { dismiss() }
                         .foregroundColor(Color(red: 0.5, green: 0.4, blue: 0.9))
                         .font(.system(size: 17, weight: .medium))
                 }
-                .padding(.horizontal, 24)
-                .padding(.vertical, 20)
+                .padding(.horizontal, 24).padding(.vertical, 20)
                 
                 ForEach(options, id: \.self) { option in
                     Button(action: { selected = option }) {
                         HStack {
                             Text("\(option) minutes")
-                                .font(.system(size: 17))
-                                .foregroundColor(.white)
+                                .font(.system(size: 17)).foregroundColor(.white)
                             Spacer()
                             if selected == option {
                                 Image(systemName: "checkmark")
@@ -548,8 +471,7 @@ struct SnoozeDurationPicker: View {
                                     .font(.system(size: 15, weight: .semibold))
                             }
                         }
-                        .padding(.horizontal, 24)
-                        .padding(.vertical, 16)
+                        .padding(.horizontal, 24).padding(.vertical, 16)
                         .background(selected == option ? Color.white.opacity(0.06) : Color.clear)
                     }
                     Divider().background(Color.white.opacity(0.08))
@@ -560,6 +482,4 @@ struct SnoozeDurationPicker: View {
     }
 }
 
-#Preview {
-    AlarmFormView()
-}
+#Preview { AlarmFormView() }
