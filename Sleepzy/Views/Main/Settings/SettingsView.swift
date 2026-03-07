@@ -17,7 +17,6 @@ struct SettingsView: View {
     @State private var showEditProfile          = false
     @State private var showShieldAppPicker      = false
     @State private var showShieldSchedule       = false
-    @State private var showSleepSchedule        = false
     @State private var showHelpSupport          = false
     @State private var showPrivacyPolicy        = false
     @State private var showLogoutConfirm        = false
@@ -55,20 +54,7 @@ struct SettingsView: View {
                     shieldScheduleRow
                 }
                 
-                spacer24
-                
-                settingsSection(title: "SLEEP SCHEDULE") {
-                    settingsRow(
-                        icon: "moon.stars.fill",
-                        iconColor: Color(hex: "7B8FF7"),
-                        title: sleepScheduleTitle,
-                        hasChevron: true
-                    ) {
-                        showSleepSchedule = true
-                    }
-                }
-                
-                spacer24
+
                 
                 // ── NOTIFICATION section ──────────────────────
                 settingsSection(title: "NOTIFICATION") {
@@ -214,9 +200,7 @@ struct SettingsView: View {
         .sheet(isPresented: $showEditProfile) {
             EditProfileView()
         }
-        .sheet(isPresented: $showSleepSchedule) {
-            SleepScheduleSheet(viewModel: viewModel)
-        }
+
         .sheet(isPresented: $showHelpSupport) {
             SafariSheet(url: URL(string: "https://app.termly.io/policy-viewer/policy.html?policyUUID=b18add3c-759c-4bc3-b343-b67ee81153cc")!)
         }
@@ -318,8 +302,15 @@ struct SettingsView: View {
 
     private var appsBlockedTitle: String {
         guard let shield = blockStore.digitalShield else { return "No apps selected" }
-        let count = shield.appSelection.applicationTokens.count + shield.appSelection.categoryTokens.count
-        return count == 0 ? "Select apps to block" : "\(count) App\(count == 1 ? "" : "s") Blocked"
+        let apps = shield.appSelection.applicationTokens.count
+        let cats = shield.appSelection.categoryTokens.count
+
+        if apps == 0 && cats == 0 { return "Select apps to block" }
+        if apps > 0 && cats > 0 {
+            return "\(apps) App\(apps == 1 ? "" : "s"), \(cats) Categor\(cats == 1 ? "y" : "ies")"
+        }
+        if apps > 0 { return "\(apps) App\(apps == 1 ? "" : "s") Blocked" }
+        return "\(cats) Categor\(cats == 1 ? "y" : "ies") Blocked"
     }
 
     private var logoutButton: some View {
@@ -424,18 +415,7 @@ struct SettingsView: View {
         .frame(height: 52)
     }
 
-    private var sleepScheduleTitle: String {
-        let bed  = formatHour(profileStore.profile.bedHour)
-        let wake = formatHour(profileStore.profile.wakeHour)
-        return "\(bed)  →  \(wake)"
-    }
 
-    private func formatHour(_ hour: Double) -> String {
-        let h = Int(hour) % 24
-        let suffix = h >= 12 ? "PM" : "AM"
-        let display = h == 0 ? 12 : (h > 12 ? h - 12 : h)
-        return "\(display):00 \(suffix)"
-    }
 }
 
 // MARK: - EditProfileView
@@ -602,20 +582,3 @@ struct GoalPickerSheet: View {
 #Preview {
     SettingsView(selection: .constant(.settings))
 }
-
-// MARK: - SleepScheduleSheet + WindDown auto-reschedule
-// ملاحظة: أضف هذا الكود داخل save button action في SleepScheduleSheet الموجود عندك:
-//
-//    Button {
-//        guard !viewModel.isLoading else { return }
-//        Task {
-//            await viewModel.updateSleepSchedule(bedHour: bedHour, wakeHour: wakeHour)
-//
-//            // ✅ أعد جدولة Wind Down إذا كان مفعّلاً
-//            if UserProfileStore.shared.profile.windDownNotification {
-//                await WindDownManager.shared.scheduleFromProfile()
-//            }
-//
-//            dismiss()
-//        }
-//    }

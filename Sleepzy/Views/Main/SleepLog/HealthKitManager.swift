@@ -102,37 +102,70 @@ final class HealthKitManager: ObservableObject {
     // MARK: - Build Sessions from HKCategorySample
 
     private func buildSessions(from samples: [HKCategorySample]) -> [SleepSession] {
-        // Group by night (same calendar day of bedtime)
         let cal = Calendar.current
-        var grouped: [Date: [HKCategorySample]] = [:]
 
-        for s in samples {
-            let day = cal.startOfDay(for: s.startDate)
-            grouped[day, default: []].append(s)
+        // ✅ Fix 1: استبعاد inBed — ليس نوماً حقيقياً
+        let sleepSamples = samples.filter {
+            HKCategoryValueSleepAnalysis(rawValue: $0.value) != .inBed
+        }
+
+        // ✅ Fix 2: إزالة التداخل — إذا تداخل sample مع سابقه نقصّه
+        let sorted = sleepSamples.sorted { $0.startDate < $1.startDate }
+        var deduped: [HKCategorySample] = []
+        for s in sorted {
+            if let last = deduped.last, s.startDate < last.endDate {
+                // تداخل — تجاهل هذا الـ sample إذا كان مغطى بالكامل
+                if s.endDate <= last.endDate { continue }
+            }
+            deduped.append(s)
+        }
+
+        // ✅ Fix 3: التجميع بـ "noon rule"
+        // كل sample ينتمي للـ night التي تبدأ قبل الظهر التالي
+        // أي: إذا startDate بعد 12 PM → ينتمي لليوم نفسه (بداية الليلة)
+        //     إذا startDate قبل 12 PM → ينتمي لليوم السابق (نهاية الليلة)
+        var grouped: [Date: [HKCategorySample]] = [:]
+        for s in deduped {
+            let hour = cal.component(.hour, from: s.startDate)
+            let nightStart: Date
+            if hour < 12 {
+                // نوم صباحي → ينتمي لليلة الأمس
+                let yesterday = cal.date(byAdding: .day, value: -1, to: s.startDate)!
+                nightStart = cal.startOfDay(for: yesterday)
+            } else {
+                nightStart = cal.startOfDay(for: s.startDate)
+            }
+            grouped[nightStart, default: []].append(s)
         }
 
         var result: [SleepSession] = []
 
-        for (day, daySamples) in grouped {
-            guard !daySamples.isEmpty else { continue }
-            let sorted = daySamples.sorted { $0.startDate < $1.startDate }
+        for (day, nightSamples) in grouped {
+            guard !nightSamples.isEmpty else { continue }
+            let nightSorted = nightSamples.sorted { $0.startDate < $1.startDate }
 
-            guard let firstStart = sorted.first?.startDate,
-                  let lastEnd   = sorted.last?.endDate else { continue }
+            guard let firstStart = nightSorted.first?.startDate,
+                  let lastEnd   = nightSorted.last?.endDate else { continue }
 
-            let sleepStart = firstStart
+            // ✅ Fix 4: تجاهل sessions أقل من 30 دقيقة (naps مزيفة)
+            let totalSeconds = lastEnd.timeIntervalSince(firstStart)
+            guard totalSeconds >= 1800 else { continue }
+
             var segments: [SleepSegment] = []
-
-            for s in sorted {
-                let offsetHours = s.startDate.timeIntervalSince(sleepStart) / 3600
+            for s in nightSorted {
+                let offsetHours = s.startDate.timeIntervalSince(firstStart) / 3600
                 let durHours    = s.endDate.timeIntervalSince(s.startDate) / 3600
-                let stage = mapHKStage(s.value)
-                segments.append(SleepSegment(stage: stage, startHour: offsetHours, durationHours: durHours))
+                guard durHours > 0 else { continue }
+                segments.append(SleepSegment(
+                    stage: mapHKStage(s.value),
+                    startHour: offsetHours,
+                    durationHours: durHours
+                ))
             }
 
             result.append(SleepSession(
                 date: day,
-                bedtime: sleepStart,
+                bedtime: firstStart,
                 wakeTime: lastEnd,
                 segments: segments
             ))
@@ -147,7 +180,7 @@ final class HealthKitManager: ObservableObject {
         case .asleepREM:                    return .rem
         case .asleepCore:                   return .lightSleep
         case .asleepDeep:                   return .deepSleep
-        case .inBed:                        return .lightSleep
+        case .inBed:                        return .awake  // inBed = في السرير وليس نوماً
         case .asleepUnspecified:            return .lightSleep
         default:                            return .lightSleep
         }
