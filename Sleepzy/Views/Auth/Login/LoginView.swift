@@ -32,7 +32,7 @@ struct LoginView: View {
     @ViewBuilder
     private var content: some View {
         VStack(spacing: 44) {
-            AppHeaderView(title: "Hello! Adam 👋🏻",
+            AppHeaderView(title: "Hello! 👋🏻",
                           subTitle: "Welcome back. Please login",
                           isBack: true)
             .padding(.bottom, 14)
