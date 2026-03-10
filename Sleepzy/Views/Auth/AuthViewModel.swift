@@ -173,7 +173,7 @@ class AuthViewModel: ObservableObject {
             if UserProfileStore.shared.profile.windDownNotification {
                 await WindDownManager.shared.scheduleFromProfile()
             }
-
+//            AppEnvironment.shared.appStatus = .home
             isSignedUp = true
             requestReview()
 
