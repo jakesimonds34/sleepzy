@@ -6,6 +6,7 @@
 import Combine
 import Supabase
 import Foundation
+import StoreKit
 import SuperwallKit
 import SwiftMessages
 
@@ -142,6 +143,7 @@ class AuthViewModel: ObservableObject {
             
             Settings.shared.currentUser = profile
             isSignedUp = true
+            requestReview()
             // ✅ لا ننتقل لـ Home هنا — Superwall سيفعل ذلك بعد الشراء
         } catch {
             errorMessage = error.localizedDescription
@@ -173,6 +175,7 @@ class AuthViewModel: ObservableObject {
             }
 
             isSignedUp = true
+            requestReview()
 
             // ✅ تحقق من حالة الاشتراك عبر Superwall
             let status = Superwall.shared.subscriptionStatus
@@ -337,4 +340,13 @@ class AuthViewModel: ObservableObject {
         }
         return true
     }
+    // MARK: - Request Review
+    @MainActor
+    private func requestReview() {
+        if let scene = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+            SKStoreReviewController.requestReview(in: scene)
+        }
+    }
+
 }

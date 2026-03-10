@@ -127,35 +127,21 @@ struct OnboardingView: View {
                 dailyFunctionInterference: selections[.dailyFunction]
             )
 
-            // ✅ طلب Review من Apple
-            requestReview {
-                if let pending = pendingSignup {
-                    Task {
-                        await viewModel.signUp(
-                            fullName: pending.fullName,
-                            email: pending.email,
-                            password: pending.password,
-                            profile: profile
-                        )
-                    }
-                } else {
-                    path.append(AppRoute.signup(profile: profile))
+            if let pending = pendingSignup {
+                Task {
+                    await viewModel.signUp(
+                        fullName: pending.fullName,
+                        email: pending.email,
+                        password: pending.password,
+                        profile: profile
+                    )
                 }
+            } else {
+                path.append(AppRoute.signup(profile: profile))
             }
         }
     }
 
-    // MARK: - Request Review
-    private func requestReview(completion: @escaping () -> Void) {
-        if let scene = UIApplication.shared.connectedScenes
-            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
-            SKStoreReviewController.requestReview(in: scene)
-        }
-        // انتظر ثانية ليرى المستخدم الـ dialog ثم تابع
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            completion()
-        }
-    }
 
     private func goBack() {
         guard currentStepIndex > 0 else { return }
