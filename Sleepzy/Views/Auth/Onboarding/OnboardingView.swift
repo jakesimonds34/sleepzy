@@ -7,12 +7,12 @@
 
 import SwiftUI
 import FamilyControls
+import StoreKit
 
 // MARK: - OnboardingView
 struct OnboardingView: View {
     @Binding var path: NavigationPath
 
-    // ✅ إذا كان موجوداً، معناه أن المستخدم جاء من Signup وعنده بيانات جاهزة
     var pendingSignup: PendingSignup?
 
     @StateObject private var viewModel = AuthViewModel()
@@ -113,7 +113,6 @@ struct OnboardingView: View {
                 currentStepIndex += 1
             }
         } else {
-            // بناء الـ profile من اختيارات الـ Onboarding
             let profile = Profile(
                 id: UUID(),
                 fullName: pendingSignup?.fullName ?? "",
@@ -128,20 +127,33 @@ struct OnboardingView: View {
                 dailyFunctionInterference: selections[.dailyFunction]
             )
 
-            if let pending = pendingSignup {
-                // ✅ جاء من Signup — سجّل الحساب مباشرة بدون رجوع لـ Signup
-                Task {
-                    await viewModel.signUp(
-                        fullName: pending.fullName,
-                        email: pending.email,
-                        password: pending.password,
-                        profile: profile
-                    )
+            // ✅ طلب Review من Apple
+            requestReview {
+                if let pending = pendingSignup {
+                    Task {
+                        await viewModel.signUp(
+                            fullName: pending.fullName,
+                            email: pending.email,
+                            password: pending.password,
+                            profile: profile
+                        )
+                    }
+                } else {
+                    path.append(AppRoute.signup(profile: profile))
                 }
-            } else {
-                // ✅ جاء من Splash — انتقل لـ Signup عادي
-                path.append(AppRoute.signup(profile: profile))
             }
+        }
+    }
+
+    // MARK: - Request Review
+    private func requestReview(completion: @escaping () -> Void) {
+        if let scene = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+            SKStoreReviewController.requestReview(in: scene)
+        }
+        // انتظر ثانية ليرى المستخدم الـ dialog ثم تابع
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            completion()
         }
     }
 
@@ -175,10 +187,6 @@ struct OnboardingView: View {
             .progressViewStyle(LinearProgressViewStyle(tint: Color(hex: "#5939A8")))
             .frame(height: 6)
             .animation(.easeInOut(duration: 0.4), value: normalIndex)
-
-//            Text("\(normalIndex + 1)/\(normalSteps.count)")
-//                .foregroundStyle(.white.opacity(0.75))
-//                .font(.appRegular(size: 17))
         }
         .padding(.horizontal)
     }
