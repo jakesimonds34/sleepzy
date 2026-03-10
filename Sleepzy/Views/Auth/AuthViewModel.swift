@@ -198,10 +198,36 @@ class AuthViewModel: ObservableObject {
         isLoading = false
     }
     
+    // MARK: - Delete Account
+    func deleteAccount() async {
+        guard let userId = Settings.shared.currentUser?.id else {
+            Alerts.show(title: nil, body: "User not found", theme: .error)
+            return
+        }
+        isLoading = true
+
+        do {
+            // ١. احذف الـ profile من Supabase
+            try await profileRepo.deleteProfile(id: userId)
+            // ٢. احذف الـ auth user من Supabase
+            try await authRepo.deleteUser()
+            // ٣. نظّف المحلي
+            Settings.shared.resetUserSettings()
+            user = nil
+            profile = nil
+            AppEnvironment.shared.appStatus = .loading
+        } catch {
+            Alerts.show(title: nil, body: error.localizedDescription, theme: .error)
+        }
+
+        isLoading = false
+    }
+
     //MARK: Sign out
     func signOut() async {
         do {
             try await authRepo.signOut()
+            Settings.shared.resetUserSettings()
             user = nil
             profile = nil
         } catch {

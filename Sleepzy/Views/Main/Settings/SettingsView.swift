@@ -20,6 +20,7 @@ struct SettingsView: View {
     @State private var showHelpSupport          = false
     @State private var showPrivacyPolicy        = false
     @State private var showLogoutConfirm        = false
+    @State private var showDeleteConfirm         = false
     
     @Binding var selection: Taps
 
@@ -152,6 +153,11 @@ struct SettingsView: View {
                 logoutButton
                     .padding(.horizontal, AppTheme.pagePadding)
                 
+                // ── Delete Account ───────────────────────────
+                deleteAccountButton
+                    .padding(.horizontal, AppTheme.pagePadding)
+                    .padding(.top, 12)
+
                 // ── Bottom links ──────────────────────────────
                 VStack(spacing: 16) {
                     Button("Help and Support") { showHelpSupport = true }
@@ -207,10 +213,20 @@ struct SettingsView: View {
         .sheet(isPresented: $showPrivacyPolicy) {
             SafariSheet(url: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
         }
+        .confirmationDialog("Delete Account", isPresented: $showDeleteConfirm, titleVisibility: .visible) {
+            Button("Delete Account", role: .destructive) {
+                Task {
+                    await viewModel.deleteAccount()
+                }
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("This will permanently delete your account and all your data. This action cannot be undone.")
+        }
         .confirmationDialog("Log out", isPresented: $showLogoutConfirm, titleVisibility: .visible) {
             Button("Log out", role: .destructive) {
                 Task {
-                    await AuthViewModel().signOut()
+                    await viewModel.signOut()
                     AppEnvironment.shared.appStatus = .loading
                 }
             }
@@ -311,6 +327,31 @@ struct SettingsView: View {
         }
         if apps > 0 { return "\(apps) App\(apps == 1 ? "" : "s") Blocked" }
         return "\(cats) Categor\(cats == 1 ? "y" : "ies") Blocked"
+    }
+
+    private var deleteAccountButton: some View {
+        Button {
+            showDeleteConfirm = true
+        } label: {
+            HStack(spacing: 10) {
+                Image(systemName: "trash.fill")
+                    .foregroundStyle(Color(hex: "FF4444"))
+                    .frame(width: 24)
+                Text("Delete Account")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundStyle(Color(hex: "FF4444"))
+                Spacer()
+            }
+            .padding(.horizontal, AppTheme.cardPadding)
+            .frame(maxWidth: .infinity)
+            .frame(height: 54)
+            .background(Color(hex: "FF4444").opacity(0.1))
+            .clipShape(RoundedRectangle(cornerRadius: AppTheme.buttonRadius))
+            .overlay(
+                RoundedRectangle(cornerRadius: AppTheme.buttonRadius)
+                    .stroke(Color(hex: "FF4444").opacity(0.3), lineWidth: 1)
+            )
+        }
     }
 
     private var logoutButton: some View {
