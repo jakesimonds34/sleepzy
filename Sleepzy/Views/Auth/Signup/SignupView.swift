@@ -6,27 +6,30 @@
 //
 
 import SwiftUI
+import SuperwallKit
 
 struct SignupView: View {
-    // MARK: - Properties
     @StateObject var viewModel = AuthViewModel()
     @Binding var path: NavigationPath
-
-    // ✅ nil = جاء من Login | Profile = جاء من Onboarding وعنده بيانات
     var profile: Profile?
 
-    // MARK: - Body
     var body: some View {
         content
             .background(
-                MyImage(source: .asset(.bg))
-                    .scaledToFill()
+                MyImage(source: .asset(.bg)).scaledToFill()
             )
             .navigationBarHidden(true)
             .ignoresSafeArea()
+            // ✅ بعد نجاح التسجيل → اعرض الـ paywall
+            .onChange(of: viewModel.isSignedUp) { _, isSignedUp in
+                if isSignedUp {
+                    SuperwallService.presentPaywall(onPurchase: {
+                        AppEnvironment.shared.appStatus = .home
+                    })
+                }
+            }
     }
 
-    // MARK: - View Components
     @ViewBuilder
     private var content: some View {
         VStack(spacing: 44) {
@@ -76,7 +79,6 @@ struct SignupView: View {
                     guard !viewModel.isLoading, viewModel.isSignUpValidated else { return }
 
                     if let existingProfile = profile {
-                        // ✅ جاء من Onboarding — عنده profile كامل، سجّل مباشرة
                         Task {
                             await viewModel.signUp(
                                 fullName: viewModel.fullName,
@@ -86,8 +88,6 @@ struct SignupView: View {
                             )
                         }
                     } else {
-                        // ✅ جاء من Login — ليس عنده بيانات Onboarding
-                        // احفظ بياناته المؤقتة وخذه للـ Onboarding أولاً
                         let pending = PendingSignup(
                             fullName: viewModel.fullName,
                             email: viewModel.email,
@@ -97,8 +97,7 @@ struct SignupView: View {
                     }
                 } label: {
                     if viewModel.isLoading {
-                        ProgressView()
-                            .tint(.black)
+                        ProgressView().tint(.black)
                     } else {
                         Text("Create an account")
                     }
@@ -108,9 +107,7 @@ struct SignupView: View {
                 HStack(spacing: 0) {
                     Text("Already have an account? - ")
                         .font(.appRegular16)
-
                     Button {
-                        // ✅ بدون loop — امسح الـ stack وافتح Login نظيف
                         if path.count >= 2 {
                             path = NavigationPath()
                             path.append(AppRoute.login)
@@ -118,9 +115,7 @@ struct SignupView: View {
                             path.removeLast()
                         }
                     } label: {
-                        Text("Login")
-                            .font(.appMedium16)
-                            .underline()
+                        Text("Login").font(.appMedium16).underline()
                     }
                 }
                 .foregroundStyle(.white)

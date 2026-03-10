@@ -16,6 +16,8 @@
 		522628F12F36415100C79B73 /* SplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522628F02F36414E00C79B73 /* SplashViewModel.swift */; };
 		522628F42F3645B200C79B73 /* IQKeyboardToolbarManager in Frameworks */ = {isa = PBXBuildFile; productRef = 522628F32F3645B200C79B73 /* IQKeyboardToolbarManager */; };
 		52263DC32F38E38E003AE6D4 /* SleepLogDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52263DC22F38E38E003AE6D4 /* SleepLogDetailView.swift */; };
+		52267E782F5FF5FE00D1640F /* SuperwallKit in Frameworks */ = {isa = PBXBuildFile; productRef = 52267E772F5FF5FE00D1640F /* SuperwallKit */; };
+		52267E7B2F6001F200D1640F /* SuperwallService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52267E7A2F6001F000D1640F /* SuperwallService.swift */; };
 		522691862F52365800CB4F22 /* BlockStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522691852F52365800CB4F22 /* BlockStore.swift */; };
 		522691882F52368000CB4F22 /* AppBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522691872F52368000CB4F22 /* AppBlock.swift */; };
 		5226918A2F52373300CB4F22 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522691892F52373300CB4F22 /* AppTheme.swift */; };
@@ -122,6 +124,7 @@
 		522628EE2F363A5100C79B73 /* SleepScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepScheduleView.swift; sourceTree = "<group>"; };
 		522628F02F36414E00C79B73 /* SplashViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewModel.swift; sourceTree = "<group>"; };
 		52263DC22F38E38E003AE6D4 /* SleepLogDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepLogDetailView.swift; sourceTree = "<group>"; };
+		52267E7A2F6001F000D1640F /* SuperwallService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperwallService.swift; sourceTree = "<group>"; };
 		522691852F52365800CB4F22 /* BlockStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockStore.swift; sourceTree = "<group>"; };
 		522691872F52368000CB4F22 /* AppBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBlock.swift; sourceTree = "<group>"; };
 		522691892F52373300CB4F22 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
@@ -232,12 +235,21 @@
 				528169B92F35B156007AE539 /* SDWebImageSwiftUI in Frameworks */,
 				520B7B472F3A122300F04F56 /* Auth in Frameworks */,
 				52C6C1822F3534420070850E /* SwiftMessages in Frameworks */,
+				52267E782F5FF5FE00D1640F /* SuperwallKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		52267E792F6001D300D1640F /* Superwall */ = {
+			isa = PBXGroup;
+			children = (
+				52267E7A2F6001F000D1640F /* SuperwallService.swift */,
+			);
+			path = Superwall;
+			sourceTree = "<group>";
+		};
 		522691912F5239E000CB4F22 /* NewBlock */ = {
 			isa = PBXGroup;
 			children = (
@@ -501,6 +513,7 @@
 		529E03EE2F35318B0000CFEA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				52267E792F6001D300D1640F /* Superwall */,
 				5263E2302F51033700BB27A1 /* Settings.swift */,
 				52D5E1C02F3CBFAE009B20A8 /* FamilyControls */,
 				529E03E92F35318B0000CFEA /* Core */,
@@ -738,6 +751,7 @@
 				522628F32F3645B200C79B73 /* IQKeyboardToolbarManager */,
 				520B7B462F3A122300F04F56 /* Auth */,
 				520B7B482F3A122300F04F56 /* Supabase */,
+				52267E772F5FF5FE00D1640F /* SuperwallKit */,
 			);
 			productName = Sleepzy;
 			productReference = 529E03CD2F35312D0000CFEA /* Sleepzy.app */;
@@ -772,6 +786,7 @@
 				528169B72F35B156007AE539 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				522628F22F3645B200C79B73 /* XCRemoteSwiftPackageReference "IQKeyboardToolbarManager" */,
 				520B7B452F3A122300F04F56 /* XCRemoteSwiftPackageReference "supabase-swift" */,
+				52267E762F5FF5FE00D1640F /* XCRemoteSwiftPackageReference "Superwall-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 529E03CE2F35312D0000CFEA /* Products */;
@@ -872,6 +887,7 @@
 				52EB50A02F3625BC0031FE9D /* AEOTPTextField.swift in Sources */,
 				526C3C412F3BB2E2004F1768 /* DistractingAppsView.swift in Sources */,
 				52FFE1862F5897B300FE8769 /* AlarmRingingView.swift in Sources */,
+				52267E7B2F6001F200D1640F /* SuperwallService.swift in Sources */,
 				52EB50A12F3625BC0031FE9D /* AEOTPTextFieldImplementationProtocol.swift in Sources */,
 				524961E32F37BDED00D057F0 /* SettingsViewModel.swift in Sources */,
 				52EB50A22F3625BC0031FE9D /* AEOTPViewRepresentable.swift in Sources */,
@@ -1144,6 +1160,14 @@
 				minimumVersion = 1.1.4;
 			};
 		};
+		52267E762F5FF5FE00D1640F /* XCRemoteSwiftPackageReference "Superwall-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/superwall/Superwall-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.14.0;
+			};
+		};
 		528169B72F35B156007AE539 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
@@ -1177,6 +1201,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 522628F22F3645B200C79B73 /* XCRemoteSwiftPackageReference "IQKeyboardToolbarManager" */;
 			productName = IQKeyboardToolbarManager;
+		};
+		52267E772F5FF5FE00D1640F /* SuperwallKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52267E762F5FF5FE00D1640F /* XCRemoteSwiftPackageReference "Superwall-iOS" */;
+			productName = SuperwallKit;
 		};
 		528169B82F35B156007AE539 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;

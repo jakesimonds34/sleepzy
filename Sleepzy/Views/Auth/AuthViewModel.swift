@@ -6,6 +6,7 @@
 import Combine
 import Supabase
 import Foundation
+import SuperwallKit
 import SwiftMessages
 
 class AuthViewModel: ObservableObject {
@@ -34,6 +35,7 @@ class AuthViewModel: ObservableObject {
     @Published var showForgotPassword: Bool = false
     @Published var showEnterCode: Bool = false
     @Published var showNewPassword: Bool = false
+    @Published var isSignedUp: Bool = false
     
     //MARK: Objects
     @Published var user: User?
@@ -67,6 +69,18 @@ class AuthViewModel: ObservableObject {
                 // ✅ إعادة جدولة Wind Down إذا كان مفعّلاً
                 if UserProfileStore.shared.profile.windDownNotification {
                     await WindDownManager.shared.scheduleFromProfile()
+                }
+
+                // ✅ تحقق من حالة الاشتراك عبر Superwall
+                let status = Superwall.shared.subscriptionStatus
+                if case .active = status {
+                    AppEnvironment.shared.appStatus = .home
+                } else {
+                    await MainActor.run {
+                        SuperwallService.presentPaywall(onPurchase: {
+                            AppEnvironment.shared.appStatus = .home
+                        })
+                    }
                 }
             } catch {
                 print("No profile found: \(error)")
@@ -127,7 +141,8 @@ class AuthViewModel: ObservableObject {
             self.profile = profile
             
             Settings.shared.currentUser = profile
-            AppEnvironment.shared.appStatus = .home
+            isSignedUp = true
+            // ✅ لا ننتقل لـ Home هنا — Superwall سيفعل ذلك بعد الشراء
         } catch {
             errorMessage = error.localizedDescription
             Alerts.show(title: nil, body: error.localizedDescription, theme: .error)
@@ -157,7 +172,21 @@ class AuthViewModel: ObservableObject {
                 await WindDownManager.shared.scheduleFromProfile()
             }
 
-            AppEnvironment.shared.appStatus = .home
+            isSignedUp = true
+
+            // ✅ تحقق من حالة الاشتراك عبر Superwall
+            let status = Superwall.shared.subscriptionStatus
+            if case .active = status {
+                // مشترك → انتقل مباشرة
+                AppEnvironment.shared.appStatus = .home
+            } else {
+                // غير مشترك → اعرض الـ paywall
+                await MainActor.run {
+                    SuperwallService.presentPaywall(onPurchase: {
+                        AppEnvironment.shared.appStatus = .home
+                    })
+                }
+            }
         } catch {
             errorMessage = error.localizedDescription
             Alerts.show(title: nil, body: error.localizedDescription, theme: .error)
@@ -170,7 +199,6 @@ class AuthViewModel: ObservableObject {
     func signOut() async {
         do {
             try await authRepo.signOut()
-            Settings.shared.resetUserSettings()
             user = nil
             profile = nil
         } catch {
