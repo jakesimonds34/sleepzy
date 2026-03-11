@@ -23,7 +23,7 @@ struct MySound: Identifiable, Codable {
         SleepSound(
             id:       id,
             name:     name,
-            category: .nature,          // تصنيف افتراضي للعرض
+            category: .personal,        // تصنيف خاص بالأصوات الشخصية
             fileURL:  previewURL,
             coverURL: nil,
             duration: duration

@@ -20,6 +20,12 @@ struct SleepSound: Identifiable, Codable, Equatable, Hashable {
         case space      = "Space"
         case rain       = "Rain"
         case ocean      = "Ocean"
+        case personal   = "My Sound"  // للأصوات الشخصية فقط
+
+        // للـ category chips — بدون personal
+        static var libraryCategories: [SoundCategory] {
+            [.nature, .whiteNoise, .space, .rain, .ocean]
+        }
 
         var dbValue: String {
             switch self {
@@ -28,6 +34,7 @@ struct SleepSound: Identifiable, Codable, Equatable, Hashable {
             case .space:      return "space"
             case .rain:       return "rain"
             case .ocean:      return "ocean"
+            case .personal:   return "personal"
             }
         }
 

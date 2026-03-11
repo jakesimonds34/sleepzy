@@ -122,7 +122,7 @@ struct SleepSoundsView: View {
                 chipButton(label: "All", isSelected: selectedCategory == nil) {
                     withAnimation { selectedCategory = nil }
                 }
-                ForEach(SleepSound.SoundCategory.allCases, id: \.self) { cat in
+                ForEach(SleepSound.SoundCategory.libraryCategories, id: \.self) { cat in
                     chipButton(label: cat.rawValue, isSelected: selectedCategory == cat) {
                         withAnimation { selectedCategory = cat }
                     }
@@ -360,8 +360,10 @@ struct SoundRowView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(sound.name)
                     .font(.system(size: 16, weight: .semibold)).foregroundColor(.white).lineLimit(1)
-                Text(sound.category.rawValue)
-                    .font(.system(size: 13)).foregroundColor(.white.opacity(0.5))
+                if sound.category != .personal {
+                    Text(sound.category.rawValue)
+                        .font(.system(size: 13)).foregroundColor(.white.opacity(0.5))
+                }
                 Text(formatDuration(sound.duration))
                     .font(.system(size: 11)).foregroundColor(.white.opacity(0.3))
                 if alarmSelectionMode && isSelected {
@@ -506,6 +508,8 @@ struct SoundRowView: View {
             return LinearGradient(colors: [Color(red:0.1,green:0.25,blue:0.5), Color(red:0.05,green:0.15,blue:0.35)], startPoint: .topLeading, endPoint: .bottomTrailing)
         case .ocean:
             return LinearGradient(colors: [Color(red:0.05,green:0.3,blue:0.5), Color(red:0.05,green:0.2,blue:0.4)], startPoint: .topLeading, endPoint: .bottomTrailing)
+        case .personal:
+            return LinearGradient(colors: [Color(red:0.25,green:0.22,blue:0.48), Color(red:0.18,green:0.15,blue:0.38)], startPoint: .topLeading, endPoint: .bottomTrailing)
         }
     }
 
@@ -517,6 +521,7 @@ struct SoundRowView: View {
             case .space:      Image(systemName: "sparkles")
             case .rain:       Image(systemName: "cloud.rain.fill")
             case .ocean:      Image(systemName: "water.waves")
+            case .personal:   Image(systemName: "music.note")
             }
         }
         .font(.system(size: 22)).foregroundColor(.white.opacity(0.7))
@@ -562,7 +567,6 @@ struct AddMySoundView: View {
                 .padding(.horizontal, 20)
                 .padding(.top, 16)
                 .padding(.bottom, 12)
-                .frame(height: 70)
 
                 Divider().background(Color.white.opacity(0.08))
 
