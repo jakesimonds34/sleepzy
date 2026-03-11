@@ -2,13 +2,10 @@
 //  SplashView.swift
 //  Sleepzy
 //
-//  Created by Saadi Dalloul on 05/02/2026.
-//
 
 import SwiftUI
 
 // MARK: - PendingSignup
-// ✅ يحمل بيانات الـ Signup المؤقتة ريثما يكمل المستخدم الـ Onboarding
 struct PendingSignup: Hashable {
     let fullName: String
     let email: String
@@ -17,27 +14,24 @@ struct PendingSignup: Hashable {
 
 // MARK: - Navigation Routes
 enum AppRoute: Hashable {
-    case onboarding                                    // Splash → Onboarding عادي
-    case login                                         // Splash → Login
-    case signup(profile: Profile?)                     // Onboarding → Signup
-    case onboardingForSignup(pending: PendingSignup)   // ✅ Signup → Onboarding لجمع البيانات
-    case forgotPassword                                // Login → ForgotPassword
+    case onboarding
+    case login
+    case signup(profile: Profile?)
+    case onboardingForSignup(pending: PendingSignup)
+    case forgotPassword
 }
 
-// ✅ Profile Hashable لاستخدامه في AppRoute
 extension Profile: Hashable {
-    public static func == (lhs: Profile, rhs: Profile) -> Bool {
-        lhs.id == rhs.id
-    }
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
+    public static func == (lhs: Profile, rhs: Profile) -> Bool { lhs.id == rhs.id }
+    public func hash(into hasher: inout Hasher) { hasher.combine(id) }
 }
 
 // MARK: - SplashView
 struct SplashView: View {
-    @StateObject var viewModel = SplashViewModel()
-    @State private var path = NavigationPath()
+    @StateObject private var viewModel    = SplashViewModel()
+    @StateObject private var authViewModel = AuthViewModel()
+    @State private var path               = NavigationPath()
+    @State private var isCheckingSession  = true
 
     var body: some View {
         NavigationStack(path: $path) {
@@ -46,17 +40,12 @@ struct SplashView: View {
                     switch route {
                     case .onboarding:
                         OnboardingView(path: $path, pendingSignup: nil)
-
                     case .login:
                         LoginView(path: $path)
-
                     case .signup(let profile):
                         SignupView(path: $path, profile: profile)
-
                     case .onboardingForSignup(let pending):
-                        // ✅ نفس الـ OnboardingView لكن يعرف أن بعده يكمل التسجيل تلقائياً
                         OnboardingView(path: $path, pendingSignup: pending)
-
                     case .forgotPassword:
                         ForgotPasswordView()
                     }
@@ -64,10 +53,33 @@ struct SplashView: View {
                 .ignoresSafeArea()
                 .navigationBarHidden(true)
         }
+        // ✅ تحقق من الـ session عند فتح التطبيق
+        .task {
+            await authViewModel.loadSession()
+            isCheckingSession = false
+        }
     }
 
     @ViewBuilder
     private var content: some View {
+        // إذا كان يتحقق من الـ session → اعرض loading
+        if isCheckingSession {
+            ZStack {
+                MyImage(source: .asset(.bgSplash))
+                    .scaledToFill()
+                    .ignoresSafeArea()
+
+                MyImage(source: .asset(.logoSplash))
+                    .scaledToFit()
+                    .frame(width: 277)
+            }
+        } else {
+            // انتهى التحقق → اعرض Splash العادي (إذا لم يكن مسجلاً)
+            splashContent
+        }
+    }
+
+    private var splashContent: some View {
         ZStack {
             MyImage(source: .asset(.bgSplash))
                 .scaledToFill()

@@ -20,14 +20,7 @@ struct SignupView: View {
             )
             .navigationBarHidden(true)
             .ignoresSafeArea()
-            // ✅ بعد نجاح التسجيل → اعرض الـ paywall
-            .onChange(of: viewModel.isSignedUp) { _, isSignedUp in
-                if isSignedUp {
-                    SuperwallService.presentPaywall(onPurchase: {
-                        AppEnvironment.shared.appStatus = .home
-                    })
-                }
-            }
+
     }
 
     @ViewBuilder

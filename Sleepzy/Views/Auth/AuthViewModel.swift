@@ -72,17 +72,9 @@ class AuthViewModel: ObservableObject {
                     await WindDownManager.shared.scheduleFromProfile()
                 }
 
-                // ✅ تحقق من حالة الاشتراك عبر Superwall
-                let status = Superwall.shared.subscriptionStatus
-                if case .active = status {
-                    AppEnvironment.shared.appStatus = .home
-                } else {
-                    await MainActor.run {
-                        SuperwallService.presentPaywall(onPurchase: {
-                            AppEnvironment.shared.appStatus = .home
-                        })
-                    }
-                }
+                // ✅ loadSession — انتقل للـ home مباشرة
+                // الـ paywall يظهر فقط عند signIn أو signUp وليس عند فتح التطبيق
+                AppEnvironment.shared.appStatus = .home
             } catch {
                 print("No profile found: \(error)")
             }
@@ -144,7 +136,12 @@ class AuthViewModel: ObservableObject {
             Settings.shared.currentUser = profile
             isSignedUp = true
             requestReview()
-            // ✅ لا ننتقل لـ Home هنا — Superwall سيفعل ذلك بعد الشراء
+            // ✅ أطلق الـ paywall مباشرة من هنا بدل الاعتماد على onChange في SignupView
+            await MainActor.run {
+                SuperwallService.presentPaywall(onPurchase: {
+                    AppEnvironment.shared.appStatus = .home
+                })
+            }
         } catch {
             errorMessage = error.localizedDescription
             Alerts.show(title: nil, body: error.localizedDescription, theme: .error)
@@ -173,7 +170,7 @@ class AuthViewModel: ObservableObject {
             if UserProfileStore.shared.profile.windDownNotification {
                 await WindDownManager.shared.scheduleFromProfile()
             }
-//            AppEnvironment.shared.appStatus = .home
+
             isSignedUp = true
             requestReview()
 
@@ -227,7 +224,6 @@ class AuthViewModel: ObservableObject {
     func signOut() async {
         do {
             try await authRepo.signOut()
-            Settings.shared.resetUserSettings()
             user = nil
             profile = nil
         } catch {
